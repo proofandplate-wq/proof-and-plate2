@@ -1,5 +1,9 @@
 import React, { useState, useMemo, useEffect } from "react";
 
+// ─── SUPABASE CONFIG ───────────────────────────────────────────────────────────
+const SUPABASE_URL = "https://acqmbhiwqlzulzpalpyr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_QnB1V5TV5_8sL9JSTDspNQ_E2M0Dr5i";
+
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const _link = document.createElement("link");
 _link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:wght@400;700&display=swap";
@@ -105,6 +109,7 @@ const Nav = ({ page, setPage }) => {
     { id:"about",   label:"About" },
     { id:"tools",   label:"Tools" },
     { id:"blog",    label:"Blog" },
+    { id:"reviews", label:"Reviews" },
     { id:"submit",  label:"Submit a Review" },
     { id:"contact", label:"Contact" },
   ];
@@ -179,7 +184,7 @@ const Footer = ({ setPage }) => (
           </p>
         </div>
         {[
-          { title:"Navigate", links:[["Home","home"],["About","about"],["Tools","tools"],["Blog","blog"],["Submit a Review","submit"],["Contact","contact"]] },
+          { title:"Navigate", links:[["Home","home"],["About","about"],["Tools","tools"],["Blog","blog"],["Reviews","reviews"],["Submit a Review","submit"],["Contact","contact"]] },
           { title:"Tools", links:[["Whiskey Sommelier","tools"],["Mashbill Reference","tools"],["Food Pairing Wheels","tools"],["Herb & Spice Wheels","tools"]] },
           { title:"Learn", links:[["Bourbon 101","blog"],["Scotch Regions","blog"],["Mashbill Science","blog"],["Pairing Principles","blog"]] },
         ].map(col => (
@@ -559,10 +564,9 @@ const AboutPage = ({ setPage }) => (
 );
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// BLOG PAGE
+// P&P REVIEWS (authored by PT — separate from the blog)
 // ═══════════════════════════════════════════════════════════════════════════════
-const BLOG_POSTS = [
-  // ── REVIEWS ──────────────────────────────────────────────────────────────
+const PP_REVIEWS = [
   { type:"review", cat:"Reviews", time:"5 min read", featured:true,
     title:"Willett Family Estate 4-Year Small Batch Rye",
     desc:"The bottle that started it all. One sip and I understood what I'd been missing.",
@@ -614,7 +618,12 @@ const BLOG_POSTS = [
     pairing:"This one belongs in your kitchen more than your glass. Deglaze a cast iron pan of caramelized onions. You won't regret it.",
     verdict:"Buy It", tags:["Bourbon","Under $25","Cocktail Workhorse","Kitchen Star"],
     body:"" },
+];
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// BLOG PAGE
+// ═══════════════════════════════════════════════════════════════════════════════
+const BLOG_POSTS = [
   // ── COCKTAILS ──────────────────────────────────────────────────────────────
   { type:"recipe", cat:"Cocktails", time:"20 min + 2hr chill", featured:false,
     title:"Brown Butter Old Fashioned",
@@ -937,9 +946,9 @@ This is what the Bridge recommendation feature shows you in Both mode. Select a 
 The inverse works equally well. Select Macallan 12yr Sherry Oak. The Bridge will show you the American expressions closest to it in flavor space — typically rich, sherried bourbons like GlenDronach 12yr's bourbon equivalent, or the Elijah Craig Barrel Proof. The algorithm doesn't know national boundaries. It only knows flavor.` },
 
   { cat:"Bourbon Education", title:"From New York to Kentucky: How the South Made Me a Bourbon Scholar",
-    desc:"I moved from Westchester, New York to Milton, Georgia in 2020 with a bottle of Hudson Baby Bourbon and no real understanding of what bourbon could be. This is the story of what happened next.",
+    desc:"I moved from Westchester, New York to Atlanta, Georgia in 2020 with a bottle of Hudson Baby Bourbon and no real understanding of what bourbon could be. This is the story of what happened next.",
     time:"7 min read", featured:false,
-    body:`I relocated from New York to Milton, Georgia in the spring of 2020. The timing was what it was — a global pandemic, a new city, a new neighborhood, and suddenly a lot of unscheduled time.
+    body:`I relocated from New York to Atlanta, Georgia in the spring of 2020. The timing was what it was — a global pandemic, a new city, a new neighborhood, and suddenly a lot of unscheduled time.
 
 Back in New York I kept a bottle of Hudson Baby Bourbon on the shelf because it was local and felt right. I'd order an old fashioned at The Porter House in Midchester and enjoy it without asking what whiskey they used. I'd order a Basil Hayden at a bar because the bottle looked distinguished and someone told me it was good. I liked bourbon. I had no idea what I was tasting.
 
@@ -1011,7 +1020,7 @@ The current moment isn't a perfect parallel, but the shift is real and it can't 
 — PT` },
 ];
 
-const CATEGORIES = ["All", "Reviews", "Community Reviews", "Cocktails", "Kitchen", "Pairings", "Bitters & Infusions", "Bourbon Education", "Scotch Education", "Single Barrel", "Pairing Guide", "Mashbill Science", "Distillery Spotlight", "Flavor Chemistry"];
+const CATEGORIES = ["All", "Cocktails", "Kitchen", "Pairings", "Bitters & Infusions", "Bourbon Education", "Scotch Education", "Single Barrel", "Pairing Guide", "Mashbill Science", "Distillery Spotlight", "Flavor Chemistry"];
 
 const CAT_COLORS = { "Reviews":"#C9A87A","Community Reviews":"#334632","Cocktails":"#2A6090","Kitchen":"#B8732A","Pairings":"#2A8060","Bitters & Infusions":"#6A3DBF","Bourbon Education":"#B8732A","Scotch Education":"#2A6090","Single Barrel":"#8A2A5A","Pairing Guide":"#2A8060","Mashbill Science":"#6A3DBF","Distillery Spotlight":"#A0622A","Flavor Chemistry":"#8B5216" };
 
@@ -1253,14 +1262,8 @@ const BlogPage = () => {
               return (
                 <div key={p.title} className="blog-card"
                   onClick={()=>setSelectedPost(p)}
-                  style={{ background:C.cream, border:`1px solid ${p.source==="community"?C.forestMid:C.border}`, borderRadius:"8px", padding:"26px", cursor:"pointer", transition:"all 0.3s", borderTop:`3px solid ${p.source==="community"?C.forestMid:cc}` }}>
-                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px" }}>
-                    <div style={{ fontFamily:styles.mono, fontSize:"9px", letterSpacing:"0.14em", color:p.source==="community"?C.forestMid:cc, textTransform:"uppercase" }}>{p.cat}</div>
-                    {p.source==="community"
-                      ? <span style={{ fontFamily:styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:C.forestMid, color:C.gold, padding:"3px 8px", borderRadius:"2px", textTransform:"uppercase" }}>Community</span>
-                      : <span style={{ fontFamily:styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:C.gold, color:C.forestDk, padding:"3px 8px", borderRadius:"2px", textTransform:"uppercase" }}>P&P Review</span>
-                    }
-                  </div>
+                  style={{ background:C.cream, border:`1px solid ${C.border}`, borderRadius:"8px", padding:"26px", cursor:"pointer", transition:"all 0.3s", borderTop:`3px solid ${cc}` }}>
+                  <div style={{ fontFamily:styles.mono, fontSize:"9px", letterSpacing:"0.14em", color:cc, textTransform:"uppercase", marginBottom:"10px" }}>{p.cat}</div>
                   <h3 style={{ fontFamily:styles.heading, fontSize:"18px", fontWeight:"700", color:C.textDk, marginBottom:"10px", lineHeight:"1.3" }}>{p.title}</h3>
                   <p style={{ fontFamily:styles.body, fontSize:"14px", color:C.textMid, lineHeight:"1.65", marginBottom:"14px" }}>{p.desc.slice(0,110)}...</p>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
@@ -1281,10 +1284,43 @@ const BlogPage = () => {
 const ContactPage = () => {
   const [form, setForm] = useState({ name:"", email:"", subject:"General Inquiry", message:"" });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
+    setSubmitError("");
+    setSubmitting(true);
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/contact_messages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+          "Prefer": "return=minimal",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+        }),
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || `Request failed with status ${res.status}`);
+      }
+
+      setSent(true);
+    } catch (err) {
+      setSubmitError("Something went wrong sending your message. Please try again, or email us directly at proofandplate@gmail.com.");
+      console.error("Supabase contact submit error:", err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -1305,8 +1341,8 @@ const ContactPage = () => {
           <div>
             <h2 style={{ ...styles.heading, fontSize:"30px", fontWeight:"700", color:C.forestDk, marginBottom:"24px" }}>We'd love to hear from you</h2>
             {[
-              { icon:"✉️", label:"Email", val:"team@proofandplate.com" },
-              { icon:"📍", label:"Based in", val:"Milton, GA" },
+              { icon:"✉️", label:"Email", val:"proofandplate@gmail.com" },
+              { icon:"📍", label:"Based in", val:"Atlanta, GA" },
               { icon:"🕐", label:"Response time", val:"Within 48 hours" },
             ].map(item => (
               <div key={item.label} style={{ display:"flex", gap:"16px", alignItems:"flex-start", marginBottom:"24px", padding:"18px", background:C.creamMid, borderRadius:"6px", border:`1px solid ${C.border}` }}>
@@ -1330,7 +1366,7 @@ const ContactPage = () => {
             <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", textAlign:"center", padding:"48px", background:C.creamMid, borderRadius:"8px", border:`1px solid ${C.border}` }}>
               <div style={{ fontSize:"48px", marginBottom:"20px" }}>🥃</div>
               <h3 style={{ ...styles.heading, fontSize:"28px", fontWeight:"700", color:C.forestDk, marginBottom:"12px" }}>Message Received</h3>
-              <p style={{ ...styles.body, fontSize:"16px", color:C.textMid, lineHeight:"1.7" }}>We'll be in touch within 48 hours. In the meantime, pour yourself something from the sommelier.</p>
+              <p style={{ ...styles.body, fontSize:"16px", color:C.textMid, lineHeight:"1.7" }}>Your message has been sent. We'll be in touch within 48 hours. In the meantime, pour yourself something from the sommelier.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ background:C.creamMid, borderRadius:"8px", border:`1px solid ${C.border}`, padding:"40px", display:"flex", flexDirection:"column", gap:"20px" }}>
@@ -1356,9 +1392,14 @@ const ContactPage = () => {
                 <textarea required rows={5} value={form.message} onChange={e=>setForm({...form,message:e.target.value})} placeholder="Tell us what's on your mind..."
                   style={{ width:"100%", padding:"12px 14px", borderRadius:"4px", border:`1px solid ${C.border}`, background:C.cream, ...styles.body, fontSize:"15px", color:C.forestDk, resize:"vertical", outline:"none" }}/>
               </div>
-              <button type="submit" className="btn-primary"
-                style={{ padding:"14px 32px", background:C.gold, border:"none", color:C.creamMid, ...styles.heading, fontSize:"16px", fontWeight:"600", borderRadius:"4px", transition:"background 0.2s" }}>
-                Send Message
+              {submitError && (
+                <div style={{ padding:"14px 18px", background:"#fdf0ef", border:"1px solid #e0a8a0", borderRadius:"6px", color:"#9a3a30", ...styles.body, fontSize:"14px", lineHeight:"1.6" }}>
+                  {submitError}
+                </div>
+              )}
+              <button type="submit" className="btn-primary" disabled={submitting}
+                style={{ padding:"14px 32px", background:C.gold, border:"none", color:C.creamMid, ...styles.heading, fontSize:"16px", fontWeight:"600", borderRadius:"4px", transition:"background 0.2s", cursor:submitting?"default":"pointer", opacity:submitting?0.7:1 }}>
+                {submitting ? "Sending…" : "Send Message"}
               </button>
             </form>
           )}
@@ -3920,10 +3961,298 @@ const ToolsPage = () => {
 
 // ═══════════════════════════════════════════════════════════════════════════════
 
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// REVIEWS PAGE — P&P Reviews / Community Reviews / Leave a Review
+// ═══════════════════════════════════════════════════════════════════════════════
+const ReviewsPage = ({ setPage }) => {
+  const [tab, setTab] = useState("pp");
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [communityReviews, setCommunityReviews] = useState([]);
+  const [loadingCommunity, setLoadingCommunity] = useState(false);
+  const [communityError, setCommunityError] = useState("");
+
+  useEffect(() => {
+    if (tab === "community" && communityReviews.length === 0 && !loadingCommunity) {
+      setLoadingCommunity(true);
+      setCommunityError("");
+      fetch(`${SUPABASE_URL}/rest/v1/public_reviews?select=*&order=created_at.desc`, {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+        },
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Failed to load community reviews");
+          return res.json();
+        })
+        .then(data => setCommunityReviews(data))
+        .catch(err => {
+          console.error(err);
+          setCommunityError("Couldn't load community reviews right now. Please try again shortly.");
+        })
+        .finally(() => setLoadingCommunity(false));
+    }
+  }, [tab]);
+
+  const bsIcons = { sipper:"🥃", mixer:"🍸", table:"🍽️", kitchen:"🔥" };
+  const bsNames = { sipper:"The Sipper", mixer:"The Mixer", table:"At the Table", kitchen:"The Kitchen" };
+  const bsLabel = { perfect:"Perfect", great:"Great", works:"Works", skip:"Skip" };
+  const bsColor = { perfect:C.gold, great:C.amber, works:C.textLight, skip:`${C.creamDk}80` };
+
+  // ── PP REVIEW DETAIL ──────────────────────────────────────────────────────
+  if (selectedReview && selectedReview._source === "pp") {
+    const p = selectedReview;
+    return (
+      <div style={{ paddingTop:"66px" }}>
+        <section style={{ background:C.forestDk, padding:"40px 28px 0" }}>
+          <div style={{ maxWidth:"760px", margin:"0 auto" }}>
+            <button onClick={()=>setSelectedReview(null)} style={{ background:"none", border:"none", color:C.gold, ...styles.body, fontSize:"14px", cursor:"pointer", marginBottom:"24px" }}>← Back to Reviews</button>
+            <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"10px" }}>
+              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.18em", color:C.gold, textTransform:"uppercase" }}>{p.distillery} · {p.style} · {p.age}</div>
+              <span style={{ ...styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:`${C.gold}30`, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase" }}>P&P Review</span>
+            </div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:"24px", paddingBottom:"32px" }}>
+              <h1 style={{ ...styles.heading, fontSize:"clamp(26px,4vw,40px)", fontWeight:"900", color:C.creamMid, lineHeight:"1.2", flex:1 }}>{p.title}</h1>
+              <div style={{ textAlign:"center", background:"rgba(0,0,0,0.25)", borderRadius:"6px", padding:"12px 18px", minWidth:"80px", flexShrink:0 }}>
+                <div style={{ ...styles.heading, fontSize:"36px", fontWeight:"700", color:C.gold, lineHeight:1 }}>{p.ppScore}</div>
+                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", color:`${C.cream}70`, marginTop:"4px", textTransform:"uppercase" }}>P&P Score</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section style={{ background:C.ivory, padding:"40px 28px 80px" }}>
+          <div style={{ maxWidth:"760px", margin:"0 auto" }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"32px" }}>
+              {[["Nose",p.scores.nose,25],["Palate",p.scores.palate,25],["Finish",p.scores.finish,20],["Value",p.scores.value,30]].map(([lbl,val,max])=>(
+                <div key={lbl} style={{ background:C.cream, border:`1px solid ${C.border}`, borderRadius:"6px", padding:"16px", textAlign:"center" }}>
+                  <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>{lbl}</div>
+                  <div><span style={{ ...styles.heading, fontSize:"22px", fontWeight:"700", color:C.forestDk }}>{val}</span><span style={{ ...styles.body, fontSize:"12px", color:C.textLight }}>/{max}</span></div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"20px", marginBottom:"28px" }}>
+              {[["Nose",p.nose],["Palate",p.palate],["Finish",p.finish]].map(([lbl,txt])=>(
+                <div key={lbl}>
+                  <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"6px" }}>{lbl}</div>
+                  <p style={{ ...styles.body, fontSize:"15px", color:C.textDk, lineHeight:"1.65", fontStyle:"italic" }}>{txt}</p>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginBottom:"28px", padding:"20px 24px", background:C.cream, borderLeft:`3px solid ${C.gold}`, borderRadius:"0 6px 6px 0", border:`1px solid ${C.border}` }}>
+              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>Pair It With</div>
+              <p style={{ ...styles.body, fontSize:"15px", color:C.textDk, lineHeight:"1.65", fontStyle:"italic" }}>{p.pairing}</p>
+            </div>
+            <div style={{ marginBottom:"28px" }}>
+              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As</div>
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
+                {Object.entries(p.bestServed).map(([k,v])=>(
+                  <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
+                    <div style={{ fontSize:"18px", marginBottom:"4px" }}>{bsIcons[k]}</div>
+                    <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                    <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v] }}>{bsLabel[v]}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"12px", paddingTop:"20px", borderTop:`1px solid ${C.border}` }}>
+              <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>MSRP <strong style={{ color:C.textDk }}>${p.msrp}</strong> · {p.abv}% ABV</div>
+              <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
+                <span style={{ ...styles.mono, fontSize:"9px", padding:"5px 14px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.08em", textTransform:"uppercase" }}>{p.verdict}</span>
+                {p.tags.map(t=>(<span key={t} style={{ ...styles.body, fontSize:"11px", padding:"4px 10px", border:`1px solid ${C.border}`, borderRadius:"2px", color:C.textMid }}>{t}</span>))}
+              </div>
+            </div>
+            <div style={{ marginTop:"32px" }}>
+              <button onClick={()=>setSelectedReview(null)} style={{ padding:"11px 28px", background:C.forestMid, border:"none", color:C.gold, ...styles.heading, fontSize:"14px", fontWeight:"700", borderRadius:"4px", cursor:"pointer" }}>← Back to Reviews</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  // ── COMMUNITY REVIEW DETAIL ───────────────────────────────────────────────
+  if (selectedReview && selectedReview._source === "community") {
+    const p = selectedReview;
+    return (
+      <div style={{ paddingTop:"66px" }}>
+        <section style={{ background:C.forestDk, padding:"40px 28px 0" }}>
+          <div style={{ maxWidth:"760px", margin:"0 auto" }}>
+            <button onClick={()=>setSelectedReview(null)} style={{ background:"none", border:"none", color:C.gold, ...styles.body, fontSize:"14px", cursor:"pointer", marginBottom:"24px" }}>← Back to Reviews</button>
+            <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"10px" }}>
+              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.18em", color:C.forestMid, textTransform:"uppercase" }}>{p.distillery} · {p.style} · {p.age_statement || "NAS"}</div>
+              <span style={{ ...styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:C.forestMid, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase" }}>Community Review</span>
+            </div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:"24px", paddingBottom:"32px" }}>
+              <h1 style={{ ...styles.heading, fontSize:"clamp(26px,4vw,40px)", fontWeight:"900", color:C.creamMid, lineHeight:"1.2", flex:1 }}>{p.whiskey_name}</h1>
+              <div style={{ textAlign:"center", background:"rgba(0,0,0,0.25)", borderRadius:"6px", padding:"12px 18px", minWidth:"80px", flexShrink:0 }}>
+                <div style={{ ...styles.heading, fontSize:"36px", fontWeight:"700", color:C.gold, lineHeight:1 }}>{p.score_total}</div>
+                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", color:`${C.cream}70`, marginTop:"4px", textTransform:"uppercase" }}>Community Score</div>
+              </div>
+            </div>
+            <div style={{ ...styles.body, fontSize:"13px", color:`${C.cream}70`, paddingBottom:"20px" }}>Reviewed by {p.submitter_name || "a P&P reader"}</div>
+          </div>
+        </section>
+        <section style={{ background:C.ivory, padding:"40px 28px 80px" }}>
+          <div style={{ maxWidth:"760px", margin:"0 auto" }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"32px" }}>
+              {[["Nose",p.score_nose,25],["Palate",p.score_palate,25],["Finish",p.score_finish,20],["Value",p.score_value,30]].map(([lbl,val,max])=>(
+                <div key={lbl} style={{ background:C.cream, border:`1px solid ${C.border}`, borderRadius:"6px", padding:"16px", textAlign:"center" }}>
+                  <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>{lbl}</div>
+                  <div><span style={{ ...styles.heading, fontSize:"22px", fontWeight:"700", color:C.forestDk }}>{val}</span><span style={{ ...styles.body, fontSize:"12px", color:C.textLight }}>/{max}</span></div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"20px", marginBottom:"28px" }}>
+              {[["Nose",p.nose],["Palate",p.palate],["Finish",p.finish]].map(([lbl,txt])=>(
+                <div key={lbl}>
+                  <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"6px" }}>{lbl}</div>
+                  <p style={{ ...styles.body, fontSize:"15px", color:C.textDk, lineHeight:"1.65", fontStyle:"italic" }}>{txt || "—"}</p>
+                </div>
+              ))}
+            </div>
+            {p.pairing && (
+              <div style={{ marginBottom:"28px", padding:"20px 24px", background:C.cream, borderLeft:`3px solid ${C.forestMid}`, borderRadius:"0 6px 6px 0", border:`1px solid ${C.border}` }}>
+                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>Pair It With</div>
+                <p style={{ ...styles.body, fontSize:"15px", color:C.textDk, lineHeight:"1.65", fontStyle:"italic" }}>{p.pairing}</p>
+              </div>
+            )}
+            {p.narrative && (
+              <div style={{ marginBottom:"28px" }}>
+                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>In Their Words</div>
+                <p style={{ ...styles.body, fontSize:"16px", color:C.textDk, lineHeight:"1.8" }}>{p.narrative}</p>
+              </div>
+            )}
+            <div style={{ marginBottom:"28px" }}>
+              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As</div>
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
+                {[["sipper",p.bs_sipper],["mixer",p.bs_mixer],["table",p.bs_table],["kitchen",p.bs_kitchen]].map(([k,v])=>(
+                  <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
+                    <div style={{ fontSize:"18px", marginBottom:"4px" }}>{bsIcons[k]}</div>
+                    <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                    <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v]||C.textLight }}>{bsLabel[v]||v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"12px", paddingTop:"20px", borderTop:`1px solid ${C.border}` }}>
+              <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>{p.msrp ? <>MSRP <strong style={{ color:C.textDk }}>${p.msrp}</strong></> : null} {p.proof ? `· ${p.proof} proof` : ""}</div>
+              {p.verdict && <span style={{ ...styles.mono, fontSize:"9px", padding:"5px 14px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.08em", textTransform:"uppercase" }}>{p.verdict}</span>}
+            </div>
+            <div style={{ marginTop:"32px" }}>
+              <button onClick={()=>setSelectedReview(null)} style={{ padding:"11px 28px", background:C.forestMid, border:"none", color:C.gold, ...styles.heading, fontSize:"14px", fontWeight:"700", borderRadius:"4px", cursor:"pointer" }}>← Back to Reviews</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  // ── MAIN REVIEWS LISTING ──────────────────────────────────────────────────
+  return (
+    <div style={{ paddingTop:"66px" }}>
+      <section className="paper-texture" style={{ background:C.forestDk, padding:"80px 28px 60px" }}>
+        <div style={{ maxWidth:"700px", margin:"0 auto", textAlign:"center" }}>
+          <div style={{ fontFamily:styles.mono, fontSize:"9px", letterSpacing:"0.3em", color:`${C.gold}90`, textTransform:"uppercase", marginBottom:"18px" }}>Tasted & Rated</div>
+          <h1 style={{ fontFamily:styles.heading, fontSize:"clamp(40px,6vw,60px)", fontWeight:"900", color:C.creamMid, marginBottom:"20px" }}>
+            <span style={{ color:C.gold, fontStyle:"italic" }}>Reviews</span>
+          </h1>
+          <p style={{ fontFamily:styles.body, fontSize:"18px", color:`${C.creamMid}AA`, lineHeight:"1.7" }}>
+            P&P reviews are written by PT. Community reviews come from drinkers like you. Every palate has a place here.
+          </p>
+        </div>
+
+        {/* Tabs */}
+        <div style={{ maxWidth:"700px", margin:"40px auto 0", display:"flex", gap:"8px", justifyContent:"center", flexWrap:"wrap" }}>
+          {[["pp","P&P Reviews"],["community","Community Reviews"],["submit","Leave a Review"]].map(([id,label])=>(
+            <button key={id} onClick={()=>setTab(id)}
+              style={{ padding:"10px 22px", borderRadius:"20px", border:`1px solid ${tab===id?C.gold:`${C.cream}30`}`, background:tab===id?C.gold:"transparent", color:tab===id?C.forestDk:`${C.cream}CC`, fontFamily:styles.body, fontSize:"14px", fontWeight:tab===id?"700":"400", cursor:"pointer", transition:"all 0.2s" }}>
+              {label}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ background:C.ivory, padding:"56px 28px 90px" }}>
+        <div style={{ maxWidth:"1140px", margin:"0 auto" }}>
+
+          {/* P&P REVIEWS TAB */}
+          {tab === "pp" && (
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"20px" }}>
+              {PP_REVIEWS.map(p => (
+                <div key={p.title} onClick={()=>setSelectedReview({...p, _source:"pp"})}
+                  style={{ background:C.cream, border:`1px solid ${C.border}`, borderRadius:"8px", padding:"26px", cursor:"pointer", transition:"all 0.3s", borderTop:`3px solid ${C.gold}` }}>
+                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px" }}>
+                    <div style={{ fontFamily:styles.mono, fontSize:"9px", letterSpacing:"0.14em", color:C.gold, textTransform:"uppercase" }}>{p.distillery}</div>
+                    <span style={{ ...styles.heading, fontSize:"20px", fontWeight:"700", color:C.forestDk }}>{p.ppScore}</span>
+                  </div>
+                  <span style={{ display:"inline-block", fontFamily:styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:`${C.gold}30`, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase", marginBottom:"10px" }}>P&P Review</span>
+                  <h3 style={{ fontFamily:styles.heading, fontSize:"18px", fontWeight:"700", color:C.textDk, marginBottom:"10px", lineHeight:"1.3" }}>{p.title}</h3>
+                  <p style={{ fontFamily:styles.body, fontSize:"14px", color:C.textMid, lineHeight:"1.65", marginBottom:"14px" }}>{p.desc}</p>
+                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                    <span style={{ ...styles.mono, fontSize:"9px", padding:"4px 10px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.06em", textTransform:"uppercase" }}>{p.verdict}</span>
+                    <span style={{ fontFamily:styles.body, fontSize:"13px", color:C.gold }}>Read →</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* COMMUNITY REVIEWS TAB */}
+          {tab === "community" && (
+            <>
+              {loadingCommunity && (
+                <div style={{ textAlign:"center", padding:"60px 0", ...styles.body, fontSize:"16px", color:C.textLight }}>Loading community reviews\u2026</div>
+              )}
+              {communityError && (
+                <div style={{ textAlign:"center", padding:"40px", ...styles.body, fontSize:"15px", color:"#9a3a30" }}>{communityError}</div>
+              )}
+              {!loadingCommunity && !communityError && communityReviews.length === 0 && (
+                <div style={{ textAlign:"center", padding:"60px 24px", background:C.cream, borderRadius:"8px", border:`1px solid ${C.border}` }}>
+                  <div style={{ fontSize:"40px", marginBottom:"16px" }}>🥃</div>
+                  <h3 style={{ ...styles.heading, fontSize:"22px", fontWeight:"700", color:C.forestDk, marginBottom:"10px" }}>No Community Reviews Yet</h3>
+                  <p style={{ ...styles.body, fontSize:"15px", color:C.textMid, lineHeight:"1.7", maxWidth:"420px", margin:"0 auto 20px" }}>Be the first to share your take on a bottle. Every review helps build the record.</p>
+                  <button onClick={()=>setTab("submit")} style={{ padding:"11px 28px", background:C.forestDk, border:"none", color:C.gold, ...styles.heading, fontSize:"14px", fontWeight:"700", borderRadius:"4px", cursor:"pointer" }}>Leave a Review</button>
+                </div>
+              )}
+              {!loadingCommunity && communityReviews.length > 0 && (
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"20px" }}>
+                  {communityReviews.map(p => (
+                    <div key={p.id} onClick={()=>setSelectedReview({...p, _source:"community"})}
+                      style={{ background:C.cream, border:`1px solid ${C.forestMid}`, borderRadius:"8px", padding:"26px", cursor:"pointer", transition:"all 0.3s", borderTop:`3px solid ${C.forestMid}` }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px" }}>
+                        <div style={{ fontFamily:styles.mono, fontSize:"9px", letterSpacing:"0.14em", color:C.forestMid, textTransform:"uppercase" }}>{p.distillery || p.style}</div>
+                        <span style={{ ...styles.heading, fontSize:"20px", fontWeight:"700", color:C.forestDk }}>{p.score_total}</span>
+                      </div>
+                      <span style={{ display:"inline-block", fontFamily:styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:C.forestMid, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase", marginBottom:"10px" }}>Community Review</span>
+                      <h3 style={{ fontFamily:styles.heading, fontSize:"18px", fontWeight:"700", color:C.textDk, marginBottom:"8px", lineHeight:"1.3" }}>{p.whiskey_name}</h3>
+                      <p style={{ fontFamily:styles.body, fontSize:"13px", color:C.textLight, marginBottom:"12px" }}>Reviewed by {p.submitter_name || "a P&P reader"}</p>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                        {p.verdict ? <span style={{ ...styles.mono, fontSize:"9px", padding:"4px 10px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.06em", textTransform:"uppercase" }}>{p.verdict}</span> : <span/>}
+                        <span style={{ fontFamily:styles.body, fontSize:"13px", color:C.gold }}>Read →</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+
+          {/* LEAVE A REVIEW TAB */}
+          {tab === "submit" && (
+            <SubmitPage setPage={setPage} embedded={true} />
+          )}
+
+        </div>
+      </section>
+    </div>
+  );
+};
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // SUBMIT A REVIEW PAGE
 // ═══════════════════════════════════════════════════════════════════════════════
-const SubmitPage = ({ setPage }) => {
+const SubmitPage = ({ setPage, embedded }) => {
   const [step, setStep] = useState(1);
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({
@@ -3980,57 +4309,94 @@ const SubmitPage = ({ setPage }) => {
     </div>
   );
 
-  const handleSubmit = () => {
-    const subject = encodeURIComponent(`P&P Community Review: ${form.whiskey}`);
-    const body = encodeURIComponent(
-`PROOF & PLATE — COMMUNITY WHISKEY REVIEW
-Submitted by: ${form.name} (${form.email})
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-BASIC INFO
-Whiskey: ${form.whiskey}
-Distillery: ${form.distillery}
-Bottler: ${form.bottler || "N/A"}
-Style: ${form.style}
-Age: ${form.age || "NAS"}
-Proof: ${form.proof}
-MSRP: $${form.msrp}
-Price Tier: ${form.tier}
-Availability: ${form.avail}
-Mashbill: ${form.mashbill || "Unknown"}
+  const handleSubmit = async () => {
+    setSubmitError("");
+    if (!form.whiskey.trim()) {
+      setSubmitError("Please enter the whiskey name before submitting.");
+      setStep(1);
+      return;
+    }
+    setSubmitting(true);
 
-TASTING NOTES
-Nose: ${form.nose}
-Palate: ${form.palate}
-Finish: ${form.finish}
-Pairing: ${form.pairing}
-Narrative: ${form.narrative}
+    const payload = {
+      submitter_name: form.name,
+      submitter_email: form.email,
+      whiskey_name: form.whiskey,
+      distillery: form.distillery,
+      bottler: form.bottler,
+      style: form.style,
+      age_statement: form.age,
+      proof: form.proof ? Number(form.proof) : null,
+      msrp: form.msrp ? Number(form.msrp) : null,
+      price_tier: form.tier,
+      availability: form.avail,
+      mashbill: form.mashbill,
+      nose: form.nose,
+      palate: form.palate,
+      finish: form.finish,
+      pairing: form.pairing,
+      narrative: form.narrative,
+      score_nose: form.sNose,
+      score_palate: form.sPalate,
+      score_finish: form.sFinish,
+      score_value: form.sValue,
+      score_total: totalScore,
+      bs_sipper: form.bsSipper,
+      bs_mixer: form.bsMixer,
+      bs_table: form.bsTable,
+      bs_kitchen: form.bsKitchen,
+      verdict: form.verdict,
+      fl_sweet: form.flSweet,
+      fl_vanilla: form.flVanilla,
+      fl_caramel: form.flCaramel,
+      fl_fruit: form.flFruit,
+      fl_spice: form.flSpice,
+      fl_oak: form.flOak,
+      fl_floral: form.flFloral,
+      fl_herbal: form.flHerbal,
+      fl_nutty: form.flNutty,
+      fl_smoke: form.flSmoke,
+      fl_wheat: form.flWheat,
+      fl_corn: form.flCorn,
+    };
 
-P&P SCORES (Total: ${totalScore}/100)
-Nose: ${form.sNose}/25 | Palate: ${form.sPalate}/25 | Finish: ${form.sFinish}/20 | Value: ${form.sValue}/30
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+          "Prefer": "return=minimal",
+        },
+        body: JSON.stringify(payload),
+      });
 
-BEST SERVED AS
-The Sipper: ${form.bsSipper} | The Mixer: ${form.bsMixer} | At the Table: ${form.bsTable} | The Kitchen: ${form.bsKitchen}
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || `Request failed with status ${res.status}`);
+      }
 
-VERDICT: ${form.verdict || "Not specified"}
-
-FLAVOR PROFILE (0-10)
-Sweet: ${form.flSweet} | Vanilla: ${form.flVanilla} | Caramel: ${form.flCaramel} | Fruit: ${form.flFruit}
-Spice: ${form.flSpice} | Oak: ${form.flOak} | Floral: ${form.flFloral} | Herbal: ${form.flHerbal}
-Nutty: ${form.flNutty} | Smoke: ${form.flSmoke} | Wheat: ${form.flWheat} | Corn: ${form.flCorn}`
-    );
-    window.location.href = `mailto:proofandplate@gmail.com?subject=${subject}&body=${body}`;
-    setSent(true);
+      setSent(true);
+    } catch (err) {
+      setSubmitError("Something went wrong submitting your review. Please try again, or email us directly at proofandplate@gmail.com.");
+      console.error("Supabase submit error:", err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (sent) return (
-    <div style={{ paddingTop:"64px" }}>
-      <section style={{ background:C.forestDk, padding:"80px 24px 100px" }}>
+    <div style={{ paddingTop: embedded ? "0" : "64px" }}>
+      <section style={{ background:C.forestDk, padding:"80px 24px 100px", borderRadius: embedded ? "8px" : "0" }}>
         <div style={{ maxWidth:"560px", margin:"0 auto", textAlign:"center" }}>
           <div style={{ fontSize:"56px", marginBottom:"20px" }}>🥃</div>
           <h1 style={{ ...styles.heading, fontSize:"42px", fontWeight:"900", color:C.cream, marginBottom:"16px" }}>Review Submitted</h1>
           <p style={{ ...styles.body, fontSize:"18px", color:`${C.cream}90`, lineHeight:"1.7" }}>
-            Your review will open in your email client — just hit send. Community reviews go live on the site and add to the collective record for that bottle. Every palate counts.
+            Your review has been saved. We review every submission before it goes live — once approved, it'll appear on the site with a Community Review badge and join the collective record for that bottle. Every palate counts.
           </p>
           <button onClick={()=>setPage("home")} style={{ marginTop:"32px", padding:"13px 36px", background:C.gold, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.forestDk, cursor:"pointer" }}>Back to Home</button>
         </div>
@@ -4039,7 +4405,8 @@ Nutty: ${form.flNutty} | Smoke: ${form.flSmoke} | Wheat: ${form.flWheat} | Corn:
   );
 
   return (
-    <div style={{ paddingTop:"64px" }}>
+    <div style={{ paddingTop: embedded ? "0" : "64px" }}>
+      {!embedded && (
       <section style={{ background:C.forestDk, padding:"80px 24px 80px" }}>
         <div style={{ maxWidth:"640px", margin:"0 auto", textAlign:"center" }}>
           <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.3em", color:C.gold, textTransform:"uppercase", marginBottom:"20px" }}>Community Reviews</div>
@@ -4051,8 +4418,9 @@ Nutty: ${form.flNutty} | Smoke: ${form.flSmoke} | Wheat: ${form.flWheat} | Corn:
           </p>
         </div>
       </section>
+      )}
 
-      <section style={{ background:C.ivory, padding:"60px 24px 100px" }}>
+      <section style={{ background: embedded ? "transparent" : C.ivory, padding: embedded ? "0" : "60px 24px 100px" }}>
         <div style={{ maxWidth:"720px", margin:"0 auto" }}>
 
           <div style={{ display:"flex", gap:"8px", marginBottom:"48px", justifyContent:"center", alignItems:"center" }}>
@@ -4188,9 +4556,14 @@ Nutty: ${form.flNutty} | Smoke: ${form.flSmoke} | Wheat: ${form.flWheat} | Corn:
                 <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.1em", color:C.textLight, textTransform:"uppercase", marginBottom:"6px" }}>A note from PT</div>
                 <p style={{ ...styles.body, fontSize:"14px", color:C.textMid, lineHeight:"1.65", fontStyle:"italic" }}>Every review submitted goes onto the site under a Community Review badge — your take sits alongside the P&P review so readers can see both. We are building a living record of how real drinkers experience these bottles. No gatekeeping. Your palate is part of this.</p>
               </div>
+              {submitError && (
+                <div style={{ marginBottom:"20px", padding:"14px 18px", background:"#fdf0ef", border:"1px solid #e0a8a0", borderRadius:"6px", color:"#9a3a30", ...styles.body, fontSize:"14px", lineHeight:"1.6" }}>
+                  {submitError}
+                </div>
+              )}
               <div style={{ display:"flex", gap:"12px" }}>
-                <button onClick={()=>setStep(3)} style={{ padding:"13px 28px", background:"none", border:`1px solid ${C.border}`, borderRadius:"4px", ...styles.body, fontSize:"15px", color:C.textMid, cursor:"pointer" }}>Back</button>
-                <button onClick={handleSubmit} style={{ flex:1, padding:"13px 36px", background:C.forestDk, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.gold, cursor:"pointer", letterSpacing:"0.04em" }}>Submit Review</button>
+                <button onClick={()=>setStep(3)} disabled={submitting} style={{ padding:"13px 28px", background:"none", border:`1px solid ${C.border}`, borderRadius:"4px", ...styles.body, fontSize:"15px", color:C.textMid, cursor:submitting?"default":"pointer", opacity:submitting?0.5:1 }}>Back</button>
+                <button onClick={handleSubmit} disabled={submitting} style={{ flex:1, padding:"13px 36px", background:C.forestDk, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.gold, cursor:submitting?"default":"pointer", letterSpacing:"0.04em", opacity:submitting?0.7:1 }}>{submitting ? "Submitting…" : "Submit Review"}</button>
               </div>
             </div>
           )}
@@ -4208,7 +4581,7 @@ export default function App() {
 
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
 
-  const pages = { home: HomePage, about: AboutPage, tools: ToolsPage, blog: BlogPage, submit: SubmitPage, contact: ContactPage };
+  const pages = { home: HomePage, about: AboutPage, tools: ToolsPage, blog: BlogPage, reviews: ReviewsPage, submit: SubmitPage, contact: ContactPage };
   const PageComponent = pages[page] || HomePage;
 
   return (
