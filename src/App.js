@@ -49,6 +49,33 @@ const styles = {
   mono:    { fontFamily:"'Courier Prime', monospace" },
 };
 
+// ─── ICON SYSTEM ────────────────────────────────────────────────────────────────
+// Custom line-art icons matching the P&P brand palette, replacing emoji placeholders.
+const ICON_PATHS = {
+  glass: "M8 4h8 M8.5 4c0 4.5 .2 6 3.5 6s3-1.5 3-6 M12 10v9 M9 19h6",
+  cocktail: "M6 5h12l-6 7v8 M9 20h6 M19 6.2a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z",
+  plate: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
+  flame: "M12 2.5c1.8 2.6 5 5.6 5 9.5a5 5 0 0 1-10 0c0-1 .3-1.9.8-2.7 .4 1 1.3 1.7 2.2 1.5-.6-1.8.2-3.6 2-4.3-.4 1.1.1 1.9 1.3 1.9-.6-2-1.4-3.9-1.3-5.9z",
+  envelope: "M4 6.5h16v11H4z M4 6.5l8 6.5 8-6.5",
+  pin: "M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z M12 11.5a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6z",
+  bottle: "M10 2h4v4l1.5 2.2A4 4 0 0 1 16.2 11v8a2 2 0 0 1-2 2H9.8a2 2 0 0 1-2-2v-8a4 4 0 0 1 .7-2.8L10 6V2z M9.5 13.5h5",
+  grain: "M12 4v17 M12 6.5c0-1.8-1.3-2.5-2.4-3.2 .1 1.7.6 2.8 2.4 3.2z M12 6.5c0-1.8 1.3-2.5 2.4-3.2-.1 1.7-.6 2.8-2.4 3.2z M12 10.5c0-1.8-1.3-2.5-2.4-3.2 .1 1.7.6 2.8 2.4 3.2z M12 10.5c0-1.8 1.3-2.5 2.4-3.2-.1 1.7-.6 2.8-2.4 3.2z M12 14.5c0-1.8-1.3-2.5-2.4-3.2 .1 1.7.6 2.8 2.4 3.2z M12 14.5c0-1.8 1.3-2.5 2.4-3.2-.1 1.7-.6 2.8-2.4 3.2z",
+  leaf: "M5 19C5 10 11 4 19 4c0 9-5 15-14 15z M19 4c-3.2 3-9.2 9-14 14",
+  clock: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 7v5l3.5 2",
+};
+
+const Icon = ({ name, size = 22, color = "currentColor", strokeWidth = 1.5, style = {} }) => (
+  <svg
+    width={size} height={size} viewBox="0 0 24 24" fill="none"
+    stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"
+    style={{ display:"inline-block", verticalAlign:"middle", flexShrink:0, ...style }}
+  >
+    {ICON_PATHS[name].split(" M").map((seg, i) => (
+      <path key={i} d={i === 0 ? seg : `M${seg}`} />
+    ))}
+  </svg>
+);
+
 // ─── GLOBAL CSS ───────────────────────────────────────────────────────────────
 const GlobalStyle = () => (
   <style>{`
@@ -228,10 +255,10 @@ const Footer = ({ setPage }) => (
 // ═══════════════════════════════════════════════════════════════════════════════
 const HomePage = ({ setPage }) => {
   const featured = [
-    { icon:"🥃", title:"Whiskey Sommelier", desc:"106 expressions across 11 distilleries. Select any bourbon or rye and discover your next dram through our flavor-matching engine.", tag:"Interactive Tool", page:"tools" },
-    { icon:"🌽", title:"Mashbill Reference", desc:"The grain science behind every major American whiskey. Explore how corn, rye, wheat, and malted barley shape what's in your glass.", tag:"Reference Guide", page:"tools" },
-    { icon:"🍽️", title:"Food Pairing Wheels", desc:"Bourbon with red meat. Scotch with oysters. Dark chocolate with sherried Speyside. Explore pairings grounded in flavor chemistry.", tag:"Pairing Science", page:"tools" },
-    { icon:"🌿", title:"Herb & Spice Wheels", desc:"Why does rye whiskey love dill? The same carvone molecule. Explore 40 herbs and spices mapped to bourbon and Scotch profiles.", tag:"Flavor Chemistry", page:"tools" },
+    { icon:"glass", title:"Whiskey Sommelier", desc:"106 expressions across 11 distilleries. Select any bourbon or rye and discover your next dram through our flavor-matching engine.", tag:"Interactive Tool", page:"tools" },
+    { icon:"grain", title:"Mashbill Reference", desc:"The grain science behind every major American whiskey. Explore how corn, rye, wheat, and malted barley shape what's in your glass.", tag:"Reference Guide", page:"tools" },
+    { icon:"plate", title:"Food Pairing Wheels", desc:"Bourbon with red meat. Scotch with oysters. Dark chocolate with sherried Speyside. Explore pairings grounded in flavor chemistry.", tag:"Pairing Science", page:"tools" },
+    { icon:"leaf", title:"Herb & Spice Wheels", desc:"Why does rye whiskey love dill? The same carvone molecule. Explore 40 herbs and spices mapped to bourbon and Scotch profiles.", tag:"Flavor Chemistry", page:"tools" },
   ];
 
   const quotes = [
@@ -319,7 +346,7 @@ const HomePage = ({ setPage }) => {
               <div key={f.title} className="tool-card"
                 style={{ background:C.creamMid, border:`1px solid ${C.border}`, borderRadius:"8px", padding:"32px 28px", transition:"all 0.3s", cursor:"pointer", borderTop:`3px solid ${C.gold}` }}
                 onClick={()=>setPage(f.page)}>
-                <div style={{ fontSize:"32px", marginBottom:"16px" }}>{f.icon}</div>
+                <div style={{ marginBottom:"16px" }}><Icon name={f.icon} size={32} color={C.gold} strokeWidth={1.3}/></div>
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.2em", color:C.forestTint, textTransform:"uppercase", marginBottom:"10px" }}>{f.tag}</div>
                 <h3 style={{ ...styles.heading, fontSize:"20px", fontWeight:"700", color:C.forestDk, marginBottom:"12px" }}>{f.title}</h3>
                 <p style={{ ...styles.body, fontSize:"15px", color:C.textMid, lineHeight:"1.65" }}>{f.desc}</p>
@@ -1039,7 +1066,7 @@ const BlogPage = () => {
     if (p.type === "review") {
       const bsLabel = { perfect:"Perfect", great:"Great", works:"Works", skip:p.cat==="Reviews"?"Too good":"Skip it" };
       const bsColor = { perfect:C.gold, great:C.amber, works:C.textLight, skip:`${C.creamDk}80` };
-      const bsIcons = { sipper:"🥃", mixer:"🍸", table:"🍽️", kitchen:"🔥" };
+      const bsIcons = { sipper:"glass", mixer:"cocktail", table:"plate", kitchen:"flame" };
       const bsNames = { sipper:"The Sipper", mixer:"The Mixer", table:"At the Table", kitchen:"The Kitchen" };
       return (
         <div style={{ paddingTop:"66px" }}>
@@ -1087,7 +1114,7 @@ const BlogPage = () => {
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
                   {Object.entries(p.bestServed).map(([k,v])=>(
                     <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
-                      <div style={{ fontSize:"18px", marginBottom:"4px" }}>{bsIcons[k]}</div>
+                      <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
                       <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
                       <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v] }}>{bsLabel[v]}</span>
                     </div>
@@ -1341,12 +1368,12 @@ const ContactPage = () => {
           <div>
             <h2 style={{ ...styles.heading, fontSize:"30px", fontWeight:"700", color:C.forestDk, marginBottom:"24px" }}>We'd love to hear from you</h2>
             {[
-              { icon:"✉️", label:"Email", val:"proofandplate@gmail.com" },
-              { icon:"📍", label:"Based in", val:"Atlanta, GA" },
-              { icon:"🕐", label:"Response time", val:"Within 48 hours" },
+              { icon:"envelope", label:"Email", val:"proofandplate@gmail.com" },
+              { icon:"pin", label:"Based in", val:"Atlanta, GA" },
+              { icon:"clock", label:"Response time", val:"Within 48 hours" },
             ].map(item => (
               <div key={item.label} style={{ display:"flex", gap:"16px", alignItems:"flex-start", marginBottom:"24px", padding:"18px", background:C.creamMid, borderRadius:"6px", border:`1px solid ${C.border}` }}>
-                <span style={{ fontSize:"22px" }}>{item.icon}</span>
+                <Icon name={item.icon} size={22} color={C.gold} strokeWidth={1.4} style={{marginTop:"2px"}}/>
                 <div>
                   <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, textTransform:"uppercase", marginBottom:"4px" }}>{item.label}</div>
                   <div style={{ ...styles.body, fontSize:"15px", color:C.textMid }}>{item.val}</div>
@@ -1364,7 +1391,7 @@ const ContactPage = () => {
           {/* Form */}
           {sent ? (
             <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", textAlign:"center", padding:"48px", background:C.creamMid, borderRadius:"8px", border:`1px solid ${C.border}` }}>
-              <div style={{ fontSize:"48px", marginBottom:"20px" }}>🥃</div>
+              <div style={{ marginBottom:"20px" }}><Icon name="glass" size={48} color={C.gold} strokeWidth={1.2}/></div>
               <h3 style={{ ...styles.heading, fontSize:"28px", fontWeight:"700", color:C.forestDk, marginBottom:"12px" }}>Message Received</h3>
               <p style={{ ...styles.body, fontSize:"16px", color:C.textMid, lineHeight:"1.7" }}>Your message has been sent. We'll be in touch within 48 hours. In the meantime, pour yourself something from the sommelier.</p>
             </div>
@@ -3867,10 +3894,10 @@ function SpiceWheelsApp() {
 }
 
 const TOOLS_LIST = [
-  { id:"sommelier", icon:"🥃", title:"Whiskey Sommelier", tag:"Live", tagColor:C.gold, desc:"106 expressions across American whiskey and Scotch. Select any dram and find your next bottle through our flavor-matching engine — with cross-category bridge recommendations.", features:["Flavor profile radar charts","If you like X, try Y engine","Price & availability tiers","Filter by distillery or tier"] },
-  { id:"pairing", icon:"🍽️", title:"Food Pairing Wheels", tag:"Live Now", tagColor:C.forestMid, desc:"Bourbon and Scotch food pairing wheels grounded in flavor chemistry. 8 food categories from red meat to desserts, mapped to specific expressions with Best / Good / Avoid ratings.", features:["Bourbon food pairing","Scotch food pairing","Scotch flavor wheel","Scientific principles"] },
-  { id:"spice", icon:"🌿", title:"Herb & Spice Wheels", tag:"Live", tagColor:"#2A6090", desc:"40 herbs and spices mapped to bourbon and Scotch profiles using aroma chemistry. D-carvone, guaiacol, eugenol — the molecular science behind every pairing.", features:["40 herbs & spices","8 flavor families","Compound-level reasoning","Bourbon + Scotch tabs"] },
-  { id:"mashbill", icon:"🌽", title:"Mashbill Reference", tag:"Live Now",    tagColor:C.forestMid, desc:"Complete grain science for all 11 major American whiskey distilleries including Willett and Four Roses. Grain composition bars, product lists, and production notes for every mashbill.", features:["11 distilleries","Visual grain bars","Four Roses 10-recipe decoder","Willett barrel legend"] },
+  { id:"sommelier", icon:"glass", title:"Whiskey Sommelier", tag:"Live", tagColor:C.gold, desc:"106 expressions across American whiskey and Scotch. Select any dram and find your next bottle through our flavor-matching engine — with cross-category bridge recommendations.", features:["Flavor profile radar charts","If you like X, try Y engine","Price & availability tiers","Filter by distillery or tier"] },
+  { id:"pairing", icon:"plate", title:"Food Pairing Wheels", tag:"Live Now", tagColor:C.forestMid, desc:"Bourbon and Scotch food pairing wheels grounded in flavor chemistry. 8 food categories from red meat to desserts, mapped to specific expressions with Best / Good / Avoid ratings.", features:["Bourbon food pairing","Scotch food pairing","Scotch flavor wheel","Scientific principles"] },
+  { id:"spice", icon:"leaf", title:"Herb & Spice Wheels", tag:"Live", tagColor:"#2A6090", desc:"40 herbs and spices mapped to bourbon and Scotch profiles using aroma chemistry. D-carvone, guaiacol, eugenol — the molecular science behind every pairing.", features:["40 herbs & spices","8 flavor families","Compound-level reasoning","Bourbon + Scotch tabs"] },
+  { id:"mashbill", icon:"grain", title:"Mashbill Reference", tag:"Live Now",    tagColor:C.forestMid, desc:"Complete grain science for all 11 major American whiskey distilleries including Willett and Four Roses. Grain composition bars, product lists, and production notes for every mashbill.", features:["11 distilleries","Visual grain bars","Four Roses 10-recipe decoder","Willett barrel legend"] },
 ];
 
 const ToolsPage = () => {
@@ -3920,7 +3947,7 @@ const ToolsPage = () => {
                 onClick={()=>["sommelier","pairing","spice","mashbill"].includes(tool.id)?setActiveTool(tool.id):null}>
                 <div style={{ background:C.cream, padding:"28px 28px 20px", borderBottom:`1px solid ${C.border}` }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"12px" }}>
-                    <span style={{ fontSize:"36px" }}>{tool.icon}</span>
+                    <Icon name={tool.icon} size={36} color={tool.tagColor} strokeWidth={1.3}/>
                     <span style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.15em", textTransform:"uppercase", padding:"3px 10px", borderRadius:"12px", background:`${tool.tagColor}18`, border:`1px solid ${tool.tagColor}40`, color:tool.tagColor }}>{tool.tag}</span>
                   </div>
                   <h3 style={{ ...styles.heading, fontSize:"22px", fontWeight:"700", color:C.forestDk, marginBottom:"10px" }}>{tool.title}</h3>
@@ -3995,7 +4022,7 @@ const ReviewsPage = ({ setPage }) => {
     }
   }, [tab]);
 
-  const bsIcons = { sipper:"🥃", mixer:"🍸", table:"🍽️", kitchen:"🔥" };
+  const bsIcons = { sipper:"glass", mixer:"cocktail", table:"plate", kitchen:"flame" };
   const bsNames = { sipper:"The Sipper", mixer:"The Mixer", table:"At the Table", kitchen:"The Kitchen" };
   const bsLabel = { perfect:"Perfect", great:"Great", works:"Works", skip:"Skip" };
   const bsColor = { perfect:C.gold, great:C.amber, works:C.textLight, skip:`${C.creamDk}80` };
@@ -4048,7 +4075,7 @@ const ReviewsPage = ({ setPage }) => {
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
                 {Object.entries(p.bestServed).map(([k,v])=>(
                   <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
-                    <div style={{ fontSize:"18px", marginBottom:"4px" }}>{bsIcons[k]}</div>
+                    <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
                     <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
                     <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v] }}>{bsLabel[v]}</span>
                   </div>
@@ -4128,7 +4155,7 @@ const ReviewsPage = ({ setPage }) => {
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
                 {[["sipper",p.bs_sipper],["mixer",p.bs_mixer],["table",p.bs_table],["kitchen",p.bs_kitchen]].map(([k,v])=>(
                   <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
-                    <div style={{ fontSize:"18px", marginBottom:"4px" }}>{bsIcons[k]}</div>
+                    <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
                     <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
                     <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v]||C.textLight }}>{bsLabel[v]||v}</span>
                   </div>
@@ -4209,7 +4236,7 @@ const ReviewsPage = ({ setPage }) => {
               )}
               {!loadingCommunity && !communityError && communityReviews.length === 0 && (
                 <div style={{ textAlign:"center", padding:"60px 24px", background:C.cream, borderRadius:"8px", border:`1px solid ${C.border}` }}>
-                  <div style={{ fontSize:"40px", marginBottom:"16px" }}>🥃</div>
+                  <div style={{ marginBottom:"16px" }}><Icon name="glass" size={40} color={C.gold} strokeWidth={1.2}/></div>
                   <h3 style={{ ...styles.heading, fontSize:"22px", fontWeight:"700", color:C.forestDk, marginBottom:"10px" }}>No Community Reviews Yet</h3>
                   <p style={{ ...styles.body, fontSize:"15px", color:C.textMid, lineHeight:"1.7", maxWidth:"420px", margin:"0 auto 20px" }}>Be the first to share your take on a bottle. Every review helps build the record.</p>
                   <button onClick={()=>setTab("submit")} style={{ padding:"11px 28px", background:C.forestDk, border:"none", color:C.gold, ...styles.heading, fontSize:"14px", fontWeight:"700", borderRadius:"4px", cursor:"pointer" }}>Leave a Review</button>
@@ -4393,7 +4420,7 @@ const SubmitPage = ({ setPage, embedded }) => {
     <div style={{ paddingTop: embedded ? "0" : "64px" }}>
       <section style={{ background:C.forestDk, padding:"80px 24px 100px", borderRadius: embedded ? "8px" : "0" }}>
         <div style={{ maxWidth:"560px", margin:"0 auto", textAlign:"center" }}>
-          <div style={{ fontSize:"56px", marginBottom:"20px" }}>🥃</div>
+          <div style={{ marginBottom:"20px" }}><Icon name="glass" size={56} color={C.gold} strokeWidth={1.2}/></div>
           <h1 style={{ ...styles.heading, fontSize:"42px", fontWeight:"900", color:C.cream, marginBottom:"16px" }}>Review Submitted</h1>
           <p style={{ ...styles.body, fontSize:"18px", color:`${C.cream}90`, lineHeight:"1.7" }}>
             Your review has been saved. We review every submission before it goes live — once approved, it'll appear on the site with a Community Review badge and join the collective record for that bottle. Every palate counts.
