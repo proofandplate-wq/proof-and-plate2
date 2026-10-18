@@ -593,7 +593,76 @@ const AboutPage = ({ setPage }) => (
 // ═══════════════════════════════════════════════════════════════════════════════
 // P&P REVIEWS (authored by PT — separate from the blog)
 // ═══════════════════════════════════════════════════════════════════════════════
+// Optional fields: proof, paid, msrp, bottler, body.
+// body = the full written review. Separate paragraphs with a blank line (\n\n);
+// start a paragraph with "## " to make it a subheading.
+// bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"5 min read", featured:false, date:"2026-10-17",
+    title:"Willett Pot Still Reserve Cask Strength",
+    desc:"The iconic decanter finally goes full proof. A good wheater, but not yet what this juice can become.",
+    distillery:"Willett Distillery", style:"Wheated Bourbon", age:"NAS", abv:60, proof:120, msrp:67, paid:59.99,
+    ppScore:57, scores:{ nose:14, palate:13, finish:10, value:20 },
+    bestServed:{ sipper:"perfect", mixer:"great" },
+    nose:"Moderate ethanol up front, with graham cracker, some baking spice, and subtle chocolate underneath. It smells like dessert. It's like being at your hippie friends' house while they pull some organic, homemade dessert out of the oven.",
+    palate:"It hides its 120 proof remarkably well. For a wheater, it's a moderate palate: some spice and a touch of Willett funk, but much less funk than I'd have guessed, and not as sweet as I would have expected. Honestly, it's a more standard bourbon palate than I expected from Willett. It's not bad, just not what I was expecting from this bottle.",
+    finish:"Not super long, but a decent finish. A little spice shows up at the end, along with some mild tannin. It isn't unpleasant, but you notice it's there.",
+    pairing:"",
+    verdict:"Buy It / Skip It", tags:["Bourbon","Wheated","Cask Strength","Under $70"],
+    body:"Willett's flagship Pot Still Reserve finally gets the full-proof treatment, in the same pot still decanter but with a purple strip on the neck. Released Fall 2026, it's the first batch of a new semi-annual release timed to the equinoxes. Willett is one of my favorite distilleries out there. Pure Kentucky, Kentucky Vintage, Old Bardstown, the Family Estates: everything they put out is unique, and not much else hits that Willett profile. So I came into this one with expectations.\n\n## What This Juice Can Become\n\nHere's what I didn't know going in: Pot Still Reserve is a wheated bourbon. It uses the same 65/20/15 mash bill as Willett's 8 Year Wheated, a bottle I love, and it goes into the barrel at the same 115 proof. That reframed the whole tasting for me.\n\nThe 8 Year Wheated is floral and sweet, and it drinks beautifully. And the best bourbon I think I've ever had came off this same wheated mash bill: a 9-year, 118.6-proof single barrel, Seelbach's 2026 \"Cafe Miele\" pick. It cost $400, and I still regret not buying a second bottle.\n\nSo I know what this distillate can do with a few more years in the barrel. At 4 to 6 years, the Pot Still Cask Strength isn't there yet. The florals that define the older wheaters don't show up here, and neither does the sweetness. It tastes like the same whiskey before it has had time to become what it can be.\n\n## Verdict\n\nThis is a good bourbon, and at $59.99 it's not bad at all, especially with the Willett name on it, since anything Willett can go for a lot these days. If you'd put it in front of me blind, though, I wouldn't have said Willett. It would be great on the rocks or in a cocktail. Neat, it's an easy sipper, but not a complex one; there just isn't a lot of depth here. And honestly, I'm not sure it sets itself apart from the regular Pot Still Reserve. It isn't a new favorite, but I'm glad I got to try Pot Still Reserve at full proof. The only real disappointment is that I know what this juice can become. A solid B-minus.\n\nBuy It if you love the regular Willett Pot Still Reserve; it's an interesting variation. Skip It if you're looking for the classic Willett funk of the Family Estates, or if you're a fan of the 8 Year Wheated. This is not that.\n\n— PT" },
+
+  { type:"review", cat:"Reviews", time:"4 min read", featured:false, date:"2026-10-17",
+    title:"Still Austin Single Barrel Cask Strength Straight Bourbon",
+    desc:"A candy-forward nose and an old-school profile, but it still shows its youth at $80.",
+    distillery:"Still Austin Whiskey Co.", style:"Bourbon", age:"3yr+", abv:58, proof:116, paid:80,
+    ppScore:59, scores:{ nose:20, palate:12, finish:12, value:15 },
+    bestServed:{ mixer:"perfect", sipper:"works" },
+    nose:"Candy-forward. Toffee leads, like an old-school toffee bar, with a touch of cinnamon and some chocolate underneath.",
+    palate:"A solid, old-school bourbon profile. There's some youth here, and more burn than I expected at 116. It's noticeable but not overpowering. The rye shows up as a bit of spice. I'd believe this is a high-rye mash bill, and that's a profile I tend to lean toward.",
+    finish:"Decently long. Leather comes through, with a little oak, but not a lot.",
+    pairing:"",
+    verdict:"Try It First", tags:["Bourbon","High Rye","Texas","Cask Strength","Single Barrel"],
+    body:"A distillery single barrel, not a store pick, from a 70% white corn, 25% Elbon rye, 5% malted barley mash bill of all Texas-grown grain. No barrel number is listed on the bottle.\n\nI haven't spent much time with Still Austin. My favorite of theirs so far is the Tanager cigar blend. I first tried the 2025 release at a friend's house, and it was very, very good. I have a bottle of it now. This is my first single barrel from them.\n\nThe bottle carries the newer label art: a horse head rising out of the water, with a white body and a dark, almost black face.\n\n## Verdict\n\nIt's a good pour and one of the better young bourbons I've had, but it still shows its youth, and it's not particularly special. The potential is there, and I think it could use more time in the barrel.\n\nThe price is the problem. I have an Old Dominick 9-year single barrel that I love, and it ran me about $58. Next to that, this doesn't drink like an $80 bottle.\n\nWould I buy again? Probably not. I'm not disappointed, just not blown away. It's an okay sipper, but I'd lean toward using it in a cocktail.\n\n— PT" },
+
+  { type:"review", cat:"Reviews", time:"4 min read", featured:false, date:"2026-10-16",
+    title:"Nashville Barrel Co. 35 Year Canadian Whiskey — The Hazmat Pick",
+    desc:"The best Canadian whiskey I've ever had. Give it time, and don't judge it by the nose.",
+    distillery:"Nashville Barrel Co.", style:"Canadian Whiskey", age:"35yr", abv:76.93, proof:153.86, paid:160,
+    ppScore:84, scores:{ nose:13, palate:23, finish:18, value:30 },
+    bestServed:{ sipper:"perfect" },
+    nose:"This one is hard to talk about. There's so much ethanol coming off the glass. After 15 minutes of rest and a couple of drops of water, it calmed down a little, but it still gave me almost nothing beyond strong alcohol.",
+    palate:"This is where it opens up, and it doesn't taste like Canadian whiskey to me. Subtle oak, sweetness, a little cherry, and a little Red Hots cinnamon. Then the fruit builds into something dark, like strawberry jam, with wine notes that remind me of a Burgundy. The store owner told me it drinks like 122. It doesn't — more like 135. There's a lot of burn, but once you get past it, there's a ton of flavor.",
+    finish:"Just a great finish.",
+    pairing:"",
+    verdict:"Buy It", tags:["Canadian","Single Barrel","Store Pick","Cask Strength","Age Statement"],
+    body:"A 35-year-old single barrel of Canadian whiskey, barrel #324, bottled at a full hazmat 153.86 proof by Nashville Barrel Company. This barrel was a store pick from The Winery 2 in Chamblee, Georgia — a shop I call Liquor Cats, because it used to be a Cats Liquor Store and the old sign is still up. I paid $160.\n\n## The Verdict\n\nThis is the best Canadian whiskey I've ever had.\n\nI went in skeptical. I thought I might have overpaid at $160, based on other reviews of Nashville Barrel's Canadian whiskeys, and I wasn't a fan of Rare Perfection 15. This barrel changed my mind. The nose is all heat, and it drinks hotter than I was told, but get past the burn and it's delicious: dark fruit, jam, and wine notes you'd never expect from a Canadian.\n\nGive it time in the glass, and don't judge it by the nose. At $160, I don't think I overpaid at all.\n\n— PT" },
+
+  { type:"review", cat:"Reviews", time:"4 min read", featured:false, date:"2026-10-15",
+    title:"Teeling 14 Year Single Cask, PX Sherry Finish — Georgia Select #001",
+    desc:"A dark, rich chocolate bomb with no peat, and a steal at $69.99.",
+    distillery:"Teeling Whiskey", style:"Irish Single Malt", age:"14yr", abv:56.4, proof:112.8, msrp:100, paid:69.99,
+    ppScore:83, scores:{ nose:21, palate:22, finish:15, value:25 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Chocolate, right away, over that malty richness single malt drinkers know. It edges toward Scotch without getting there, and there's no peat at all. As someone who doesn't love Scotch, that matters to me.",
+    palate:"More chocolate, dark and rich, with a great mouthfeel. The classic single malt character is all there. It's not overly sweet, with just a touch of oak and nothing tannic at all. There's a bit more heat than I'm used to from a single malt, but the flavor more than makes up for it. I'll be honest: I don't pick up much sherry. My sherry experience mostly comes from a splash on top of she-crab soup, so that may be my palate, not the whiskey.",
+    finish:"Decent. Most of the show is on the nose and palate, but it holds on well enough.",
+    pairing:"",
+    verdict:"Buy It", tags:["Irish","Single Malt","Single Cask","Sherry Finish","Store Pick"],
+    body:"A 14-year Irish single malt from a single cask (#29605), finished in PX sherry and picked as Georgia Select #001. Non-chill filtered. I paid $69.99 on sale; I believe MSRP was around $100.\n\nThis one is a chocolate bomb. It pours a deep, dark color, and the chocolate shows up from the first sniff.\n\n## The Verdict\n\nThis is a fantastic pour. It's dark, rich, and unique, and of the single malts I've had, mostly Scotch, it's among the best.\n\nA caveat: I'm new to Irish whiskey, so I'm not the expert here. I also know a single malt like this isn't typical of the category. But I'm not a Scotch person, and I loved it.\n\nIt won't be for everyone. If you're strictly a bourbon drinker, this probably isn't your bottle. If you already like American single malts (I'm a big fan of Rare Character's malted whiskeys and still lean slightly toward those), this is a deeper dive in the same direction.\n\nAt $69.99 on sale, it's a great pour for the price.\n\n— PT" },
+
+  { type:"review", cat:"Reviews", time:"5 min read", featured:false, date:"2026-10-15",
+    title:"The Reveries Raven, Batch 5",
+    desc:"Five aged components on paper. Balanced but forgettable in the glass at $144.",
+    distillery:"The Reveries", style:"Blended Bourbon", age:"8–15yr blend", abv:61.1, proof:122.2, msrp:160, paid:144,
+    ppScore:55, scores:{ nose:17, palate:14, finish:12, value:12 },
+    bestServed:{},
+    nose:"Classic bourbon, start to finish. Nothing jumps out of the glass, but nothing is out of place either. It's well balanced, just ordinary.",
+    palate:"This is where Raven lost me. Oak and leather lead, with a touch of sweetness and very little spice. The mouthfeel is nothing special, a little thin. There's some older juice in here, but not enough of the 15-year to move the needle. For a blend built around high-rye bourbon at over 120 proof, I expected more going on. It's not a special palate.",
+    finish:"Better than average, but not long. A little oak and leather hang around before it fades.",
+    pairing:"",
+    verdict:"Try It First", tags:["Bourbon","Blend","Cask Strength","High Rye"],
+    body:"The Raven Batch 5 is a five-part blend of straight bourbons from The Reveries, the independent bottling label from Jay West. It's bottled at 122.2 proof with an MSRP of $160. I paid $144 — below MSRP for a new release at my local store, which tells me I may not be the only one with mixed feelings.\n\n## The Blend\n\nTwo 8-year Kentucky bourbons at 75/21/4 (22% and 26% of the blend), a 10-year Indiana bourbon at 75/21/4 (27%), a 14-year Kentucky bourbon at 75/13/12 (16%), and a 15-year Kentucky bourbon at 75/13/12 (9%).\n\nRun the math and the blend works out to a weighted average age of about 10 years, with an effective mash bill near 75/19/6. Three-quarters of the bottle is 8 to 10 year high-rye bourbon; the 14 and 15 year components make up the remaining quarter.\n\n## The Verdict\n\nI went in with high expectations. I've read a lot of great things about The Reveries, and plenty of people take bourbon advice from T8KE, the Reddit personality behind the brand. Batch 5 is my first, and maybe earlier batches were better, but I wasn't blown away.\n\nIt's a good bourbon and a decent blend. It's just not $144 good. On paper it should be more: five age-stated components, a quarter of the bottle at 14 and 15 years, and cask-strength proof. In the glass, the nose is balanced but forgettable, the palate is thin, and the finish is fine but not long.\n\nIt reminds me of some of the Rare Character limited releases. They launched at $150 to $200, you tried them and wondered why, and now they sell for around $80. At $80, they're fine. At $80, Raven would be fine too.\n\nAt $144, I was hoping for a lot more. If the blend recipe interests you, pour it at a bar before committing to a bottle.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"5 min read", featured:true,
     title:"Willett Family Estate 4-Year Small Batch Rye",
     desc:"The bottle that started it all. One sip and I understood what I'd been missing.",
@@ -4036,7 +4105,7 @@ const ReviewsPage = ({ setPage }) => {
           <div style={{ maxWidth:"760px", margin:"0 auto" }}>
             <button onClick={()=>setSelectedReview(null)} style={{ background:"none", border:"none", color:C.gold, ...styles.body, fontSize:"14px", cursor:"pointer", marginBottom:"24px" }}>← Back to Reviews</button>
             <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"10px" }}>
-              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.18em", color:C.gold, textTransform:"uppercase" }}>{p.distillery} · {p.style} · {p.age}</div>
+              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.18em", color:C.gold, textTransform:"uppercase" }}>{p.distillery}{p.bottler ? ` (bottled by ${p.bottler})` : ""} · {p.style} · {p.age}</div>
               <span style={{ ...styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:`${C.gold}30`, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase" }}>P&P Review</span>
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:"24px", paddingBottom:"32px" }}>
@@ -4066,10 +4135,21 @@ const ReviewsPage = ({ setPage }) => {
                 </div>
               ))}
             </div>
+            {p.pairing && (
             <div style={{ marginBottom:"28px", padding:"20px 24px", background:C.cream, borderLeft:`3px solid ${C.gold}`, borderRadius:"0 6px 6px 0", border:`1px solid ${C.border}` }}>
               <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>Pair It With</div>
               <p style={{ ...styles.body, fontSize:"15px", color:C.textDk, lineHeight:"1.65", fontStyle:"italic" }}>{p.pairing}</p>
             </div>
+            )}
+            {p.body && (
+              <div style={{ marginBottom:"32px" }}>
+                {p.body.split(/\n\s*\n/).map((para,idx)=> para.startsWith("## ")
+                  ? <h3 key={idx} style={{ ...styles.heading, fontSize:"22px", fontWeight:"700", color:C.forestDk, margin:"28px 0 12px" }}>{para.slice(3)}</h3>
+                  : <p key={idx} style={{ ...styles.body, fontSize:"17px", color:C.textDk, lineHeight:"1.8", marginBottom:"16px" }}>{para}</p>
+                )}
+              </div>
+            )}
+            {p.bestServed && Object.keys(p.bestServed).length > 0 && (
             <div style={{ marginBottom:"28px" }}>
               <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As</div>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
@@ -4082,8 +4162,9 @@ const ReviewsPage = ({ setPage }) => {
                 ))}
               </div>
             </div>
+            )}
             <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"12px", paddingTop:"20px", borderTop:`1px solid ${C.border}` }}>
-              <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>MSRP <strong style={{ color:C.textDk }}>${p.msrp}</strong> · {p.abv}% ABV</div>
+              <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>{[p.msrp ? <span key="m">MSRP <strong style={{ color:C.textDk }}>${p.msrp}</strong></span> : null, p.paid ? <span key="p">Paid <strong style={{ color:C.textDk }}>${p.paid}</strong></span> : null, p.proof ? <span key="pr">{p.proof} proof ({p.abv}% ABV)</span> : (p.abv ? <span key="a">{p.abv}% ABV</span> : null)].filter(Boolean).reduce((acc,el,idx)=> idx ? [...acc," · ",el] : [el], [])}</div>
               <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
                 <span style={{ ...styles.mono, fontSize:"9px", padding:"5px 14px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.08em", textTransform:"uppercase" }}>{p.verdict}</span>
                 {p.tags.map(t=>(<span key={t} style={{ ...styles.body, fontSize:"11px", padding:"4px 10px", border:`1px solid ${C.border}`, borderRadius:"2px", color:C.textMid }}>{t}</span>))}
