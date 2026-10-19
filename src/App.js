@@ -51,6 +51,9 @@ const BS_PILL = {
   skip:    { background:"transparent", color:C.textLight, border:`1px dashed ${C.borderDk}` },
 };
 const bsPill = (v) => BS_PILL[v] || { background:C.creamMid, color:C.textMid };
+// Always list all four uses in a fixed order; any use not rated reads as "skip".
+const BS_ORDER = ["sipper","mixer","table","kitchen"];
+const bsEntries = (bs) => BS_ORDER.map(k => [k, (bs && bs[k]) || "skip"]);
 
 const styles = {
   heading: { fontFamily:"'Playfair Display', Georgia, serif" },
@@ -1362,7 +1365,7 @@ const BlogPage = () => {
               <div style={{ marginBottom:"28px" }}>
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As</div>
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
-                  {Object.entries(p.bestServed).map(([k,v])=>(
+                  {bsEntries(p.bestServed).map(([k,v])=>(
                     <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
                       <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
                       <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
@@ -4376,7 +4379,7 @@ const ReviewsPage = ({ setPage }) => {
             <div style={{ marginBottom:"28px" }}>
               <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As</div>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
-                {Object.entries(p.bestServed).map(([k,v])=>(
+                {bsEntries(p.bestServed).map(([k,v])=>(
                   <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
                     <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
                     <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
