@@ -43,6 +43,15 @@ const C = {
   shadow:     "rgba(30,45,28,0.15)",
 };
 
+// Best Served As rating pills, styled for light backgrounds.
+const BS_PILL = {
+  perfect: { background:C.gold, color:C.forestDk, fontWeight:600 },
+  great:   { background:`${C.gold}38`, color:C.goldDk, fontWeight:600 },
+  works:   { background:C.creamMid, color:C.textMid },
+  skip:    { background:"transparent", color:C.textLight, border:`1px dashed ${C.borderDk}` },
+};
+const bsPill = (v) => BS_PILL[v] || { background:C.creamMid, color:C.textMid };
+
 const styles = {
   heading: { fontFamily:"'Playfair Display', Georgia, serif" },
   body:    { fontFamily:"'EB Garamond', Georgia, serif" },
@@ -1357,7 +1366,7 @@ const BlogPage = () => {
                     <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
                       <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
                       <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
-                      <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v] }}>{bsLabel[v]}</span>
+                      <span style={{ fontSize:"12px", fontFamily:"'EB Garamond',serif", padding:"3px 10px", borderRadius:"3px", ...bsPill(v) }}>{bsLabel[v]}</span>
                     </div>
                   ))}
                 </div>
@@ -4371,7 +4380,7 @@ const ReviewsPage = ({ setPage }) => {
                   <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
                     <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
                     <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
-                    <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v] }}>{bsLabel[v]}</span>
+                    <span style={{ fontSize:"12px", fontFamily:"'EB Garamond',serif", padding:"3px 10px", borderRadius:"3px", ...bsPill(v) }}>{bsLabel[v]}</span>
                   </div>
                 ))}
               </div>
@@ -4447,7 +4456,7 @@ const ReviewsPage = ({ setPage }) => {
                     <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
                       <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
                       <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
-                      <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v]||C.textLight }}>{v ? (bsLabel[v]||v) : "—"}</span>
+                      <span style={{ fontSize:"12px", fontFamily:"'EB Garamond',serif", padding:"3px 10px", borderRadius:"3px", ...bsPill(v) }}>{v ? (bsLabel[v]||v) : "—"}</span>
                     </div>
                   ))}
                 </div>
