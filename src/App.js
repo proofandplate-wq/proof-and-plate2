@@ -102,6 +102,59 @@ const GlobalStyle = () => (
     .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px ${C.forestDk}25; }
     .blog-card:hover { transform: translateY(-3px); }
 
+
+    /* ── PHONE LAYOUT (≤760px) ─────────────────────────────────────────
+       Most styles are inline, so these rules match them by their inline
+       values and override with !important. Desktop is untouched. */
+    .nav-burger { display:none; }
+    @media (max-width: 860px) {
+      .nav-links { display:none !important; }
+      .nav-burger { display:block; }
+    }
+    @media (min-width: 861px) { .nav-panel { display:none; } }
+    @media (max-width: 760px) {
+      /* multi-column layouts stack */
+      [style*="grid-template-columns: 1fr 1fr 1fr"],
+      [style*="grid-template-columns: repeat(3, 1fr)"],
+      [style*="grid-template-columns: 1fr 1.5fr"],
+      [style*="grid-template-columns: 1fr 1fr;"],
+      [style*="grid-template-columns: 140px 1fr 1fr 160px"] { grid-template-columns:1fr !important; }
+      [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns:repeat(2, 1fr) !important; }
+      [style*="grid-template-columns: 2fr 1fr 1fr 1fr"] { grid-template-columns:1fr 1fr !important; }
+      [style*="grid-template-columns: 2fr 1fr 1fr 1fr"] > :first-child { grid-column:1 / -1; }
+      [style*="gap: 60px"] { gap:32px !important; }
+      [style*="max-width: 280px"] { max-width:none !important; }
+
+      /* tiny desktop labels become readable */
+      [style*="font-size: 6px"], [style*="font-size: 7px"], [style*="font-size: 8px"] { font-size:12px !important; }
+      [style*="font-size: 9px"] { font-size:12px !important; }
+      [style*="font-size: 10px"] { font-size:12.5px !important; }
+      [style*="font-size: 11px"] { font-size:13px !important; }
+      [style*="font-size: 12px"] { font-size:14px !important; }
+      [style*="font-size: 13px"] { font-size:14.5px !important; }
+      [style*="font-size: 14px"] { font-size:15.5px !important; }
+      [style*="font-size: 15px"] { font-size:16px !important; }
+
+      /* oversized desktop headlines scale down */
+      [style*="font-size: 56px"], [style*="font-size: 52px"] { font-size:38px !important; }
+      [style*="font-size: 44px"], [style*="font-size: 42px"] { font-size:34px !important; }
+      [style*="font-size: 40px"] { font-size:32px !important; }
+
+      /* homepage hero: stats strip moves below the buttons */
+      .hero { flex-direction:column; align-items:stretch !important; min-height:0 !important; padding-top:110px !important; }
+      .hero-stats { position:static !important; margin-top:56px; }
+      .hero-stats-row { display:grid !important; grid-template-columns:1fr 1fr; gap:20px !important; }
+
+      /* wheel labels: larger, still inside their wedges */
+      svg[viewBox="0 0 600 600"] { overflow:visible; }
+      svg[viewBox="0 0 600 600"] g > text:first-child { display:none; }   /* wedge emoji icons */
+      svg[viewBox="0 0 600 600"] text[font-size="8"], svg[viewBox="0 0 600 600"] text[font-size="8.5"] { font-size:13.5px; }
+      svg[viewBox="0 0 600 600"] text[font-size="6.5"], svg[viewBox="0 0 600 600"] text[font-size="7"], svg[viewBox="0 0 600 600"] text[font-size="9"] { font-size:13px; }
+      .tool-body { padding:12px 4px 40px !important; }
+
+      /* comfortable side padding on full-width sections */
+      section { padding-left:20px !important; padding-right:20px !important; }
+    }
     .ig-grid { display:grid; grid-template-columns:repeat(6, 1fr); gap:10px; }
     @media (max-width: 900px) { .ig-grid { grid-template-columns:repeat(3, 1fr); } }
     @media (max-width: 520px) { .ig-grid { grid-template-columns:repeat(2, 1fr); } }
@@ -174,8 +227,16 @@ const Nav = ({ page, setPage }) => {
             />
           </button>
 
+        {/* Phone menu button */}
+        <button className="nav-burger" onClick={()=>setMenuOpen(o=>!o)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen}
+          style={{ background:"none", border:`1px solid ${C.gold}80`, borderRadius:"4px", padding:"8px 10px", cursor:"pointer", lineHeight:0 }}>
+          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke={C.gold} strokeWidth="1.6" strokeLinecap="round">
+            {menuOpen ? <><path d="M4 2l14 12"/><path d="M18 2L4 14"/></> : <><path d="M1 2h20"/><path d="M1 8h20"/><path d="M1 14h20"/></>}
+          </svg>
+        </button>
+
         {/* Desktop Links */}
-        <div style={{ display:"flex", gap:"6px", alignItems:"center" }}>
+        <div className="nav-links" style={{ display:"flex", gap:"6px", alignItems:"center" }}>
           {links.map(l => (
             <button key={l.id} onClick={()=>setPage(l.id)} className="nav-link"
               style={{
@@ -201,6 +262,19 @@ const Nav = ({ page, setPage }) => {
           </button>
         </div>
       </div>
+
+      {/* Phone menu panel */}
+      {menuOpen && (
+        <div className="nav-panel" style={{ borderTop:`1px solid ${C.goldDk}60`, padding:"8px 24px 20px", background:C.forestDk }}>
+          {links.map(l => (
+            <button key={l.id} onClick={()=>{ setPage(l.id); setMenuOpen(false); }}
+              style={{ display:"block", width:"100%", textAlign:"left", background:"none", border:"none", borderBottom:`1px solid ${C.forestLt}`,
+                padding:"14px 0", ...styles.body, fontSize:"19px", color: page===l.id ? C.gold : C.cream, fontWeight: page===l.id ? "600" : "400", cursor:"pointer" }}>
+              {l.label}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };
@@ -344,7 +418,7 @@ const HomePage = ({ setPage }) => {
   return (
     <div>
       {/* Hero */}
-      <section className="grain" style={{ background:C.forestDk, minHeight:"100vh", display:"flex", alignItems:"center", position:"relative", overflow:"hidden", paddingTop:"64px" }}>
+      <section className="grain hero" style={{ background:C.forestDk, minHeight:"100vh", display:"flex", alignItems:"center", position:"relative", overflow:"hidden", paddingTop:"64px" }}>
         {/* Background texture elements */}
         <div style={{ position:"absolute", inset:0, backgroundImage:`radial-gradient(ellipse at 30% 50%, ${C.goldDk}15 0%, transparent 60%), radial-gradient(ellipse at 70% 30%, ${C.forestTint}10 0%, transparent 50%)`, pointerEvents:"none" }}/>
         <div style={{ position:"absolute", top:"10%", right:"5%", width:"400px", height:"400px", borderRadius:"50%", border:`1px solid ${C.goldDk}20`, pointerEvents:"none" }}/>
@@ -377,9 +451,9 @@ const HomePage = ({ setPage }) => {
         </div>
 
         {/* Decorative stat strip */}
-        <div style={{ position:"absolute", bottom:0, left:0, right:0, background:`${C.goldDk}25`, borderTop:`1px solid ${C.goldDk}40`, padding:"18px 24px" }}>
-          <div style={{ maxWidth:"1100px", margin:"0 auto", display:"flex", gap:"40px", justifyContent:"center", flexWrap:"wrap" }}>
-            {[["106","Whiskey Expressions"],["11","Distilleries Mapped"],["40","Herbs & Spices"],["200+","Flavor Data Points"]].map(([n,l])=>(
+        <div className="hero-stats" style={{ position:"absolute", bottom:0, left:0, right:0, background:`${C.goldDk}25`, borderTop:`1px solid ${C.goldDk}40`, padding:"18px 24px" }}>
+          <div className="hero-stats-row" style={{ maxWidth:"1100px", margin:"0 auto", display:"flex", gap:"40px", justifyContent:"center", flexWrap:"wrap" }}>
+            {[["104","Whiskey Expressions"],["31","Producers Mapped"],["40","Herbs & Spices"],["200+","Flavor Data Points"]].map(([n,l])=>(
               <div key={l} style={{ textAlign:"center" }}>
                 <div style={{ ...styles.heading, fontSize:"28px", fontWeight:"700", color:C.amber }}>{n}</div>
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.15em", color:`${C.cream}60`, textTransform:"uppercase" }}>{l}</div>
@@ -4080,7 +4154,7 @@ const ToolsPage = () => {
           <div style={{ ...styles.heading, fontSize:"18px", fontWeight:"700", color:C.creamMid }}>{TOOL_TITLES[activeTool]}</div>
           <div style={{ ...styles.mono, fontSize:"8px", color:`${C.gold}70`, letterSpacing:"0.2em", textTransform:"uppercase", marginLeft:"auto" }}>Proof &amp; Plate</div>
         </div>
-        <div style={{ padding:"24px 24px 48px", background: C.ivory, minHeight:"calc(100vh - 64px)" }}>
+        <div className="tool-body" style={{ padding:"24px 24px 48px", background: C.ivory, minHeight:"calc(100vh - 64px)" }}>
           {activeTool==="sommelier" && <SommelierEmbed/>}
           {activeTool==="pairing"   && <PairingWheelsApp/>}
           {activeTool==="spice"     && <SpiceWheelsApp/>}
@@ -4635,7 +4709,7 @@ const SubmitPage = ({ setPage, embedded }) => {
       <section style={{ background: embedded ? "transparent" : C.ivory, padding: embedded ? "0" : "60px 24px 100px" }}>
         <div style={{ maxWidth:"720px", margin:"0 auto" }}>
 
-          <div style={{ display:"flex", gap:"8px", marginBottom:"48px", justifyContent:"center", alignItems:"center" }}>
+          <div style={{ display:"flex", flexWrap:"wrap", gap:"10px 8px", marginBottom:"48px", justifyContent:"center", alignItems:"center" }}>
             {["Basic Info","Tasting Notes","Scores","Flavor Profile"].map((s,i) => (
               <React.Fragment key={s}>
                 <div onClick={()=>setStep(i+1)} style={{ display:"flex", alignItems:"center", gap:"6px", cursor:"pointer" }}>
