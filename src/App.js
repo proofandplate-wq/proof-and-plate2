@@ -207,7 +207,7 @@ const Footer = ({ setPage }) => (
           />
 
           <p style={{ ...styles.body, fontSize:"14px", lineHeight:"1.7", color:`${C.cream}80`, maxWidth:"280px" }}>
-            American whiskey and Scotch — the science, the story, and the food that belongs beside both. Built for the curious, the serious, and everyone in between.
+            Whiskey and Scotch — the science, the story, and the food that belongs beside both. Built for the curious, the serious, and everyone in between.
           </p>
         </div>
         {[
@@ -255,7 +255,7 @@ const Footer = ({ setPage }) => (
 // ═══════════════════════════════════════════════════════════════════════════════
 const HomePage = ({ setPage }) => {
   const featured = [
-    { icon:"glass", title:"Whiskey Sommelier", desc:"106 expressions across 11 distilleries. Select any bourbon or rye and discover your next dram through our flavor-matching engine.", tag:"Interactive Tool", page:"tools" },
+    { icon:"glass", title:"Whiskey Sommelier", desc:"104 expressions of American whiskey and Scotch. Pick a bottle you know and discover your next dram through our flavor-matching engine.", tag:"Interactive Tool", page:"tools" },
     { icon:"grain", title:"Mashbill Reference", desc:"The grain science behind every major American whiskey. Explore how corn, rye, wheat, and malted barley shape what's in your glass.", tag:"Reference Guide", page:"tools" },
     { icon:"plate", title:"Food Pairing Wheels", desc:"Bourbon with red meat. Scotch with oysters. Dark chocolate with sherried Speyside. Explore pairings grounded in flavor chemistry.", tag:"Pairing Science", page:"tools" },
     { icon:"leaf", title:"Herb & Spice Wheels", desc:"Why does rye whiskey love dill? The same carvone molecule. Explore 40 herbs and spices mapped to bourbon and Scotch profiles.", tag:"Flavor Chemistry", page:"tools" },
@@ -286,7 +286,7 @@ const HomePage = ({ setPage }) => {
           <div style={{ maxWidth:"680px" }}>
             <div style={{ ...styles.mono, fontSize:"11px", letterSpacing:"0.35em", color:C.gold, textTransform:"uppercase", marginBottom:"24px" }}>
             <img src={LOGO_URI} alt="Proof &amp; Plate" style={{ height:"72px", width:"auto", objectFit:"contain", marginBottom:"20px", opacity:0.9, display:"block" }} />
-              ◆ &nbsp; Bourbon &middot; Scotch &middot; Food Science &middot; Est. 2026
+              ◆ &nbsp; Whiskey &middot; Scotch &middot; Food Science &middot; Est. 2026
             </div>
             <h1 style={{ ...styles.heading, fontSize:"clamp(52px, 8vw, 88px)", fontWeight:"900", color:C.cream, lineHeight:"1.05", marginBottom:"28px" }}>
               Proof<br/>
@@ -1315,7 +1315,7 @@ const BlogPage = () => {
             ) : (
               <div style={{ background:C.cream, borderRadius:"8px", border:`1px solid ${C.border}`, padding:"32px 36px" }}>
                 <p style={{ fontFamily:styles.body, fontSize:"17px", color:C.textMid, lineHeight:"1.85" }}>
-                  Full article coming soon. Explore the Tools section — the Whiskey Sommelier maps your palate across 106 expressions.
+                  Full article coming soon. Explore the Tools section — the Whiskey Sommelier maps your palate across 104 expressions.
                 </p>
               </div>
             )}
@@ -3985,7 +3985,7 @@ function SpiceWheelsApp() {
 }
 
 const TOOLS_LIST = [
-  { id:"sommelier", icon:"glass", title:"Whiskey Sommelier", tag:"Live", tagColor:C.gold, desc:"106 expressions across American whiskey and Scotch. Select any dram and find your next bottle through our flavor-matching engine — with cross-category bridge recommendations.", features:["Flavor profile radar charts","If you like X, try Y engine","Price & availability tiers","Filter by distillery or tier"] },
+  { id:"sommelier", icon:"glass", title:"Whiskey Sommelier", tag:"Live", tagColor:C.gold, desc:"104 expressions across American whiskey and Scotch. Select any dram and find your next bottle through our flavor-matching engine — with cross-category bridge recommendations.", features:["Flavor profile radar charts","If you like X, try Y engine","Price & availability tiers","Filter by distillery or tier"] },
   { id:"pairing", icon:"plate", title:"Food Pairing Wheels", tag:"Live Now", tagColor:C.forestMid, desc:"Bourbon and Scotch food pairing wheels grounded in flavor chemistry. 8 food categories from red meat to desserts, mapped to specific expressions with Best / Good / Avoid ratings.", features:["Bourbon food pairing","Scotch food pairing","Scotch flavor wheel","Scientific principles"] },
   { id:"spice", icon:"leaf", title:"Herb & Spice Wheels", tag:"Live", tagColor:"#46698C", desc:"40 herbs and spices mapped to bourbon and Scotch profiles using aroma chemistry. D-carvone, guaiacol, eugenol — the molecular science behind every pairing.", features:["40 herbs & spices","8 flavor families","Compound-level reasoning","Bourbon + Scotch tabs"] },
   { id:"mashbill", icon:"grain", title:"Mashbill Reference", tag:"Live Now",    tagColor:C.forestMid, desc:"Complete grain science for all 11 major American whiskey distilleries including Willett and Four Roses. Grain composition bars, product lists, and production notes for every mashbill.", features:["11 distilleries","Visual grain bars","Four Roses 10-recipe decoder","Willett barrel legend"] },
@@ -4023,7 +4023,7 @@ const ToolsPage = () => {
             Explore the <span style={{ color:C.gold, fontStyle:"italic" }}>Tools</span>
           </h1>
           <p style={{ ...styles.body, fontSize:"18px", color:`${C.cream}AA`, lineHeight:"1.7" }}>
-            Interactive resources for exploring palate, pairings, and the science of American whiskey.
+            Interactive resources for exploring palate, pairings, and the science of whiskey.
           </p>
         </div>
       </section>
