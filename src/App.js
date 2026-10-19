@@ -54,6 +54,13 @@ const bsPill = (v) => BS_PILL[v] || { background:C.creamMid, color:C.textMid };
 // Always list all four uses in a fixed order; any use not rated reads as "skip".
 const BS_ORDER = ["sipper","mixer","table","kitchen"];
 const bsEntries = (bs) => BS_ORDER.map(k => [k, (bs && bs[k]) || "skip"]);
+// What each use means (shown on review pages and the review form).
+const BS_DESC = {
+  sipper:  "So good you'll want it neat.",
+  mixer:   "Shines in cocktails and mixed drinks.",
+  table:   "Neat or on the rocks with a meal. Food may mask some subtler notes.",
+  kitchen: "Best used for cooking.",
+};
 
 const styles = {
   heading: { fontFamily:"'Playfair Display', Georgia, serif" },
@@ -1366,9 +1373,10 @@ const BlogPage = () => {
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As</div>
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
                   {bsEntries(p.bestServed).map(([k,v])=>(
-                    <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
+                    <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent", display:"flex", flexDirection:"column", alignItems:"center" }}>
                       <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
-                      <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                      <div style={{ ...styles.body, fontSize:"13px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                      <div style={{ ...styles.body, fontSize:"12px", color:C.textMid, lineHeight:"1.35", marginBottom:"10px", padding:"0 4px", flex:1 }}>{BS_DESC[k]}</div>
                       <span style={{ fontSize:"12px", fontFamily:"'EB Garamond',serif", padding:"3px 10px", borderRadius:"3px", ...bsPill(v) }}>{bsLabel[v]}</span>
                     </div>
                   ))}
@@ -4380,9 +4388,10 @@ const ReviewsPage = ({ setPage }) => {
               <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As</div>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
                 {bsEntries(p.bestServed).map(([k,v])=>(
-                  <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
+                  <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent", display:"flex", flexDirection:"column", alignItems:"center" }}>
                     <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
-                    <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                    <div style={{ ...styles.body, fontSize:"13px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                      <div style={{ ...styles.body, fontSize:"12px", color:C.textMid, lineHeight:"1.35", marginBottom:"10px", padding:"0 4px", flex:1 }}>{BS_DESC[k]}</div>
                     <span style={{ fontSize:"12px", fontFamily:"'EB Garamond',serif", padding:"3px 10px", borderRadius:"3px", ...bsPill(v) }}>{bsLabel[v]}</span>
                   </div>
                 ))}
@@ -4456,9 +4465,10 @@ const ReviewsPage = ({ setPage }) => {
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As (most common answer)</div>
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
                   {Object.entries(g.bestServed).map(([k,v])=>(
-                    <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
+                    <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent", display:"flex", flexDirection:"column", alignItems:"center" }}>
                       <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
-                      <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                      <div style={{ ...styles.body, fontSize:"13px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                      <div style={{ ...styles.body, fontSize:"12px", color:C.textMid, lineHeight:"1.35", marginBottom:"10px", padding:"0 4px", flex:1 }}>{BS_DESC[k]}</div>
                       <span style={{ fontSize:"12px", fontFamily:"'EB Garamond',serif", padding:"3px 10px", borderRadius:"3px", ...bsPill(v) }}>{v ? (bsLabel[v]||v) : "—"}</span>
                     </div>
                   ))}
@@ -4858,9 +4868,10 @@ const SubmitPage = ({ setPage, embedded }) => {
               <SliderRow label="Value" hint="out of 30" field="sValue" min={0} max={30} />
               <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, textTransform:"uppercase", margin:"28px 0 14px" }}>Best Served As</div>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px", marginBottom:"28px" }}>
-                {[["The Sipper","bsSipper"],["The Mixer","bsMixer"],["At the Table","bsTable"],["The Kitchen","bsKitchen"]].map(([lbl,k])=>(
-                  <div key={k} style={{ background:C.creamMid, borderRadius:"6px", border:`1px solid ${C.border}`, padding:"12px 8px", textAlign:"center" }}>
-                    <div style={{ ...styles.mono, fontSize:"10px", color:C.forestTint, textTransform:"uppercase", marginBottom:"8px", letterSpacing:"0.08em" }}>{lbl}</div>
+                {[["The Sipper","bsSipper","sipper"],["The Mixer","bsMixer","mixer"],["At the Table","bsTable","table"],["The Kitchen","bsKitchen","kitchen"]].map(([lbl,k,d])=>(
+                  <div key={k} style={{ background:C.creamMid, borderRadius:"6px", border:`1px solid ${C.border}`, padding:"12px 8px", textAlign:"center", display:"flex", flexDirection:"column" }}>
+                    <div style={{ ...styles.mono, fontSize:"10px", color:C.forestTint, textTransform:"uppercase", marginBottom:"6px", letterSpacing:"0.08em" }}>{lbl}</div>
+                    <div style={{ ...styles.body, fontSize:"12px", color:C.textMid, lineHeight:"1.35", marginBottom:"10px", flex:1 }}>{BS_DESC[d]}</div>
                     <select style={{ ...styles.body, fontSize:"13px", border:`1px solid ${C.border}`, borderRadius:"4px", padding:"4px 6px", background:C.cream, color:C.forestDk, width:"100%" }} value={form[k]} onChange={e=>set(k,e.target.value)}>
                       <option value="perfect">Perfect</option><option value="great">Great</option><option value="works">Works</option><option value="skip">Skip</option>
                     </select>
