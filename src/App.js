@@ -393,7 +393,7 @@ const HomePage = ({ setPage }) => {
             {posts.map(p => (
               <div key={p.title} className="blog-card"
                 style={{ background:`${C.forest}80`, border:`1px solid ${C.goldDk}40`, borderRadius:"8px", padding:"28px", cursor:"pointer", transition:"all 0.3s" }}
-                onClick={()=>setSelectedPost(p)}>
+                onClick={()=>{ PENDING_POST_TITLE = p.title; setPage("blog"); }}>
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.15em", color:C.gold, textTransform:"uppercase", marginBottom:"12px" }}>{p.cat}</div>
                 <h3 style={{ ...styles.heading, fontSize:"20px", fontWeight:"700", color:C.cream, marginBottom:"12px", lineHeight:"1.3" }}>{p.title}</h3>
                 <p style={{ ...styles.body, fontSize:"14px", color:`${C.cream}80`, lineHeight:"1.65", marginBottom:"16px" }}>{p.desc}</p>
@@ -402,7 +402,7 @@ const HomePage = ({ setPage }) => {
             ))}
           </div>
           <div style={{ textAlign:"center" }}>
-            <button onClick={()=>setSelectedPost(p)} className="btn-outline"
+            <button onClick={()=>setPage("blog")} className="btn-outline"
               style={{ padding:"14px 40px", background:"transparent", border:`1.5px solid ${C.border}60`, color:C.cream, ...styles.body, fontSize:"15px", borderRadius:"4px", transition:"all 0.2s" }}>
               Read All Articles
             </button>
@@ -1142,9 +1142,15 @@ const CATEGORIES = ["All", "Cocktails", "Kitchen", "Pairings", "Bitters & Infusi
 
 const CAT_COLORS = { "Reviews":"#C9A87A","Community Reviews":"#334632","Cocktails":"#2A6090","Kitchen":"#B8732A","Pairings":"#2A8060","Bitters & Infusions":"#6A3DBF","Bourbon Education":"#B8732A","Scotch Education":"#2A6090","Single Barrel":"#8A2A5A","Pairing Guide":"#2A8060","Mashbill Science":"#6A3DBF","Distillery Spotlight":"#A0622A","Flavor Chemistry":"#8B5216" };
 
+// Set by the homepage article cards so the Blog opens straight to that article.
+let PENDING_POST_TITLE = null;
+
 const BlogPage = () => {
   const [activeCat, setActiveCat] = useState("All");
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(() => {
+    const t = PENDING_POST_TITLE; PENDING_POST_TITLE = null;
+    return t ? (BLOG_POSTS.find(b => b.title === t) || null) : null;
+  });
   const filtered = activeCat === "All" ? BLOG_POSTS : BLOG_POSTS.filter(p => p.cat === activeCat);
   const catColors = { "Bourbon Education":"#B8732A","Scotch Education":"#2A6090","Single Barrel":"#8A2A5A","Pairing Guide":"#2A8060","Mashbill Science":"#6A3DBF","Distillery Spotlight":"#A0622A","Flavor Chemistry":"#8B5216" };
 
