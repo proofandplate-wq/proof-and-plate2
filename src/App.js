@@ -101,6 +101,17 @@ const GlobalStyle = () => (
 
     .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px ${C.forestDk}25; }
     .blog-card:hover { transform: translateY(-3px); }
+
+    .ig-grid { display:grid; grid-template-columns:repeat(6, 1fr); gap:10px; }
+    @media (max-width: 900px) { .ig-grid { grid-template-columns:repeat(3, 1fr); } }
+    @media (max-width: 520px) { .ig-grid { grid-template-columns:repeat(2, 1fr); } }
+    .ig-tile { position:relative; display:block; aspect-ratio:1 / 1; overflow:hidden; border-radius:4px; background:${C.creamMid}; }
+    .ig-tile img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.5s ease; }
+    .ig-tile .ig-cap { position:absolute; inset:0; display:flex; align-items:flex-end; padding:12px; background:linear-gradient(to top, ${C.forestDk}E6 0%, ${C.forestDk}00 65%); opacity:0; transition:opacity 0.25s ease; }
+    .ig-tile:hover img, .ig-tile:focus-visible img { transform:scale(1.04); }
+    .ig-tile:hover .ig-cap, .ig-tile:focus-visible .ig-cap { opacity:1; }
+    .ig-tile:focus-visible { outline:2px solid ${C.gold}; outline-offset:3px; }
+    @media (prefers-reduced-motion: reduce) { .ig-tile img, .ig-tile .ig-cap { transition:none; } .ig-tile:hover img { transform:none; } }
     .nav-link:hover { color: ${C.gold} !important; }
     .btn-primary:hover { background: ${C.goldDk} !important; }
     .btn-outline:hover { background: ${C.gold}15 !important; }
@@ -252,6 +263,63 @@ const Footer = ({ setPage }) => (
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // HOME PAGE
+// ─── INSTAGRAM STRIP ─────────────────────────────────────────────────
+// Latest posts from @proof_and_plate via a Behold JSON feed (behold.so).
+// To change the account or plan, update the feed in Behold; this URL stays the same.
+const INSTAGRAM_FEED_URL = "https://feeds.behold.so/ZWFgZ0P5cn9P4Xrs9DF1";
+const INSTAGRAM_PROFILE_URL = "https://instagram.com/proof_and_plate";
+
+const InstagramStrip = () => {
+  const [posts, setPosts] = useState(null);   // null = loading, [] = nothing to show
+  useEffect(() => {
+    let alive = true;
+    fetch(INSTAGRAM_FEED_URL)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(d => { if (alive) setPosts(Array.isArray(d.posts) ? d.posts.slice(0, 6) : []); })
+      .catch(() => { if (alive) setPosts([]); });
+    return () => { alive = false; };
+  }, []);
+
+  if (posts && posts.length === 0) return null;   // feed down or empty: hide the section
+
+  const imgFor = (p) => (p.sizes && p.sizes.medium && p.sizes.medium.mediaUrl) || p.thumbnailUrl || p.mediaUrl;
+  const titleFor = (p) => (p.prunedCaption || "").split("\n").map(l => l.trim()).find(Boolean) || "";
+
+  return (
+    <section style={{ background:C.ivory, padding:"90px 24px" }}>
+      <div style={{ maxWidth:"1100px", margin:"0 auto" }}>
+        <div style={{ display:"flex", alignItems:"flex-end", justifyContent:"space-between", gap:"20px", flexWrap:"wrap", marginBottom:"32px" }}>
+          <div>
+            <h2 style={{ ...styles.heading, fontSize:"40px", fontWeight:"700", color:C.forestDk, marginBottom:"8px" }}>From Instagram</h2>
+            <p style={{ ...styles.body, fontSize:"17px", color:C.textMid }}>Pours, plates and bottle hunts, as they happen.</p>
+          </div>
+          <a href={INSTAGRAM_PROFILE_URL} target="_blank" rel="noopener noreferrer"
+            style={{ ...styles.body, fontSize:"16px", color:C.goldDk, textDecoration:"none", borderBottom:`1px solid ${C.gold}`, paddingBottom:"2px" }}>
+            Follow @proof_and_plate
+          </a>
+        </div>
+        <div className="ig-grid">
+          {(posts || Array.from({ length:6 }, (_, i) => ({ id:`ph${i}` }))).map(p => p.permalink ? (
+            <a key={p.id} href={p.permalink} target="_blank" rel="noopener noreferrer" className="ig-tile"
+              aria-label={titleFor(p) ? `Instagram post: ${titleFor(p)}` : "Instagram post"}>
+              <img src={imgFor(p)} alt={p.altText || titleFor(p) || "Proof & Plate on Instagram"} loading="lazy" />
+              {titleFor(p) && (
+                <span className="ig-cap">
+                  <span style={{ ...styles.body, fontSize:"13px", lineHeight:"1.4", color:C.cream, display:"-webkit-box", WebkitLineClamp:3, WebkitBoxOrient:"vertical", overflow:"hidden" }}>
+                    {titleFor(p)}
+                  </span>
+                </span>
+              )}
+            </a>
+          ) : (
+            <div key={p.id} className="ig-tile" aria-hidden="true" />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // ═══════════════════════════════════════════════════════════════════════════════
 const HomePage = ({ setPage }) => {
   const featured = [
@@ -409,6 +477,8 @@ const HomePage = ({ setPage }) => {
           </div>
         </div>
       </section>
+
+      <InstagramStrip />
 
       {/* CTA */}
       <section style={{ background:C.creamDk, padding:"80px 24px", textAlign:"center", borderTop:`1px solid ${C.border}` }}>
