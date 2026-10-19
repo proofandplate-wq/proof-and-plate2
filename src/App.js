@@ -663,28 +663,26 @@ const PP_REVIEWS = [
     verdict:"Try It First", tags:["Bourbon","Blend","Cask Strength","High Rye"],
     body:"The Raven Batch 5 is a five-part blend of straight bourbons from The Reveries, the independent bottling label from Jay West. It's bottled at 122.2 proof with an MSRP of $160. I paid $144 — below MSRP for a new release at my local store, which tells me I may not be the only one with mixed feelings.\n\n## The Blend\n\nTwo 8-year Kentucky bourbons at 75/21/4 (22% and 26% of the blend), a 10-year Indiana bourbon at 75/21/4 (27%), a 14-year Kentucky bourbon at 75/13/12 (16%), and a 15-year Kentucky bourbon at 75/13/12 (9%).\n\nRun the math and the blend works out to a weighted average age of about 10 years, with an effective mash bill near 75/19/6. Three-quarters of the bottle is 8 to 10 year high-rye bourbon; the 14 and 15 year components make up the remaining quarter.\n\n## The Verdict\n\nI went in with high expectations. I've read a lot of great things about The Reveries, and plenty of people take bourbon advice from T8KE, the Reddit personality behind the brand. Batch 5 is my first, and maybe earlier batches were better, but I wasn't blown away.\n\nIt's a good bourbon and a decent blend. It's just not $144 good. On paper it should be more: five age-stated components, a quarter of the bottle at 14 and 15 years, and cask-strength proof. In the glass, the nose is balanced but forgettable, the palate is thin, and the finish is fine but not long.\n\nIt reminds me of some of the Rare Character limited releases. They launched at $150 to $200, you tried them and wondered why, and now they sell for around $80. At $80, they're fine. At $80, Raven would be fine too.\n\nAt $144, I was hoping for a lot more. If the blend recipe interests you, pour it at a bar before committing to a bottle.\n\n— PT" },
 
-  // TODO: add verdict and bestServed when PT sets them
   { type:"review", cat:"Reviews", time:"2 min read", featured:false, date:"2026-10",
     title:"Bull Run 21 Year Bourbon, Cabernet Cask Finished",
     desc:"21 years old. 125 proof. And anything but tired.",
     distillery:"Bull Run Distilling", style:"Bourbon, Cabernet Cask Finish", age:"21yr", abv:62.52, proof:125.04, paid:125,
     ppScore:83, scores:{ nose:18, palate:22, finish:20, value:23 },
-    bestServed:{},
+    bestServed:{ sipper:"perfect" },
     nose:"", palate:"", finish:"",
     pairing:"",
-    verdict:"", tags:["Bourbon","Wine Cask Finish","Cask Strength","Age Statement"],
+    verdict:"Buy It", tags:["Bourbon","Wine Cask Finish","Cask Strength","Age Statement"],
     body:"Bull Run has long been on my radar for their exceptionally aged light whiskey at surprisingly approachable prices. I have several of their 14–17 year releases, and they've consistently impressed me.\n\nBut this one is something entirely different.\n\nA 21-year-old straight bourbon finished in Cabernet casks — and it is absolutely phenomenal.\n\nAt this age, you might expect the oak to dominate. Instead, this bourbon is bold, vibrant, and remarkably balanced. The wood is unmistakably there, as you'd hope after 21 years, but it never overwhelms the whiskey. There's a depth and intensity here that makes this pour incredibly unique.\n\nIt's not often you find a bourbon this old that still has this much life in it.\n\nMy only complaint? I need more bottles.\n\nBatch PWS-5, 125.04 proof.\n\n— PT" },
 
-  // TODO: add verdict and bestServed when PT sets them
   { type:"review", cat:"Reviews", time:"1 min read", featured:false, date:"2026-10-07",
     title:"Woodinville 10 Year Straight Bourbon",
     desc:"Better than alright. The finish on these annual releases keeps getting better.",
     distillery:"Woodinville Whiskey Co.", style:"Bourbon", age:"10yr", abv:50, proof:100, paid:135,
     ppScore:75, scores:{ nose:20, palate:20, finish:15, value:20 },
-    bestServed:{},
+    bestServed:{ sipper:"perfect" },
     nose:"", palate:"", finish:"",
     pairing:"",
-    verdict:"", tags:["Bourbon","Age Statement","Annual Release"],
+    verdict:"Buy It", tags:["Bourbon","Age Statement","Annual Release"],
     body:"This is better than alright. The finish on these Woodinville annual releases keeps getting better and better. Love the new bottle design as well.\n\nI hope we see a 9 year rye this year to round out the offering.\n\n— PT" },
 
   { type:"review", cat:"Reviews", time:"5 min read", featured:true,
