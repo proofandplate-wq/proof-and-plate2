@@ -663,6 +663,30 @@ const PP_REVIEWS = [
     verdict:"Try It First", tags:["Bourbon","Blend","Cask Strength","High Rye"],
     body:"The Raven Batch 5 is a five-part blend of straight bourbons from The Reveries, the independent bottling label from Jay West. It's bottled at 122.2 proof with an MSRP of $160. I paid $144 — below MSRP for a new release at my local store, which tells me I may not be the only one with mixed feelings.\n\n## The Blend\n\nTwo 8-year Kentucky bourbons at 75/21/4 (22% and 26% of the blend), a 10-year Indiana bourbon at 75/21/4 (27%), a 14-year Kentucky bourbon at 75/13/12 (16%), and a 15-year Kentucky bourbon at 75/13/12 (9%).\n\nRun the math and the blend works out to a weighted average age of about 10 years, with an effective mash bill near 75/19/6. Three-quarters of the bottle is 8 to 10 year high-rye bourbon; the 14 and 15 year components make up the remaining quarter.\n\n## The Verdict\n\nI went in with high expectations. I've read a lot of great things about The Reveries, and plenty of people take bourbon advice from T8KE, the Reddit personality behind the brand. Batch 5 is my first, and maybe earlier batches were better, but I wasn't blown away.\n\nIt's a good bourbon and a decent blend. It's just not $144 good. On paper it should be more: five age-stated components, a quarter of the bottle at 14 and 15 years, and cask-strength proof. In the glass, the nose is balanced but forgettable, the palate is thin, and the finish is fine but not long.\n\nIt reminds me of some of the Rare Character limited releases. They launched at $150 to $200, you tried them and wondered why, and now they sell for around $80. At $80, they're fine. At $80, Raven would be fine too.\n\nAt $144, I was hoping for a lot more. If the blend recipe interests you, pour it at a bar before committing to a bottle.\n\n— PT" },
 
+  // TODO: add ppScore, scores, verdict and bestServed when PT sets them
+  { type:"review", cat:"Reviews", time:"2 min read", featured:false, date:"2026-10",
+    title:"Bull Run 21 Year Bourbon, Cabernet Cask Finished",
+    desc:"21 years old. 125 proof. And anything but tired.",
+    distillery:"Bull Run Distilling", style:"Bourbon, Cabernet Cask Finish", age:"21yr", abv:62.52, proof:125.04,
+    ppScore:null, scores:null,
+    bestServed:{},
+    nose:"", palate:"", finish:"",
+    pairing:"",
+    verdict:"", tags:["Bourbon","Wine Cask Finish","Cask Strength","Age Statement"],
+    body:"Bull Run has long been on my radar for their exceptionally aged light whiskey at surprisingly approachable prices. I have several of their 14–17 year releases, and they've consistently impressed me.\n\nBut this one is something entirely different.\n\nA 21-year-old straight bourbon finished in Cabernet casks — and it is absolutely phenomenal.\n\nAt this age, you might expect the oak to dominate. Instead, this bourbon is bold, vibrant, and remarkably balanced. The wood is unmistakably there, as you'd hope after 21 years, but it never overwhelms the whiskey. There's a depth and intensity here that makes this pour incredibly unique.\n\nIt's not often you find a bourbon this old that still has this much life in it.\n\nMy only complaint? I need more bottles.\n\nBatch PWS-5, 125.04 proof.\n\n— PT" },
+
+  // TODO: add ppScore, scores, verdict, bestServed and price when PT sets them
+  { type:"review", cat:"Reviews", time:"1 min read", featured:false, date:"2026-10-07",
+    title:"Woodinville 10 Year Straight Bourbon",
+    desc:"Better than alright. The finish on these annual releases keeps getting better.",
+    distillery:"Woodinville Whiskey Co.", style:"Bourbon", age:"10yr", abv:50, proof:100,
+    ppScore:null, scores:null,
+    bestServed:{},
+    nose:"", palate:"", finish:"",
+    pairing:"",
+    verdict:"", tags:["Bourbon","Age Statement","Annual Release"],
+    body:"This is better than alright. The finish on these Woodinville annual releases keeps getting better and better. Love the new bottle design as well.\n\nI hope we see a 9 year rye this year to round out the offering.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"5 min read", featured:true,
     title:"Willett Family Estate 4-Year Small Batch Rye",
     desc:"The bottle that started it all. One sip and I understood what I'd been missing.",
@@ -4110,15 +4134,18 @@ const ReviewsPage = ({ setPage }) => {
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:"24px", paddingBottom:"32px" }}>
               <h1 style={{ ...styles.heading, fontSize:"clamp(26px,4vw,40px)", fontWeight:"900", color:C.creamMid, lineHeight:"1.2", flex:1 }}>{p.title}</h1>
+              {p.ppScore != null && (
               <div style={{ textAlign:"center", background:"rgba(0,0,0,0.25)", borderRadius:"6px", padding:"12px 18px", minWidth:"80px", flexShrink:0 }}>
                 <div style={{ ...styles.heading, fontSize:"36px", fontWeight:"700", color:C.gold, lineHeight:1 }}>{p.ppScore}</div>
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", color:`${C.cream}70`, marginTop:"4px", textTransform:"uppercase" }}>P&P Score</div>
               </div>
+              )}
             </div>
           </div>
         </section>
         <section style={{ background:C.ivory, padding:"40px 28px 80px" }}>
           <div style={{ maxWidth:"760px", margin:"0 auto" }}>
+            {p.scores && (
             <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"32px" }}>
               {[["Nose",p.scores.nose,25],["Palate",p.scores.palate,25],["Finish",p.scores.finish,20],["Value",p.scores.value,30]].map(([lbl,val,max])=>(
                 <div key={lbl} style={{ background:C.cream, border:`1px solid ${C.border}`, borderRadius:"6px", padding:"16px", textAlign:"center" }}>
@@ -4127,6 +4154,8 @@ const ReviewsPage = ({ setPage }) => {
                 </div>
               ))}
             </div>
+            )}
+            {(p.nose || p.palate || p.finish) && (
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"20px", marginBottom:"28px" }}>
               {[["Nose",p.nose],["Palate",p.palate],["Finish",p.finish]].map(([lbl,txt])=>(
                 <div key={lbl}>
@@ -4135,6 +4164,7 @@ const ReviewsPage = ({ setPage }) => {
                 </div>
               ))}
             </div>
+            )}
             {p.pairing && (
             <div style={{ marginBottom:"28px", padding:"20px 24px", background:C.cream, borderLeft:`3px solid ${C.gold}`, borderRadius:"0 6px 6px 0", border:`1px solid ${C.border}` }}>
               <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>Pair It With</div>
@@ -4166,7 +4196,7 @@ const ReviewsPage = ({ setPage }) => {
             <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"12px", paddingTop:"20px", borderTop:`1px solid ${C.border}` }}>
               <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>{[p.msrp ? <span key="m">MSRP <strong style={{ color:C.textDk }}>${p.msrp}</strong></span> : null, p.paid ? <span key="p">Paid <strong style={{ color:C.textDk }}>${p.paid}</strong></span> : null, p.proof ? <span key="pr">{p.proof} proof ({p.abv}% ABV)</span> : (p.abv ? <span key="a">{p.abv}% ABV</span> : null)].filter(Boolean).reduce((acc,el,idx)=> idx ? [...acc," · ",el] : [el], [])}</div>
               <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
-                <span style={{ ...styles.mono, fontSize:"9px", padding:"5px 14px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.08em", textTransform:"uppercase" }}>{p.verdict}</span>
+                {p.verdict && <span style={{ ...styles.mono, fontSize:"9px", padding:"5px 14px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.08em", textTransform:"uppercase" }}>{p.verdict}</span>}
                 {p.tags.map(t=>(<span key={t} style={{ ...styles.body, fontSize:"11px", padding:"4px 10px", border:`1px solid ${C.border}`, borderRadius:"2px", color:C.textMid }}>{t}</span>))}
               </div>
             </div>
@@ -4292,13 +4322,13 @@ const ReviewsPage = ({ setPage }) => {
                   style={{ background:C.cream, border:`1px solid ${C.border}`, borderRadius:"8px", padding:"26px", cursor:"pointer", transition:"all 0.3s", borderTop:`3px solid ${C.gold}` }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px" }}>
                     <div style={{ fontFamily:styles.mono, fontSize:"9px", letterSpacing:"0.14em", color:C.gold, textTransform:"uppercase" }}>{p.distillery}</div>
-                    <span style={{ ...styles.heading, fontSize:"20px", fontWeight:"700", color:C.forestDk }}>{p.ppScore}</span>
+                    {p.ppScore != null && <span style={{ ...styles.heading, fontSize:"20px", fontWeight:"700", color:C.forestDk }}>{p.ppScore}</span>}
                   </div>
                   <span style={{ display:"inline-block", fontFamily:styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:`${C.gold}30`, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase", marginBottom:"10px" }}>P&P Review</span>
                   <h3 style={{ fontFamily:styles.heading, fontSize:"18px", fontWeight:"700", color:C.textDk, marginBottom:"10px", lineHeight:"1.3" }}>{p.title}</h3>
                   <p style={{ fontFamily:styles.body, fontSize:"14px", color:C.textMid, lineHeight:"1.65", marginBottom:"14px" }}>{p.desc}</p>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <span style={{ ...styles.mono, fontSize:"9px", padding:"4px 10px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.06em", textTransform:"uppercase" }}>{p.verdict}</span>
+                    {p.verdict ? <span style={{ ...styles.mono, fontSize:"9px", padding:"4px 10px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.06em", textTransform:"uppercase" }}>{p.verdict}</span> : <span />}
                     <span style={{ fontFamily:styles.body, fontSize:"13px", color:C.gold }}>Read →</span>
                   </div>
                 </div>
