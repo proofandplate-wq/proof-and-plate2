@@ -1532,16 +1532,16 @@ const ContactPage = () => {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // ─── Mini Sommelier (condensed for embedding) ─────────────────────────────────
-const DC_T = { "Buffalo Trace":"#C9A84C","Wild Turkey":"#D4550A","Jim Beam":"#2D6E3A","Heaven Hill":"#6A3DBF","Old Forester":"#BF8020","MGP Indiana":"#1A6090","Michter's":"#9B3AA0","Green River":"#2A9060","Bardstown BBC":"#C03030","Willett":"#C04080","Four Roses":"#E85030" };
-const ST = { bg:"#06050A",bgCard:"#0E0C14",bgHover:"#13111C",border:"#1E1A2E",borderFt:"#2C2640",gold:"#C9A84C",goldDim:"#7A6430",cream:"#EDE0C4",muted:"#6B6080",mutedMid:"#9188A0",white:"#F4EEE0",red:"#E05252",amber:"#E8A030",green:"#3EBF6E" };
+const DC_T = { "Buffalo Trace":"#94703F","Wild Turkey":"#B8622E","Jim Beam":"#4F7652","Heaven Hill":"#6E5C99","Old Forester":"#B0803A","MGP Indiana":"#40698F","Michter's":"#8E5A90","Green River":"#4A8A6A","Bardstown BBC":"#A84A40","Willett":"#A8587A","Four Roses":"#C0603F" };
+const ST = { bg:"#FAF7EF",bgCard:"#FFFDF7",bgHover:"#F4EED8",border:"#E3D9BF",borderFt:"#D2C4A0",gold:"#94703F",goldDim:"#C9A87A",cream:"#1E2D1C",muted:"#6B7D68",mutedMid:"#4F654C",white:"#1E2D1C",red:"#B0483A",amber:"#B0791E",green:"#3E7B4A" };
 // ─── SOMMELIER DARK THEME COLORS ───────────────────────────────────────────────
 const T = {
-  bg:"#1A2818", bgCard:"#222F20", bgHover:"#2A3E28",
-  border:"#2E4A2A", borderFt:"#3A5E36",
-  gold:"#C9A87A", goldDim:"#7A6A38", cream:"#EDE2C6",
-  muted:"#6B8A68", mutedMid:"#8AAA88", white:"#F4EED8",
-  red:"#E05252", amber:"#E8A030", green:"#3EBF6E",
-  scotchBlue:"#4A8AB8", scotchBlueDim:"#2A5A80",
+  bg:"#FAF7EF", bgCard:"#FFFDF7", bgHover:"#F4EED8",
+  border:"#E3D9BF", borderFt:"#D2C4A0",
+  gold:"#94703F", goldDim:"#C9A87A", cream:"#1E2D1C",
+  muted:"#6B7D68", mutedMid:"#4F654C", white:"#1E2D1C",
+  red:"#B0483A", amber:"#B0791E", green:"#3E7B4A",
+  scotchBlue:"#4E7090", scotchBlueDim:"#5C7F9C",
 };
 
 
@@ -1550,19 +1550,19 @@ const T = {
 // ═══════════════════════════════════════════════════════════════════════════════
 const DC = {
   // American
-  "Buffalo Trace":"#C9A84C","Wild Turkey":"#D4550A","Jim Beam":"#2D6E3A",
-  "Heaven Hill":"#6A3DBF","Old Forester":"#BF8020","MGP Indiana":"#1A6090",
-  "Michter's":"#9B3AA0","Green River":"#2A9060","Bardstown BBC":"#C03030",
-  "Willett":"#C04080","Four Roses":"#E85030",
+  "Buffalo Trace":"#94703F","Wild Turkey":"#B8622E","Jim Beam":"#4F7652",
+  "Heaven Hill":"#6E5C99","Old Forester":"#B0803A","MGP Indiana":"#40698F",
+  "Michter's":"#8E5A90","Green River":"#4A8A6A","Bardstown BBC":"#A84A40",
+  "Willett":"#A8587A","Four Roses":"#C0603F",
   // New American
-  "Jack Daniel's":"#5A4A3A","Angel's Envy":"#7A3A7A",
-  "New Riff":"#2A5A7A","Wilderness Trail":"#5A7A2A","WhistlePig":"#4A6A3A",
+  "Jack Daniel's":"#6E5E4E","Angel's Envy":"#7D5A86",
+  "New Riff":"#4F7189","Wilderness Trail":"#647E3E","WhistlePig":"#5C7A4C",
   // Scotch
-  "Macallan":"#8B3A3A","Glenfiddich":"#C8820A","Glenlivet":"#2A7A6A",
-  "Balvenie":"#A06020","Laphroaig":"#3A4A3A","Ardbeg":"#2A4A2A",
-  "Lagavulin":"#3A3A6A","Talisker":"#2A5A7A","Highland Park":"#6A4A8A",
-  "GlenDronach":"#7A2A4A","Glenmorangie":"#B08A20","Aberlour":"#8A2A3A",
-  "Oban":"#3A6A6A","Springbank":"#4A6A3A",
+  "Macallan":"#94504A","Glenfiddich":"#B8862E","Glenlivet":"#3E7E76",
+  "Balvenie":"#A06A30","Laphroaig":"#5A665A","Ardbeg":"#4E6450",
+  "Lagavulin":"#56587E","Talisker":"#4F7189","Highland Park":"#78628F",
+  "GlenDronach":"#8A4A5E","Glenmorangie":"#A88A3A","Aberlour":"#8E4A50",
+  "Oban":"#4E7A76","Springbank":"#5C7A4C",
 };
 
 const MASHBILLS = {
@@ -1854,24 +1854,24 @@ function sim(a,b){let s=0;FL_KEYS.forEach(k=>{const d=(a.fl[k]||0)-(b.fl[k]||0);
 function getSimilar(target,pool,n){return pool.filter(b=>b.id!==target.id).map(b=>({...b,score:sim(target,b)})).sort((a,b)=>a.score-b.score).slice(0,n);}
 
 const TIER_META={
-  common:{icon:"🟢",label:"Widely Available",color:T.green,bg:"#0d2010",border:"#1e4520"},
-  allocated:{icon:"🟡",label:"Allocated",color:T.amber,bg:"#201408",border:"#4a3010"},
-  unicorn:{icon:"🔴",label:"Unicorn / Rare",color:T.red,bg:"#1e0808",border:"#4a1010"},
+  common:{icon:"🟢",label:"Widely Available",color:T.green,bg:"#E5EEDD",border:"#BFD3B2"},
+  allocated:{icon:"🟡",label:"Allocated",color:T.amber,bg:"#F6EBD5",border:"#E5CFA2"},
+  unicorn:{icon:"🔴",label:"Unicorn / Rare",color:T.red,bg:"#F6E4DF",border:"#E2B8AE"},
 };
 const PRICE_LABEL={"$":"Under $40","$$":"$40-$80","$$$":"$80-$150","$$$$":"$150-$300","$$$$$":"$300+"};
 const RADAR_AXES=[
-  {key:"sweet",label:"Sweet",color:"#C9A87A"},{key:"spice",label:"Spice",color:"#E05252"},
-  {key:"oak",label:"Oak",color:"#8B6030"},{key:"fruit",label:"Fruit",color:"#D06070"},
-  {key:"vanilla",label:"Vanilla",color:"#F0C080"},{key:"herbal",label:"Herbal",color:"#3EBF6E"},
-  {key:"floral",label:"Floral",color:"#C080D0"},{key:"smoke",label:"Smoke",color:"#708080"},
+  {key:"sweet",label:"Sweet",color:"#94703F"},{key:"spice",label:"Spice",color:"#B0483A"},
+  {key:"oak",label:"Oak",color:"#8A6438"},{key:"fruit",label:"Fruit",color:"#B86872"},
+  {key:"vanilla",label:"Vanilla",color:"#D4AE6E"},{key:"herbal",label:"Herbal",color:"#3E7B4A"},
+  {key:"floral",label:"Floral",color:"#9C78A8"},{key:"smoke",label:"Smoke",color:"#7A8484"},
 ];
 
 const SCOTCH_REGIONS=[
-  {name:"Speyside",color:"#C8820A",desc:"Fruity, sweet, complex. The heart of Scotch — over 60 distilleries along the River Spey.",expressions:["Macallan","Glenfiddich","Glenlivet","Balvenie","Aberlour"]},
-  {name:"Highland",color:"#2A7A6A",desc:"Diverse range — from delicate floral to rich sherried. Scotland's largest region.",expressions:["GlenDronach","Glenmorangie","Oban"]},
-  {name:"Islay",color:"#3A4A3A",desc:"Peated and maritime. The most distinctive Scotch region — smoke, brine, and complexity.",expressions:["Laphroaig","Ardbeg","Lagavulin"]},
-  {name:"Island",color:"#2A5A7A",desc:"Diverse islands outside Islay — maritime character, often light peat.",expressions:["Talisker (Skye)","Highland Park (Orkney)"]},
-  {name:"Campbeltown",color:"#4A6A3A",desc:"Once had 30+ distilleries, now just a few. Oily, maritime, complex. Unique in Scotch.",expressions:["Springbank"]},
+  {name:"Speyside",color:"#B8862E",desc:"Fruity, sweet, complex. The heart of Scotch — over 60 distilleries along the River Spey.",expressions:["Macallan","Glenfiddich","Glenlivet","Balvenie","Aberlour"]},
+  {name:"Highland",color:"#3E7E76",desc:"Diverse range — from delicate floral to rich sherried. Scotland's largest region.",expressions:["GlenDronach","Glenmorangie","Oban"]},
+  {name:"Islay",color:"#5A665A",desc:"Peated and maritime. The most distinctive Scotch region — smoke, brine, and complexity.",expressions:["Laphroaig","Ardbeg","Lagavulin"]},
+  {name:"Island",color:"#4F7189",desc:"Diverse islands outside Islay — maritime character, often light peat.",expressions:["Talisker (Skye)","Highland Park (Orkney)"]},
+  {name:"Campbeltown",color:"#5C7A4C",desc:"Once had 30+ distilleries, now just a few. Oily, maritime, complex. Unique in Scotch.",expressions:["Springbank"]},
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1912,7 +1912,7 @@ function RecCard({b,i,onSelect,showNum=true}){
       <div style={{fontSize:"9px",color:T.mutedMid,lineHeight:"1.4",marginBottom:"5px"}}>{b.notes}</div>
       <div style={{display:"flex",alignItems:"center",gap:"5px"}}>
         <span style={{fontSize:"8px",color:T.goldDim,width:"30px"}}>Match</span>
-        <div style={{flex:1,height:"3px",borderRadius:"2px",background:"rgba(255,255,255,0.06)"}}><div style={{width:`${pct}%`,height:"100%",background:b.color,borderRadius:"2px"}}/></div>
+        <div style={{flex:1,height:"3px",borderRadius:"2px",background:"rgba(30,45,28,0.06)"}}><div style={{width:`${pct}%`,height:"100%",background:b.color,borderRadius:"2px"}}/></div>
         <span style={{fontSize:"8px",color:b.color,width:"26px",textAlign:"right"}}>{pct}%</span>
       </div>
     </div>
@@ -1928,7 +1928,7 @@ function MashbillTab(){
   const[mbTab,setMbTab]=useState("american");
   const names=Object.keys(MASHBILLS);
   const dist=MASHBILLS[activeDist];
-  const TC={bourbon:"#C9A87A",wheated:"#3EBF6E",rye:"#4A90D9",specialty:"#9B59B6"};
+  const TC={bourbon:"#94703F",wheated:"#3E7B4A",rye:"#5079A3",specialty:"#8768A0"};
   const TL={bourbon:"Bourbon",wheated:"Wheated",rye:"Rye Whiskey",specialty:"Specialty"};
   return(<div style={{display:"flex",flexDirection:"column",gap:"12px"}}>
     <div style={{display:"flex",gap:"3px",background:T.bgCard,borderRadius:"7px",padding:"3px",border:`1px solid ${T.border}`}}>
@@ -1951,7 +1951,7 @@ function MashbillTab(){
       </div>
       <div style={{display:"flex",flexDirection:"column",gap:"6px"}}>
         {dist.mashbills.map((mb,mi)=>{
-          const isA=activeMb===mi,tc=TC[mb.type]||"#888";
+          const isA=activeMb===mi,tc=TC[mb.type]||"#7A8478";
           return(<div key={mi} onClick={()=>setActiveMb(isA?null:mi)} style={{padding:"11px 13px",borderRadius:"8px",cursor:"pointer",background:isA?`${tc}16`:T.bgCard,border:`1.5px solid ${isA?tc:T.border}`,transition:"all 0.15s"}}>
             <div style={{display:"flex",alignItems:"center",gap:"8px"}}>
               <div style={{width:"4px",borderRadius:"2px",alignSelf:"stretch",background:tc,flexShrink:0,minHeight:"18px"}}/>
@@ -1961,14 +1961,14 @@ function MashbillTab(){
                   <span style={{fontSize:"8px",padding:"1px 6px",borderRadius:"8px",background:`${tc}20`,border:`1px solid ${tc}40`,color:tc}}>{TL[mb.type]}</span>
                 </div>
                 {mb.corn!=null?(<div>
-                  <div style={{display:"flex",borderRadius:"4px",overflow:"hidden",height:"11px",marginBottom:"3px"}}>
-                    {mb.corn>0&&<div style={{width:`${mb.corn}%`,background:"#C9A87A",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:"6px",color:"#000",fontWeight:"700"}}>{mb.corn>10?`C${mb.corn}`:""}</span></div>}
-                    {mb.rye>0&&<div style={{width:`${mb.rye}%`,background:"#E05252",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:"6px",color:"#fff",fontWeight:"700"}}>{mb.rye>5?`R${mb.rye}`:""}</span></div>}
-                    {mb.wheat>0&&<div style={{width:`${mb.wheat}%`,background:"#3EBF6E",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:"6px",color:"#000",fontWeight:"700"}}>{mb.wheat>5?`W${mb.wheat}`:""}</span></div>}
-                    {mb.barley>0&&<div style={{width:`${mb.barley}%`,background:"#708080",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:"6px",color:"#fff",fontWeight:"700"}}>{mb.barley>5?`B${mb.barley}`:""}</span></div>}
+                  <div style={{display:"flex",borderRadius:"4px",overflow:"hidden",height:"14px",marginBottom:"4px"}}>
+                    {mb.corn>0&&<div style={{width:`${mb.corn}%`,background:"#D8BC84",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:"8px",color:"#1E2D1C",fontWeight:"700"}}>{mb.corn>10?`C${mb.corn}`:""}</span></div>}
+                    {mb.rye>0&&<div style={{width:`${mb.rye}%`,background:"#B0483A",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:"8px",color:"#fff",fontWeight:"700"}}>{mb.rye>5?`R${mb.rye}`:""}</span></div>}
+                    {mb.wheat>0&&<div style={{width:`${mb.wheat}%`,background:"#3E7B4A",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:"8px",color:"#fff",fontWeight:"700"}}>{mb.wheat>5?`W${mb.wheat}`:""}</span></div>}
+                    {mb.barley>0&&<div style={{width:`${mb.barley}%`,background:"#7A8484",display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{fontSize:"8px",color:"#fff",fontWeight:"700"}}>{mb.barley>5?`B${mb.barley}`:""}</span></div>}
                   </div>
                   <div style={{display:"flex",gap:"8px",flexWrap:"wrap"}}>
-                    {[["Corn",mb.corn,"#C9A87A"],["Rye",mb.rye,"#E05252"],["Wheat",mb.wheat,"#3EBF6E"],["Malt",mb.barley,"#708080"]].filter(([,v])=>v>0).map(([l,v,c])=><span key={l} style={{fontSize:"9px",color:c}}>{l} {v}%</span>)}
+                    {[["Corn",mb.corn,"#8A6A3A"],["Rye",mb.rye,"#B0483A"],["Wheat",mb.wheat,"#3E7B4A"],["Malt",mb.barley,"#7A8484"]].filter(([,v])=>v>0).map(([l,v,c])=><span key={l} style={{fontSize:"9px",color:c}}>{l} {v}%</span>)}
                   </div>
                 </div>):<div style={{fontSize:"9px",color:T.muted,fontStyle:"italic"}}>Recipe/yeast system — no single grain bill</div>}
               </div>
@@ -1978,21 +1978,21 @@ function MashbillTab(){
               <div style={{display:"flex",flexWrap:"wrap",gap:"3px",marginBottom:"8px"}}>
                 {mb.products.map(p=><span key={p} style={{fontSize:"9px",padding:"2px 7px",borderRadius:"5px",background:`${tc}15`,border:`1px solid ${tc}30`,color:T.cream}}>{p}</span>)}
               </div>
-              <div style={{fontSize:"10px",color:T.mutedMid,lineHeight:"1.6",padding:"6px 8px",background:"rgba(0,0,0,0.3)",borderRadius:"5px",borderLeft:`2px solid ${tc}`}}>{mb.notes}</div>
+              <div style={{fontSize:"10px",color:T.mutedMid,lineHeight:"1.6",padding:"6px 8px",background:"rgba(30,45,28,0.08)",borderRadius:"5px",borderLeft:`2px solid ${tc}`}}>{mb.notes}</div>
             </div>}
           </div>);
         })}
       </div>
-      {activeDist==="Four Roses"&&<div style={{padding:"10px 13px",background:"#E8503022",border:"1px solid #E8503050",borderRadius:"8px"}}>
-        <div style={{fontSize:"10px",color:"#E85030",fontWeight:"700",marginBottom:"4px"}}>🌹 The Four Roses Code</div>
+      {activeDist==="Four Roses"&&<div style={{padding:"10px 13px",background:"#C0603F22",border:"1px solid #C0603F50",borderRadius:"8px"}}>
+        <div style={{fontSize:"10px",color:"#C0603F",fontWeight:"700",marginBottom:"4px"}}>🌹 The Four Roses Code</div>
         <div style={{fontSize:"10px",color:T.muted,lineHeight:"1.6"}}>O=Old Prentice · B/E=Mashbill · S=Straight · V/K/O/Q/F=Yeast. OBSV = B-mashbill + V-yeast = flagship single barrel. 2 mashbills × 5 yeasts = <strong style={{color:T.white}}>10 unique bourbon recipes.</strong></div>
       </div>}
-      {activeDist==="Jack Daniel's"&&<div style={{padding:"10px 13px",background:"#5A4A3A22",border:"1px solid #5A4A3A50",borderRadius:"8px"}}>
-        <div style={{fontSize:"10px",color:"#8A7A6A",fontWeight:"700",marginBottom:"4px"}}> The Lincoln County Process</div>
+      {activeDist==="Jack Daniel's"&&<div style={{padding:"10px 13px",background:"#6E5E4E22",border:"1px solid #6E5E4E50",borderRadius:"8px"}}>
+        <div style={{fontSize:"10px",color:"#6B7D68",fontWeight:"700",marginBottom:"4px"}}> The Lincoln County Process</div>
         <div style={{fontSize:"10px",color:T.muted,lineHeight:"1.6"}}>Jack Daniel's Tennessee Whiskey is mellowed through 10 feet of sugar maple charcoal before barreling — a process that <strong style={{color:T.white}}>legally distinguishes it from bourbon</strong>, even though it meets all bourbon requirements. Charcoal mellowing removes harsh congeners and adds a distinctive sweet character.</div>
       </div>}
-      {activeDist==="Wilderness Trail"&&<div style={{padding:"10px 13px",background:"#5A7A2A22",border:"1px solid #5A7A2A50",borderRadius:"8px"}}>
-        <div style={{fontSize:"10px",color:"#8AAA4A",fontWeight:"700",marginBottom:"4px"}}> Sweet Mash — What Makes Wilderness Trail Unique</div>
+      {activeDist==="Wilderness Trail"&&<div style={{padding:"10px 13px",background:"#647E3E22",border:"1px solid #647E3E50",borderRadius:"8px"}}>
+        <div style={{fontSize:"10px",color:"#7E9A50",fontWeight:"700",marginBottom:"4px"}}> Sweet Mash — What Makes Wilderness Trail Unique</div>
         <div style={{fontSize:"10px",color:T.muted,lineHeight:"1.6"}}>Every other major Kentucky distillery uses <strong style={{color:T.white}}>sour mash</strong> (adding spent beer/backset to fermentation for consistency and acidity control). Wilderness Trail uses <strong style={{color:T.white}}>sweet mash</strong> — no backset — creating a distinctively clean, fruit-forward fermentation character found nowhere else in KY.</div>
       </div>}
     </>)}
@@ -2013,7 +2013,7 @@ function MashbillTab(){
             </div>
           </div>
         ))}
-        <div style={{padding:"10px 13px",background:"#4A8AB822",border:"1px solid #4A8AB840",borderRadius:"8px"}}>
+        <div style={{padding:"10px 13px",background:"#4E709022",border:"1px solid #4E709040",borderRadius:"8px"}}>
           <div style={{fontSize:"10px",color:T.scotchBlue,fontWeight:"700",marginBottom:"4px"}}>🌊 Bourbon Crossover — Where to Start</div>
           <div style={{fontSize:"10px",color:T.muted,lineHeight:"1.6"}}>If you love <strong style={{color:T.cream}}>sweet wheated bourbon</strong> → try Balvenie DoubleWood or Glenmorangie Original. If you love <strong style={{color:T.cream}}>rich fruity bourbon</strong> → try Macallan 12 or GlenDronach 12. If you love <strong style={{color:T.cream}}>high-rye spice</strong> → try Talisker 10 or Highland Park 12. The Scotch recommender will find these bridges automatically.</div>
         </div>
@@ -2075,7 +2075,7 @@ function SommelierTab(){
       <div style={{fontSize:"9px",color:T.goldDim,textTransform:"uppercase",letterSpacing:"0.15em",marginBottom:"8px"}}>Whiskey Style</div>
       <div style={{display:"flex",gap:"4px"}}>
         {[["both","🌍 Both","Both"],["american","🌽 American","American Whiskey"],["scotch","🏴 Scotch","Scotch Single Malt"]].map(([id,icon,label])=>(
-          <button key={id} onClick={()=>{setCatFilter(id);setDistF("all");}} style={{flex:1,padding:"9px 6px",borderRadius:"7px",border:`1.5px solid ${catFilter===id?(id==="scotch"?T.scotchBlue:T.gold):T.border}`,background:catFilter===id?(id==="scotch"?T.scotchBlueDim+"22":"#221808"):"transparent",cursor:"pointer",fontFamily:"Georgia,serif",transition:"all 0.15s"}}>
+          <button key={id} onClick={()=>{setCatFilter(id);setDistF("all");}} style={{flex:1,padding:"9px 6px",borderRadius:"7px",border:`1.5px solid ${catFilter===id?(id==="scotch"?T.scotchBlue:T.gold):T.border}`,background:catFilter===id?(id==="scotch"?T.scotchBlueDim+"22":"#F4EED8"):"transparent",cursor:"pointer",fontFamily:"Georgia,serif",transition:"all 0.15s"}}>
             <div style={{fontSize:"12px",marginBottom:"2px"}}>{icon}</div>
             <div style={{fontSize:"9px",fontWeight:"700",color:catFilter===id?(id==="scotch"?T.scotchBlue:T.gold):T.muted}}>{label}</div>
             <div style={{fontSize:"8px",color:T.muted+"80",marginTop:"1px"}}>{id==="both"?`${W.length} expr.`:id==="american"?`${americanCount} expr.`:`${scotchCount} expr.`}</div>
@@ -2092,7 +2092,7 @@ function SommelierTab(){
       <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search name, distillery, flavor, tag..." style={{width:"100%",boxSizing:"border-box",padding:"9px 12px",borderRadius:"7px",border:`1px solid ${T.borderFt}`,background:T.bgCard,color:T.white,fontSize:"12px",fontFamily:"Georgia,serif",outline:"none"}}/>
       <div style={{display:"flex",gap:"4px",flexWrap:"wrap"}}>
         {["all","common","allocated","unicorn"].map(t=>{const tm=TIER_META[t];return(
-          <button key={t} onClick={()=>setTierF(t)} style={{padding:"4px 10px",borderRadius:"14px",cursor:"pointer",fontFamily:"Georgia,serif",fontSize:"9px",border:`1px solid ${t==="all"?T.goldDim:tm.border}`,background:tierF===t?(t==="all"?"#221808":tm.bg):"transparent",color:tierF===t?(t==="all"?T.gold:tm.color):(t==="all"?T.goldDim:tm.color+"80")}}>
+          <button key={t} onClick={()=>setTierF(t)} style={{padding:"4px 10px",borderRadius:"14px",cursor:"pointer",fontFamily:"Georgia,serif",fontSize:"9px",border:`1px solid ${t==="all"?T.goldDim:tm.border}`,background:tierF===t?(t==="all"?"#F4EED8":tm.bg):"transparent",color:tierF===t?(t==="all"?T.gold:tm.color):(t==="all"?T.goldDim:tm.color+"80")}}>
             {t==="all"?"All Tiers":`${tm.icon} ${tm.label}`}</button>);
         })}
       </div>
@@ -2138,10 +2138,10 @@ function SommelierTab(){
           <div style={{fontSize:"10px",color:T.muted,marginBottom:"6px"}}>{cur.dist} · {cur.mashbill}</div>
           <div style={{display:"flex",gap:"5px",flexWrap:"wrap",marginBottom:"8px"}}>
             {(()=>{const tm=TIER_META[cur.tier];return<span style={{padding:"2px 8px",borderRadius:"9px",fontSize:"9px",background:tm.bg,border:`1px solid ${tm.border}`,color:tm.color}}>{tm.icon} {tm.label}</span>;})()}
-            <span style={{padding:"2px 8px",borderRadius:"9px",fontSize:"9px",background:"#1a1408",border:`1px solid ${T.goldDim}`,color:T.gold}}>{cur.price} · {PRICE_LABEL[cur.price]}</span>
+            <span style={{padding:"2px 8px",borderRadius:"9px",fontSize:"9px",background:"#F4EED8",border:`1px solid ${T.goldDim}`,color:T.gold}}>{cur.price} · {PRICE_LABEL[cur.price]}</span>
             <span style={{padding:"2px 8px",borderRadius:"9px",fontSize:"9px",background:T.bgCard,border:`1px solid ${T.border}`,color:T.muted}}>~${cur.msrp} · {cur.proof}°</span>
           </div>
-          <div style={{fontSize:"10px",color:T.mutedMid,lineHeight:"1.6",marginBottom:"6px",padding:"6px 8px",background:"rgba(0,0,0,0.35)",borderRadius:"5px",borderLeft:`3px solid ${cur.color}`}}>{cur.notes}</div>
+          <div style={{fontSize:"10px",color:T.mutedMid,lineHeight:"1.6",marginBottom:"6px",padding:"6px 8px",background:"rgba(30,45,28,0.08)",borderRadius:"5px",borderLeft:`3px solid ${cur.color}`}}>{cur.notes}</div>
           <div style={{fontSize:"10px",color:T.muted,lineHeight:"1.5",marginBottom:"7px"}}>{cur.profile}</div>
           <div style={{display:"flex",flexWrap:"wrap",gap:"3px"}}>{(cur.tags||[]).map(t=><span key={t} style={{fontSize:"8px",padding:"1px 6px",borderRadius:"8px",background:`${cur.color}18`,border:`1px solid ${cur.color}30`,color:cur.color}}>{t.replace(/_/g," ")}</span>)}</div>
         </div>
@@ -2152,7 +2152,7 @@ function SommelierTab(){
         <div style={{padding:"10px 12px",background:T.bgCard,borderRadius:"8px",border:`1px solid ${T.border}`}}>
           {RADAR_AXES.map(ax=><div key={ax.key} style={{display:"flex",alignItems:"center",gap:"7px",marginBottom:"5px"}}>
             <div style={{width:"46px",fontSize:"9px",color:ax.color,textAlign:"right",flexShrink:0,fontFamily:"Georgia,serif"}}>{ax.label}</div>
-            <div style={{flex:1,height:"5px",borderRadius:"3px",background:"rgba(255,255,255,0.06)"}}><div style={{width:`${(cur.fl[ax.key]||0)*10}%`,height:"100%",background:ax.color,borderRadius:"3px",transition:"width 0.3s"}}/></div>
+            <div style={{flex:1,height:"5px",borderRadius:"3px",background:"rgba(30,45,28,0.06)"}}><div style={{width:`${(cur.fl[ax.key]||0)*10}%`,height:"100%",background:ax.color,borderRadius:"3px",transition:"width 0.3s"}}/></div>
             <div style={{width:"14px",fontSize:"9px",color:T.muted}}>{cur.fl[ax.key]||0}</div>
           </div>)}
         </div>
@@ -2249,13 +2249,13 @@ function pw_midAngle(s, e) {
 
 // ─── BOURBON FOOD PAIRING DATA ───────────────────────────────────────────────
 const PW_BOURBON_PROFILES = [
-  { id: "bt_mb1", label: "BT MB#1\nHigh-Corn", color: "#f5c842", angle: 315, r: 0.66 },
-  { id: "classic_ky", label: "Classic KY\n75-78c/13r", color: "#e8841a", angle: 0, r: 0.66 },
-  { id: "mod_rye", label: "Mod-High Rye\n18-21r", color: "#c8460a", angle: 45, r: 0.66 },
-  { id: "high_rye", label: "High-Rye\n27-36r", color: "#8b2a00", angle: 90, r: 0.66 },
-  { id: "wheated", label: "Wheated\n16-21w", color: "#2c8f2e", angle: 135, r: 0.66 },
-  { id: "ky_rye", label: "KY Rye\n51r", color: "#1a6e9e", angle: 180, r: 0.66 },
-  { id: "mgp_95", label: "95/5 Rye\nMGP", color: "#0a3d6b", angle: 225, r: 0.66 },
+  { id: "bt_mb1", label: "BT MB#1\nHigh-Corn", color: "#D2A841", angle: 315, r: 0.66 },
+  { id: "classic_ky", label: "Classic KY\n75-78c/13r", color: "#C27A32", angle: 0, r: 0.66 },
+  { id: "mod_rye", label: "Mod-High Rye\n18-21r", color: "#B35A2E", angle: 45, r: 0.66 },
+  { id: "high_rye", label: "High-Rye\n27-36r", color: "#9A4A2A", angle: 90, r: 0.66 },
+  { id: "wheated", label: "Wheated\n16-21w", color: "#5F8F4E", angle: 135, r: 0.66 },
+  { id: "ky_rye", label: "KY Rye\n51r", color: "#4A77A0", angle: 180, r: 0.66 },
+  { id: "mgp_95", label: "95/5 Rye\nMGP", color: "#34557A", angle: 225, r: 0.66 },
 ];
 
 // Food pairing sectors arranged around wheel
@@ -2265,7 +2265,7 @@ const PW_FOOD_SECTORS = [
     label: "Red Meat & Game",
     icon: "🥩",
     s: 0, e: 50,
-    fill: "#8b2000",
+    fill: "#9C4130",
     desc: "Beef, lamb, venison, bison",
     sub: ["Grilled Steak", "BBQ Brisket", "Lamb Chops", "Venison", "Short Ribs", "Smoked Brisket"],
     principle: "Fat + smoke in meat mirrors caramel & barrel char in bourbon. Proof cuts through richness.",
@@ -2278,7 +2278,7 @@ const PW_FOOD_SECTORS = [
     label: "BBQ & Smoked",
     icon: "🔥",
     s: 50, e: 100,
-    fill: "#6b2800",
+    fill: "#8A4A2C",
     desc: "Pulled pork, ribs, smoked chicken",
     sub: ["Pulled Pork", "Spare Ribs", "Smoked Chicken", "Burnt Ends", "Pork Belly", "Smoked Sausage"],
     principle: "Complement: Sweet-smoky glaze mirrors corn sweetness and barrel smoke. Caramel notes bridge the gap.",
@@ -2291,7 +2291,7 @@ const PW_FOOD_SECTORS = [
     label: "Charcuterie & Cured",
     icon: "🥓",
     s: 100, e: 145,
-    fill: "#7a3a20",
+    fill: "#8A5034",
     desc: "Country ham, prosciutto, bacon, sausage",
     sub: ["Country Ham", "Prosciutto", "Bacon", "Salami", "Chorizo", "Pâté"],
     principle: "Salt + fat + umami from cured meats are transformed by high-proof alcohol — the classic pairing science.",
@@ -2304,7 +2304,7 @@ const PW_FOOD_SECTORS = [
     label: "Aged & Sharp Cheese",
     icon: "🧀",
     s: 145, e: 185,
-    fill: "#c8a020",
+    fill: "#B8973A",
     desc: "Cheddar, Gouda, blue cheese, Parmesan",
     sub: ["Aged Cheddar", "Aged Gouda", "Parmesan", "Blue Cheese", "Gruyère", "Stilton"],
     principle: "High fat in cheese protects palate from alcohol burn, allowing subtler bourbon flavors to emerge. Sharpness contrasts sweetness.",
@@ -2317,7 +2317,7 @@ const PW_FOOD_SECTORS = [
     label: "Chocolate & Dark Desserts",
     icon: "🍫",
     s: 185, e: 225,
-    fill: "#3a1a00",
+    fill: "#7A5A3A",
     desc: "Dark chocolate, brownies, chocolate cake",
     sub: ["Dark Chocolate 70%+", "Chocolate Truffles", "Brownies", "Chocolate Mousse", "Tiramisu", "Chocolate Tart"],
     principle: "Complement: Oak + cocoa share tannin compounds. Vanilla in bourbon bridges to milk chocolate. Bitterness contrasts corn sweetness.",
@@ -2330,7 +2330,7 @@ const PW_FOOD_SECTORS = [
     label: "Fruit & Nut Desserts",
     icon: "🥧",
     s: 225, e: 265,
-    fill: "#8b5a00",
+    fill: "#8E6A2E",
     desc: "Pecan pie, apple tart, cherry cobbler",
     sub: ["Pecan Pie", "Apple Tart", "Cherry Cobbler", "Crème Brûlée", "Bread Pudding", "Pound Cake"],
     principle: "Mirror pairing: Bourbon's own fruit notes (cherry, apple, apricot) amplify when matched with real fruit. Nuts echo bourbon's roasted-grainy character.",
@@ -2343,7 +2343,7 @@ const PW_FOOD_SECTORS = [
     label: "Seafood",
     icon: "🦞",
     s: 265, e: 305,
-    fill: "#1a5a7a",
+    fill: "#4C7088",
     desc: "Salmon, oysters, shrimp, scallops",
     sub: ["Pan-seared Salmon", "Smoked Salmon", "Oysters", "Grilled Shrimp", "Scallops", "Lobster"],
     principle: "Lower-proof, sweeter bourbons lift delicate fish without overpowering. Fat in salmon pairs with bourbon; briny oysters need a sweet counterpoint.",
@@ -2356,7 +2356,7 @@ const PW_FOOD_SECTORS = [
     label: "Poultry & Pork",
     icon: "🍗",
     s: 305, e: 360,
-    fill: "#8b6a00",
+    fill: "#8E7432",
     desc: "Roast chicken, pork tenderloin, turkey",
     sub: ["Roast Chicken", "Pork Tenderloin", "Turkey", "Duck Breast", "Pork Chops", "Glazed Ham"],
     principle: "Medium-weight bourbons match medium-weight proteins. Fruit notes in bourbon complement pork's natural sweetness.",
@@ -2373,7 +2373,7 @@ const PW_SCOTCH_PROFILES = [
     id: "macallan12",
     name: "Macallan 12 Sherry Oak",
     region: "Speyside",
-    color: "#8b1a00",
+    color: "#94392C",
     angle: 350,
     r: 0.58,
     peatPPM: 0,
@@ -2386,7 +2386,7 @@ const PW_SCOTCH_PROFILES = [
     id: "glenfiddich15",
     name: "Glenfiddich 15yr Solera",
     region: "Speyside",
-    color: "#d4940a",
+    color: "#C0923A",
     angle: 20,
     r: 0.55,
     peatPPM: 0,
@@ -2399,7 +2399,7 @@ const PW_SCOTCH_PROFILES = [
     id: "glenlivet12",
     name: "The Glenlivet 12yr",
     region: "Speyside",
-    color: "#f0c040",
+    color: "#CFA43E",
     angle: 42,
     r: 0.52,
     peatPPM: 0,
@@ -2412,7 +2412,7 @@ const PW_SCOTCH_PROFILES = [
     id: "balvenie_dw",
     name: "Balvenie DoubleWood 12yr",
     region: "Speyside",
-    color: "#e89040",
+    color: "#C68A4A",
     angle: 65,
     r: 0.58,
     peatPPM: 0,
@@ -2425,7 +2425,7 @@ const PW_SCOTCH_PROFILES = [
     id: "glendronach15",
     name: "GlenDronach 15yr Revival",
     region: "Highland",
-    color: "#6b0a00",
+    color: "#8C3B2E",
     angle: 330,
     r: 0.62,
     peatPPM: 0,
@@ -2438,7 +2438,7 @@ const PW_SCOTCH_PROFILES = [
     id: "glenmorangie10",
     name: "Glenmorangie Original 10yr",
     region: "Highland",
-    color: "#f5d870",
+    color: "#D9BA5E",
     angle: 80,
     r: 0.50,
     peatPPM: 0,
@@ -2451,7 +2451,7 @@ const PW_SCOTCH_PROFILES = [
     id: "dalmore12",
     name: "The Dalmore 12yr",
     region: "Highland",
-    color: "#b85a00",
+    color: "#B06A2E",
     angle: 305,
     r: 0.60,
     peatPPM: 0,
@@ -2464,7 +2464,7 @@ const PW_SCOTCH_PROFILES = [
     id: "highland_park12",
     name: "Highland Park 12yr Viking",
     region: "Orkney (Highland)",
-    color: "#8b5a30",
+    color: "#8E6440",
     angle: 115,
     r: 0.58,
     peatPPM: 20,
@@ -2477,7 +2477,7 @@ const PW_SCOTCH_PROFILES = [
     id: "oban14",
     name: "Oban 14yr",
     region: "Highland (Coastal)",
-    color: "#7a8a00",
+    color: "#8A8A3E",
     angle: 260,
     r: 0.56,
     peatPPM: 15,
@@ -2490,7 +2490,7 @@ const PW_SCOTCH_PROFILES = [
     id: "springbank15",
     name: "Springbank 15yr",
     region: "Campbeltown",
-    color: "#4a6a3a",
+    color: "#5C7A4C",
     angle: 240,
     r: 0.62,
     peatPPM: 12,
@@ -2503,7 +2503,7 @@ const PW_SCOTCH_PROFILES = [
     id: "talisker10",
     name: "Talisker 10yr",
     region: "Isle of Skye (Highland)",
-    color: "#2a6a8a",
+    color: "#4F7C93",
     angle: 195,
     r: 0.60,
     peatPPM: 25,
@@ -2516,7 +2516,7 @@ const PW_SCOTCH_PROFILES = [
     id: "lagavulin16",
     name: "Lagavulin 16yr",
     region: "Islay",
-    color: "#1a4a2a",
+    color: "#557A48",
     angle: 165,
     r: 0.65,
     peatPPM: 35,
@@ -2529,7 +2529,7 @@ const PW_SCOTCH_PROFILES = [
     id: "laphroaig10",
     name: "Laphroaig 10yr",
     region: "Islay",
-    color: "#0a3a1a",
+    color: "#4D6E3F",
     angle: 145,
     r: 0.65,
     peatPPM: 45,
@@ -2542,7 +2542,7 @@ const PW_SCOTCH_PROFILES = [
     id: "ardbeg10",
     name: "Ardbeg 10yr",
     region: "Islay",
-    color: "#1a5a00",
+    color: "#5A7A35",
     angle: 130,
     r: 0.62,
     peatPPM: 55,
@@ -2555,7 +2555,7 @@ const PW_SCOTCH_PROFILES = [
     id: "aberlour_abunadh",
     name: "Aberlour A'bunadh",
     region: "Speyside",
-    color: "#9b1a4a",
+    color: "#9A4A62",
     angle: 0,
     r: 0.65,
     peatPPM: 0,
@@ -2568,15 +2568,15 @@ const PW_SCOTCH_PROFILES = [
 
 // Scotch flavor wheel sectors
 const PW_SCOTCH_SECTORS = [
-  { label: "Sweet", s: 270, e: 345, fill: "#f5d090", icon: "🍯", desc: "Honey, vanilla, caramel, toffee, malt sweetness" },
-  { label: "Fruity", s: 345, e: 70, fill: "#e87070", icon: "🍑", desc: "Orchard fruits, dried fruit, citrus, tropical" },
-  { label: "Floral", s: 70, e: 110, fill: "#e890c8", icon: "🌸", desc: "Heather, honeysuckle, rose, orange blossom" },
-  { label: "Spicy", s: 110, e: 150, fill: "#e87030", icon: "🌶️", desc: "Pepper, cinnamon, ginger, clove, nutmeg" },
-  { label: "Malty / Grainy", s: 150, e: 190, fill: "#c8a060", icon: "🌾", desc: "Biscuit, cereal, oatmeal, barley" },
-  { label: "Coastal / Maritime", s: 190, e: 235, fill: "#4090c0", icon: "🌊", desc: "Sea salt, brine, seaweed, iodine" },
-  { label: "Peated / Smoky", s: 235, e: 270, fill: "#607040", icon: "💨", desc: "Peat smoke, campfire, medicinal, tar" },
-  { label: "Sherried / Winey", s: 190, e: 220, fill: "#8b1a00", icon: "🍷", desc: "Raisins, figs, dark fruit, chocolate, nutty" },
-  { label: "Oaky / Woody", s: 260, e: 290, fill: "#6b4020", icon: "🪵", desc: "Vanilla oak, sandalwood, cedar, char" },
+  { label: "Sweet", s: 270, e: 345, fill: "#D8B677", icon: "🍯", desc: "Honey, vanilla, caramel, toffee, malt sweetness" },
+  { label: "Fruity", s: 345, e: 70, fill: "#C47670", icon: "🍑", desc: "Orchard fruits, dried fruit, citrus, tropical" },
+  { label: "Floral", s: 70, e: 110, fill: "#B97AA0", icon: "🌸", desc: "Heather, honeysuckle, rose, orange blossom" },
+  { label: "Spicy", s: 110, e: 150, fill: "#C27840", icon: "🌶️", desc: "Pepper, cinnamon, ginger, clove, nutmeg" },
+  { label: "Malty / Grainy", s: 150, e: 190, fill: "#94703F", icon: "🌾", desc: "Biscuit, cereal, oatmeal, barley" },
+  { label: "Coastal / Maritime", s: 190, e: 235, fill: "#5C86A6", icon: "🌊", desc: "Sea salt, brine, seaweed, iodine" },
+  { label: "Peated / Smoky", s: 235, e: 270, fill: "#6F7E4E", icon: "💨", desc: "Peat smoke, campfire, medicinal, tar" },
+  { label: "Sherried / Winey", s: 190, e: 220, fill: "#94392C", icon: "🍷", desc: "Raisins, figs, dark fruit, chocolate, nutty" },
+  { label: "Oaky / Woody", s: 260, e: 290, fill: "#7A5638", icon: "🪵", desc: "Vanilla oak, sandalwood, cedar, char" },
 ];
 
 // Food pairing for scotch
@@ -2585,7 +2585,7 @@ const PW_SCOTCH_FOOD_SECTORS = [
     label: "Oysters & Shellfish",
     icon: "🦪",
     s: 0, e: 45,
-    fill: "#1a5a8a",
+    fill: "#46698C",
     desc: "Oysters, clams, scallops, shrimp",
     sub: ["Fresh Oysters", "Smoked Oysters", "Scallops", "Shrimp", "Crab", "Clams"],
     principle: "The classic Islay tradition — peated maritime whisky mirrors the brine of shellfish. Sea-meets-sea.",
@@ -2598,7 +2598,7 @@ const PW_SCOTCH_FOOD_SECTORS = [
     label: "Smoked Salmon & Fish",
     icon: "🐟",
     s: 45, e: 90,
-    fill: "#ff8c42",
+    fill: "#C9824A",
     desc: "Smoked salmon, gravlax, trout, mackerel",
     sub: ["Smoked Salmon", "Gravlax", "Smoked Trout", "Mackerel", "Herring", "Kippers"],
     principle: "Smoke-on-smoke complement: The smokiness in lightly-peated whisky mirrors the smoking of the fish. But avoid extremes.",
@@ -2611,7 +2611,7 @@ const PW_SCOTCH_FOOD_SECTORS = [
     label: "Red Meat & Game",
     icon: "🥩",
     s: 90, e: 135,
-    fill: "#8b2000",
+    fill: "#9C4130",
     desc: "Steak, venison, lamb, wild boar",
     sub: ["Grilled Ribeye", "Venison", "Lamb Chops", "Haggis", "Wild Boar", "Beef Tartare"],
     principle: "Phenolic compounds in peated whisky chemically similar to char compounds in grilled meat — a scientific harmony.",
@@ -2624,7 +2624,7 @@ const PW_SCOTCH_FOOD_SECTORS = [
     label: "Dark Chocolate & Rich Desserts",
     icon: "🍫",
     s: 135, e: 180,
-    fill: "#3a1800",
+    fill: "#7A5A3A",
     desc: "Dark chocolate, chocolate cake, coffee desserts",
     sub: ["70%+ Dark Chocolate", "Chocolate Truffles", "Espresso", "Tiramisu", "Chocolate Fondant", "Coffee Cake"],
     principle: "Sherry cask scotch shares tannin compounds with dark chocolate. Both have roasted, bitter, dried-fruit depth.",
@@ -2637,7 +2637,7 @@ const PW_SCOTCH_FOOD_SECTORS = [
     label: "Aged & Blue Cheese",
     icon: "🧀",
     s: 180, e: 220,
-    fill: "#c8a020",
+    fill: "#B8973A",
     desc: "Stilton, Roquefort, aged cheddar, Brie",
     sub: ["Stilton Blue", "Roquefort", "Aged Cheddar", "Brie", "Époisses", "Wensleydale"],
     principle: "Fat in cheese protects from alcohol. Salt/funk contrasts with whisky sweetness. Bold cheese needs bold whisky.",
@@ -2650,7 +2650,7 @@ const PW_SCOTCH_FOOD_SECTORS = [
     label: "Fruit & Nut Pastries",
     icon: "🥐",
     s: 220, e: 265,
-    fill: "#d4940a",
+    fill: "#C0923A",
     desc: "Shortbread, fruit cake, scones, oatcakes",
     sub: ["Shortbread", "Dundee Fruit Cake", "Oatcakes", "Cranachan", "Scones", "Tablet"],
     principle: "Scottish regional pairing — Speyside's fruity-sweet notes mirror shortbread's buttery sweetness. Fruit cake echoes sherry cask whisky's dried fruit.",
@@ -2663,7 +2663,7 @@ const PW_SCOTCH_FOOD_SECTORS = [
     label: "Vegetarian & Umami",
     icon: "🍄",
     s: 265, e: 310,
-    fill: "#507a30",
+    fill: "#5E7E45",
     desc: "Mushrooms, truffle, roasted veg, risotto",
     sub: ["Mushroom Risotto", "Truffle Pasta", "Roasted Root Veg", "Miso", "Mature Tofu", "Grilled Asparagus"],
     principle: "Earthy Speyside and Highland malts echo the earthy umami of mushrooms. Malt sweetness enhances roasted vegetables.",
@@ -2676,7 +2676,7 @@ const PW_SCOTCH_FOOD_SECTORS = [
     label: "Delicate Starters",
     icon: "🥗",
     s: 310, e: 360,
-    fill: "#90c840",
+    fill: "#8FA956",
     desc: "Light salads, fresh cheeses, sushi, canapés",
     sub: ["Caprese Salad", "Fresh Burrata", "Sushi & Sashimi", "Smoked Salmon Blinis", "Cucumber Canapés", "Green Salad"],
     principle: "Lowland/light Speyside to match intensity. Avoid anything that will overpower — wine logic applies.",
@@ -2693,8 +2693,8 @@ function WheelSVG({ sectors, profiles, activeProfile, onProfileClick, onSectorHo
     <svg viewBox="0 0 600 600" style={{ width: "100%", height: "auto", display: "block" }}>
       <defs>
         <radialGradient id="bgr" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#1a1008" />
-          <stop offset="100%" stopColor="#0a0704" />
+          <stop offset="0%" stopColor="#FFFDF7" />
+          <stop offset="100%" stopColor="#FAF7EF" />
         </radialGradient>
         <filter id="glow2">
           <feGaussianBlur stdDeviation="4" result="blur" />
@@ -2711,22 +2711,22 @@ function WheelSVG({ sectors, profiles, activeProfile, onProfileClick, onSectorHo
         const isActive = activeFood === i;
         return (
           <g key={i} onClick={() => onSectorHover && onSectorHover(i)} style={{ cursor: "pointer" }}>
-            <path d={pw_arcPath(sec.s, e, PW_R*0.44, PW_R*0.99)} fill={sec.fill} opacity={isActive ? 0.9 : 0.55} />
-            <path d={pw_arcPath(sec.s, e, PW_R*0.44, PW_R*0.99)} fill="none" stroke="#0a0704" strokeWidth="1.5" />
+            <path d={pw_arcPath(sec.s, e, PW_R*0.44, PW_R*0.99)} fill={sec.fill} opacity={isActive ? 0.5 : 0.3} />
+            <path d={pw_arcPath(sec.s, e, PW_R*0.44, PW_R*0.99)} fill="none" stroke="#FAF7EF" strokeWidth="2.5" />
           </g>
         );
       })}
 
       {/* Ring lines */}
       {[0.30, 0.44, 0.62, 0.80, 0.99].map((rf, i) => (
-        <circle key={i} cx={PW_CX} cy={PW_CY} r={PW_R*rf} fill="none" stroke="#3a2010" strokeWidth="0.7" opacity="0.5" />
+        <circle key={i} cx={PW_CX} cy={PW_CY} r={PW_R*rf} fill="none" stroke="#D8CCAC" strokeWidth="0.7" opacity="0.5" />
       ))}
 
       {/* Sector spoke lines */}
       {sectors.map((sec, i) => {
         const [x1,y1] = pw_polar(sec.s, PW_R*0.30);
         const [x2,y2] = pw_polar(sec.s, PW_R*0.99);
-        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#3a2010" strokeWidth="0.8" opacity="0.5" />;
+        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#D8CCAC" strokeWidth="0.8" opacity="0.5" />;
       })}
 
       {/* Sector labels */}
@@ -2737,10 +2737,10 @@ function WheelSVG({ sectors, profiles, activeProfile, onProfileClick, onSectorHo
         const isActive = activeFood === i;
         return (
           <g key={i}>
-            <text x={lx} y={ly-5} textAnchor="middle" fontSize="8" fill={isActive ? "#fff" : "#e8c878"} fontWeight={isActive?"700":"400"} fontFamily="Palatino,serif">
+            <text x={lx} y={ly-5} textAnchor="middle" fontSize="8" fill={isActive ? "#1E2D1C" : "#3A5238"} fontWeight={isActive?"700":"400"} fontFamily="'EB Garamond',Georgia,serif">
               {sec.icon}
             </text>
-            <text x={lx} y={ly+7} textAnchor="middle" fontSize="7" fill={isActive ? "#fff" : "#c8a060"} fontFamily="Palatino,serif" fontWeight={isActive?"700":"400"}>
+            <text x={lx} y={ly+7} textAnchor="middle" fontSize="8.5" fill={isActive ? "#1E2D1C" : "#3A5238"} fontFamily="'EB Garamond',Georgia,serif" fontWeight={isActive?"700":"400"}>
               {sec.label}
             </text>
           </g>
@@ -2752,7 +2752,7 @@ function WheelSVG({ sectors, profiles, activeProfile, onProfileClick, onSectorHo
         const sec = sectors[activeFood];
         let e = sec.e; if (e <= sec.s) e += 360;
         return (
-          <path d={pw_arcPath(sec.s, e, PW_R*0.44, PW_R*0.99)} fill={sec.fill} opacity="0.35" />
+          <path d={pw_arcPath(sec.s, e, PW_R*0.44, PW_R*0.99)} fill="none" stroke={sec.fill} strokeWidth="2.5" />
         );
       })()}
 
@@ -2764,8 +2764,8 @@ function WheelSVG({ sectors, profiles, activeProfile, onProfileClick, onSectorHo
         return (
           <g key={p.id} onClick={() => onProfileClick(p.id)} style={{ cursor: "pointer" }}>
             {isActive && <circle cx={px} cy={py} r={r+5} fill={p.color} opacity="0.25" filter="url(#glow2)" />}
-            <circle cx={px} cy={py} r={r} fill={p.color} stroke="#0a0704" strokeWidth="1.5" opacity="0.9" />
-            <text x={px} y={py+3} textAnchor="middle" fontSize="6" fill="#fff" fontWeight="700" fontFamily="Palatino,serif">
+            <circle cx={px} cy={py} r={r} fill={p.color} stroke="#FAF7EF" strokeWidth="1.5" opacity="0.9" />
+            <text x={px} y={py+3} textAnchor="middle" fontSize="6" fill="#fff" fontWeight="700" fontFamily="'EB Garamond',Georgia,serif">
               {p.label ? p.label.split("\n")[0].slice(0,8) : (p.name ? p.name.slice(0,6) : "")}
             </text>
           </g>
@@ -2773,12 +2773,12 @@ function WheelSVG({ sectors, profiles, activeProfile, onProfileClick, onSectorHo
       })}
 
       {/* Center */}
-      <circle cx={PW_CX} cy={PW_CY} r={PW_R*0.27} fill="#0a0704" stroke="#3a2010" strokeWidth="1" />
-      <circle cx={PW_CX} cy={PW_CY} r={PW_R*0.25} fill="#120e06" />
-      <text x={PW_CX} y={PW_CY-6} textAnchor="middle" fontSize="9" fill="#a08050" fontFamily="Palatino,serif" letterSpacing="1">
+      <circle cx={PW_CX} cy={PW_CY} r={PW_R*0.27} fill="#FFFDF7" stroke="#C9A87A" strokeWidth="1.2" />
+      <circle cx={PW_CX} cy={PW_CY} r={PW_R*0.25} fill="#F4EED8" />
+      <text x={PW_CX} y={PW_CY-6} textAnchor="middle" fontSize="9" fill="#6B7D68" fontFamily="'EB Garamond',Georgia,serif" letterSpacing="1">
         {centerLabel[0]}
       </text>
-      <text x={PW_CX} y={PW_CY+8} textAnchor="middle" fontSize="9" fill="#a08050" fontFamily="Palatino,serif" letterSpacing="1">
+      <text x={PW_CX} y={PW_CY+8} textAnchor="middle" fontSize="9" fill="#6B7D68" fontFamily="'EB Garamond',Georgia,serif" letterSpacing="1">
         {centerLabel[1] || ""}
       </text>
     </svg>
@@ -2803,8 +2803,8 @@ function BourbonFoodTab() {
 
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
-      <div style={{ fontSize:"11px", color:"#7a6040", lineHeight:"1.6" }}>
-        Tap a <strong style={{color:"#c8a060"}}>food category</strong> on the wheel to see which bourbon profiles pair best.
+      <div style={{ fontSize:"11px", color:"#6B7D68", lineHeight:"1.6" }}>
+        Tap a <strong style={{color:"#94703F"}}>food category</strong> on the wheel to see which bourbon profiles pair best.
         Dot position = bourbon flavor territory. Circle = food pairing zone.
       </div>
 
@@ -2822,8 +2822,8 @@ function BourbonFoodTab() {
       <div style={{ display:"flex", flexWrap:"wrap", gap:"5px" }}>
         {PW_BOURBON_PROFILES.map(p => {
           const q = getProfileQuality(p.id);
-          const border = q==="best" ? "#44ff44" : q==="good" ? "#ffaa00" : q==="avoid" ? "#ff4444" : p.color;
-          const bg = q==="best" ? "#002200" : q==="good" ? "#221100" : q==="avoid" ? "#220000" : "transparent";
+          const border = q==="best" ? "#3E7B4A" : q==="good" ? "#B0791E" : q==="avoid" ? "#B0483A" : p.color;
+          const bg = q==="best" ? "#E5EEDD" : q==="good" ? "#F6EBD5" : q==="avoid" ? "#F6E4DF" : "transparent";
           return (
             <button key={p.id} onClick={() => setActiveProfile(activeProfile===p.id?null:p.id)} style={{
               padding:"4px 10px", borderRadius:"16px",
@@ -2841,21 +2841,21 @@ function BourbonFoodTab() {
           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"8px" }}>
             <span style={{ fontSize:"22px" }}>{food.icon}</span>
             <div>
-              <div style={{ fontWeight:"700", color:"#f5deb3", fontSize:"14px" }}>{food.label}</div>
-              <div style={{ fontSize:"11px", color:"#a09070" }}>{food.desc}</div>
+              <div style={{ fontWeight:"700", color:"#1E2D1C", fontSize:"14px" }}>{food.label}</div>
+              <div style={{ fontSize:"11px", color:"#6B7D68" }}>{food.desc}</div>
             </div>
           </div>
           <div style={{ display:"flex", flexWrap:"wrap", gap:"4px", marginBottom:"10px" }}>
             {food.sub.map((s,i) => (
-              <span key={i} style={{ fontSize:"10px", padding:"2px 8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", borderRadius:"4px", color:"#ddd" }}>{s}</span>
+              <span key={i} style={{ fontSize:"10px", padding:"2px 8px", background:"rgba(30,45,28,0.06)", border:"1px solid rgba(30,45,28,0.12)", borderRadius:"4px", color:"#3A5238" }}>{s}</span>
             ))}
           </div>
-          <div style={{ fontSize:"11px", color:"#c8a870", marginBottom:"10px", padding:"6px 10px", background:"rgba(0,0,0,0.3)", borderRadius:"5px", borderLeft:`3px solid ${food.fill}` }}>
+          <div style={{ fontSize:"11px", color:"#94703F", marginBottom:"10px", padding:"6px 10px", background:"rgba(30,45,28,0.08)", borderRadius:"5px", borderLeft:`3px solid ${food.fill}` }}>
             <strong>Principle: </strong>{food.principle}
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"6px", marginBottom:"8px" }}>
-            {[["✅ Best", food.best, "#22aa22"], ["👍 Good", food.good, "#cc8800"], ["❌ Avoid", food.avoid, "#aa2222"]].map(([lbl, ids, col]) => (
-              <div key={lbl} style={{ padding:"6px", background:"rgba(0,0,0,0.3)", borderRadius:"6px", border:`1px solid ${col}30` }}>
+            {[["✅ Best", food.best, "#3E7B4A"], ["👍 Good", food.good, "#B0791E"], ["❌ Avoid", food.avoid, "#B0483A"]].map(([lbl, ids, col]) => (
+              <div key={lbl} style={{ padding:"6px", background:"rgba(30,45,28,0.08)", borderRadius:"6px", border:`1px solid ${col}30` }}>
                 <div style={{ fontSize:"10px", color:col, fontWeight:"700", marginBottom:"4px" }}>{lbl}</div>
                 {ids.map(id => {
                   const p = PW_BOURBON_PROFILES.find(x=>x.id===id);
@@ -2864,7 +2864,7 @@ function BourbonFoodTab() {
               </div>
             ))}
           </div>
-          <div style={{ fontSize:"11px", color:"#bbb", lineHeight:"1.5", fontStyle:"italic" }}>{food.pairingNotes}</div>
+          <div style={{ fontSize:"11px", color:"#3A5238", lineHeight:"1.5", fontStyle:"italic" }}>{food.pairingNotes}</div>
         </div>
       )}
     </div>
@@ -2878,26 +2878,26 @@ function ScotchFlavorTab() {
   const scotch = activeScotch ? PW_SCOTCH_PROFILES.find(s=>s.id===activeScotch) : null;
 
   const FLAVOR_SECTORS = [
-    { label:"Sherried\n& Winey", icon:"🍷", s:330, e:30, fill:"#8b1a00" },
-    { label:"Fruity\nOrchard", icon:"🍎", s:30, e:90, fill:"#e86060" },
-    { label:"Floral\n& Fresh", icon:"🌸", s:90, e:130, fill:"#e890c8" },
-    { label:"Spicy\n& Herbal", icon:"🌶️", s:130, e:165, fill:"#e87030" },
-    { label:"Malty\n& Grainy", icon:"🌾", s:165, e:195, fill:"#c8a060" },
-    { label:"Maritime\n& Coastal", icon:"🌊", s:195, e:235, fill:"#4090c0" },
-    { label:"Peated\n& Smoky", icon:"💨", s:235, e:270, fill:"#607040" },
-    { label:"Sweet\n& Honeyed", icon:"🍯", s:270, e:330, fill:"#f5c840" },
+    { label:"Sherried\n& Winey", icon:"🍷", s:330, e:30, fill:"#94392C" },
+    { label:"Fruity\nOrchard", icon:"🍎", s:30, e:90, fill:"#C06A62" },
+    { label:"Floral\n& Fresh", icon:"🌸", s:90, e:130, fill:"#B97AA0" },
+    { label:"Spicy\n& Herbal", icon:"🌶️", s:130, e:165, fill:"#C27840" },
+    { label:"Malty\n& Grainy", icon:"🌾", s:165, e:195, fill:"#94703F" },
+    { label:"Maritime\n& Coastal", icon:"🌊", s:195, e:235, fill:"#5C86A6" },
+    { label:"Peated\n& Smoky", icon:"💨", s:235, e:270, fill:"#6F7E4E" },
+    { label:"Sweet\n& Honeyed", icon:"🍯", s:270, e:330, fill:"#D2A841" },
   ];
 
   const regionColors = {
-    "Speyside":"#f5c842","Highland":"#c87820","Islay":"#1a5a30",
-    "Orkney (Highland)":"#8b5a30","Isle of Skye (Highland)":"#2a6a8a",
-    "Campbeltown":"#4a6a3a","Highland (Coastal)":"#7a8a00"
+    "Speyside":"#D2A841","Highland":"#B47A34","Islay":"#5E8457",
+    "Orkney (Highland)":"#8E6440","Isle of Skye (Highland)":"#4F7C93",
+    "Campbeltown":"#5C7A4C","Highland (Coastal)":"#8A8A3E"
   };
 
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
-      <div style={{ fontSize:"11px", color:"#7a6040", lineHeight:"1.6" }}>
-        <strong style={{color:"#c8a060"}}>15 iconic Scotch single malts</strong> mapped by flavor profile.
+      <div style={{ fontSize:"11px", color:"#6B7D68", lineHeight:"1.6" }}>
+        <strong style={{color:"#94703F"}}>15 iconic Scotch single malts</strong> mapped by flavor profile.
         Dot position = flavor zone. Tap any dot or scotch name to explore.
       </div>
 
@@ -2916,14 +2916,14 @@ function ScotchFlavorTab() {
         {PW_SCOTCH_PROFILES.map(s => (
           <div key={s.id} onClick={()=>setActiveScotch(activeScotch===s.id?null:s.id)} style={{
             padding:"7px 10px", borderRadius:"6px", cursor:"pointer",
-            background: activeScotch===s.id ? s.color+"30" : "rgba(255,255,255,0.03)",
+            background: activeScotch===s.id ? s.color+"30" : "rgba(30,45,28,0.03)",
             border:`1px solid ${activeScotch===s.id ? s.color : s.color+"40"}`,
           }}>
             <div style={{ display:"flex", alignItems:"baseline", gap:"5px" }}>
               <div style={{ width:"8px", height:"8px", borderRadius:"50%", background:s.color, flexShrink:0 }} />
               <span style={{ fontSize:"10px", fontWeight:"700", color:s.color }}>{s.name}</span>
             </div>
-            <div style={{ fontSize:"9px", color:"#888", marginTop:"2px" }}>{s.region} · {s.peatPPM>0?`${s.peatPPM}ppm peat · `:"Unpeated · "}{s.abv}% ABV</div>
+            <div style={{ fontSize:"9px", color:"#7A8478", marginTop:"2px" }}>{s.region} · {s.peatPPM>0?`${s.peatPPM}ppm peat · `:"Unpeated · "}{s.abv}% ABV</div>
           </div>
         ))}
       </div>
@@ -2931,25 +2931,25 @@ function ScotchFlavorTab() {
       {scotch && (
         <div style={{ padding:"14px", background:`${scotch.color}18`, border:`1px solid ${scotch.color}50`, borderRadius:"10px" }}>
           <div style={{ fontWeight:"700", color:scotch.color, fontSize:"14px", marginBottom:"3px" }}>{scotch.name}</div>
-          <div style={{ fontSize:"10px", color:"#a09070", marginBottom:"8px" }}>
+          <div style={{ fontSize:"10px", color:"#6B7D68", marginBottom:"8px" }}>
             {scotch.region} · {scotch.profile} · {scotch.cask} · {scotch.abv}% ABV
-            {scotch.peatPPM > 0 && <span style={{color:"#90c840"}}> · {scotch.peatPPM}ppm peat</span>}
+            {scotch.peatPPM > 0 && <span style={{color:"#8FA956"}}> · {scotch.peatPPM}ppm peat</span>}
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px", marginBottom:"8px" }}>
             <div>
-              <div style={{ fontSize:"10px", color:"#888", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px" }}>Primary Notes</div>
+              <div style={{ fontSize:"10px", color:"#7A8478", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px" }}>Primary Notes</div>
               {scotch.notes.primary.map((n,i)=>(
-                <div key={i} style={{ fontSize:"11px", color:"#e8dcc8", marginBottom:"2px" }}>▸ {n}</div>
+                <div key={i} style={{ fontSize:"11px", color:"#1E2D1C", marginBottom:"2px" }}>▸ {n}</div>
               ))}
             </div>
             <div>
-              <div style={{ fontSize:"10px", color:"#888", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px" }}>Secondary Notes</div>
+              <div style={{ fontSize:"10px", color:"#7A8478", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px" }}>Secondary Notes</div>
               {scotch.notes.secondary.map((n,i)=>(
-                <div key={i} style={{ fontSize:"11px", color:"#c8b090", marginBottom:"2px" }}>▹ {n}</div>
+                <div key={i} style={{ fontSize:"11px", color:"#3A5238", marginBottom:"2px" }}>▹ {n}</div>
               ))}
             </div>
           </div>
-          <div style={{ fontSize:"11px", color:"#a09070", padding:"6px 10px", background:"rgba(0,0,0,0.3)", borderRadius:"5px", borderLeft:`3px solid ${scotch.color}` }}>
+          <div style={{ fontSize:"11px", color:"#6B7D68", padding:"6px 10px", background:"rgba(30,45,28,0.08)", borderRadius:"5px", borderLeft:`3px solid ${scotch.color}` }}>
             <strong>Finish: </strong>{scotch.notes.finish}
           </div>
         </div>
@@ -2974,8 +2974,8 @@ function ScotchFoodTab() {
 
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
-      <div style={{ fontSize:"11px", color:"#7a6040", lineHeight:"1.6" }}>
-        Tap a <strong style={{color:"#c8a060"}}>food category</strong> to see which Scotch profiles pair best. Based on pairing science and regional tradition.
+      <div style={{ fontSize:"11px", color:"#6B7D68", lineHeight:"1.6" }}>
+        Tap a <strong style={{color:"#94703F"}}>food category</strong> to see which Scotch profiles pair best. Based on pairing science and regional tradition.
       </div>
 
       <WheelSVG
@@ -2992,8 +2992,8 @@ function ScotchFoodTab() {
       <div style={{ display:"flex", flexWrap:"wrap", gap:"4px" }}>
         {PW_SCOTCH_PROFILES.map(s => {
           const q = getQuality(s.id);
-          const border = q==="best"?"#44ff44":q==="good"?"#ffaa00":q==="avoid"?"#ff4444":s.color;
-          const bg = q==="best"?"#002200":q==="good"?"#221100":q==="avoid"?"#220000":"transparent";
+          const border = q==="best"?"#3E7B4A":q==="good"?"#B0791E":q==="avoid"?"#B0483A":s.color;
+          const bg = q==="best"?"#E5EEDD":q==="good"?"#F6EBD5":q==="avoid"?"#F6E4DF":"transparent";
           return (
             <button key={s.id} onClick={()=>setActiveScotch(activeScotch===s.id?null:s.id)} style={{
               padding:"3px 9px", borderRadius:"14px",
@@ -3011,21 +3011,21 @@ function ScotchFoodTab() {
           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"8px" }}>
             <span style={{ fontSize:"22px" }}>{food.icon}</span>
             <div>
-              <div style={{ fontWeight:"700", color:"#f5deb3", fontSize:"14px" }}>{food.label}</div>
-              <div style={{ fontSize:"11px", color:"#a09070" }}>{food.desc}</div>
+              <div style={{ fontWeight:"700", color:"#1E2D1C", fontSize:"14px" }}>{food.label}</div>
+              <div style={{ fontSize:"11px", color:"#6B7D68" }}>{food.desc}</div>
             </div>
           </div>
           <div style={{ display:"flex", flexWrap:"wrap", gap:"4px", marginBottom:"10px" }}>
             {food.sub.map((s,i) => (
-              <span key={i} style={{ fontSize:"10px", padding:"2px 8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", borderRadius:"4px", color:"#ddd" }}>{s}</span>
+              <span key={i} style={{ fontSize:"10px", padding:"2px 8px", background:"rgba(30,45,28,0.06)", border:"1px solid rgba(30,45,28,0.12)", borderRadius:"4px", color:"#3A5238" }}>{s}</span>
             ))}
           </div>
-          <div style={{ fontSize:"11px", color:"#c8a870", marginBottom:"10px", padding:"6px 10px", background:"rgba(0,0,0,0.3)", borderRadius:"5px", borderLeft:`3px solid ${food.fill}` }}>
+          <div style={{ fontSize:"11px", color:"#94703F", marginBottom:"10px", padding:"6px 10px", background:"rgba(30,45,28,0.08)", borderRadius:"5px", borderLeft:`3px solid ${food.fill}` }}>
             <strong>Principle: </strong>{food.principle}
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"6px", marginBottom:"8px" }}>
-            {[["✅ Best", food.best, "#22aa22"], ["👍 Good", food.good, "#cc8800"], ["❌ Avoid", food.avoid, "#aa2222"]].map(([lbl, ids, col]) => (
-              <div key={lbl} style={{ padding:"6px", background:"rgba(0,0,0,0.3)", borderRadius:"6px", border:`1px solid ${col}30` }}>
+            {[["✅ Best", food.best, "#3E7B4A"], ["👍 Good", food.good, "#B0791E"], ["❌ Avoid", food.avoid, "#B0483A"]].map(([lbl, ids, col]) => (
+              <div key={lbl} style={{ padding:"6px", background:"rgba(30,45,28,0.08)", borderRadius:"6px", border:`1px solid ${col}30` }}>
                 <div style={{ fontSize:"10px", color:col, fontWeight:"700", marginBottom:"4px" }}>{lbl}</div>
                 {ids.map(id => {
                   const s = PW_SCOTCH_PROFILES.find(x=>x.id===id);
@@ -3034,7 +3034,7 @@ function ScotchFoodTab() {
               </div>
             ))}
           </div>
-          <div style={{ fontSize:"11px", color:"#bbb", lineHeight:"1.5", fontStyle:"italic" }}>{food.pairingNotes}</div>
+          <div style={{ fontSize:"11px", color:"#3A5238", lineHeight:"1.5", fontStyle:"italic" }}>{food.pairingNotes}</div>
         </div>
       )}
 
@@ -3043,18 +3043,18 @@ function ScotchFoodTab() {
         return s ? (
           <div style={{ padding:"12px 14px", background:s.color+"18", border:`1px solid ${s.color}40`, borderRadius:"8px" }}>
             <div style={{ fontWeight:"700", color:s.color, fontSize:"13px" }}>{s.name}</div>
-            <div style={{ fontSize:"10px", color:"#a09070", marginTop:"3px", marginBottom:"7px" }}>{s.region} · {s.profile}</div>
-            <div style={{ fontSize:"11px", color:"#ddd" }}>
-              <strong style={{color:"#c8a870"}}>Best pairings: </strong>
+            <div style={{ fontSize:"10px", color:"#6B7D68", marginTop:"3px", marginBottom:"7px" }}>{s.region} · {s.profile}</div>
+            <div style={{ fontSize:"11px", color:"#3A5238" }}>
+              <strong style={{color:"#94703F"}}>Best pairings: </strong>
               {PW_SCOTCH_FOOD_SECTORS.filter(f=>f.best.includes(s.id)).map(f=>f.label).join(", ")}
             </div>
-            <div style={{ fontSize:"11px", color:"#aaa", marginTop:"4px" }}>
-              <strong style={{color:"#cc8800"}}>Good pairings: </strong>
+            <div style={{ fontSize:"11px", color:"#3A5238", marginTop:"4px" }}>
+              <strong style={{color:"#B0791E"}}>Good pairings: </strong>
               {PW_SCOTCH_FOOD_SECTORS.filter(f=>f.good.includes(s.id)).map(f=>f.label).join(", ")}
             </div>
             {PW_SCOTCH_FOOD_SECTORS.some(f=>f.avoid.includes(s.id)) && (
-              <div style={{ fontSize:"11px", color:"#888", marginTop:"4px" }}>
-                <strong style={{color:"#aa2222"}}>Avoid: </strong>
+              <div style={{ fontSize:"11px", color:"#7A8478", marginTop:"4px" }}>
+                <strong style={{color:"#B0483A"}}>Avoid: </strong>
                 {PW_SCOTCH_FOOD_SECTORS.filter(f=>f.avoid.includes(s.id)).map(f=>f.label).join(", ")}
               </div>
             )}
@@ -3077,33 +3077,33 @@ function PairingWheelsApp() {
 
   return (
     <div style={{
-      background:"#0a0704", minHeight:"100vh",
-      fontFamily:"'Palatino Linotype','Book Antiqua',Palatino,serif",
-      color:"#e8dcc8",
+      background:"#FAF7EF", minHeight:"100vh",
+      fontFamily:"'EB Garamond',Georgia,serif",
+      color:"#1E2D1C",
     }}>
       {/* Header */}
       <div style={{
-        background:"linear-gradient(180deg,#1a1008 0%,#0a0704 100%)",
-        borderBottom:"1px solid #4a3010",
+        background:"linear-gradient(180deg,#FFFDF7 0%,#FAF7EF 100%)",
+        borderBottom:"1px solid #E5CFA2",
         padding:"16px 16px 10px", textAlign:"center"
       }}>
-        <div style={{ fontSize:"10px", letterSpacing:"0.3em", color:"#a08050", textTransform:"uppercase" }}>
+        <div style={{ fontSize:"10px", letterSpacing:"0.3em", color:"#6B7D68", textTransform:"uppercase" }}>
           Whisky × Food Pairing System
         </div>
-        <h1 style={{ margin:"4px 0 0", fontSize:"20px", fontWeight:"700", color:"#f5deb3", letterSpacing:"0.03em" }}>
+        <h1 style={{ margin:"4px 0 0", fontSize:"20px", fontWeight:"700", color:"#1E2D1C", letterSpacing:"0.03em" }}>
           Flavor & Pairing Wheels
         </h1>
       </div>
 
       {/* Tabs */}
-      <div style={{ display:"flex", gap:"2px", padding:"10px 12px 0", background:"#0a0704", borderBottom:"1px solid #2a1a08" }}>
+      <div style={{ display:"flex", gap:"2px", padding:"10px 12px 0", background:"#FAF7EF", borderBottom:"1px solid #E3D9BF" }}>
         {TABS.map(t => (
           <button key={t.id} onClick={()=>setTab(t.id)} style={{
             flex:1, padding:"8px 4px",
             border:"none", borderRadius:"6px 6px 0 0",
-            background: tab===t.id ? "#1e1408" : "transparent",
-            borderBottom: tab===t.id ? "2px solid #c8a060" : "2px solid transparent",
-            color: tab===t.id ? "#f5deb3" : "#7a6040",
+            background: tab===t.id ? "#F4EED8" : "transparent",
+            borderBottom: tab===t.id ? "2px solid #94703F" : "2px solid transparent",
+            color: tab===t.id ? "#1E2D1C" : "#6B7D68",
             fontSize:"10px", fontWeight: tab===t.id ? "700" : "400",
             cursor:"pointer", fontFamily:"inherit",
             whiteSpace:"pre", lineHeight:"1.4"
@@ -3119,7 +3119,7 @@ function PairingWheelsApp() {
       </div>
 
       {/* Footer */}
-      <div style={{ textAlign:"center", padding:"16px", fontSize:"9px", color:"#4a3020", borderTop:"1px solid #1a1008" }}>
+      <div style={{ textAlign:"center", padding:"16px", fontSize:"9px", color:"#7C8A78", borderTop:"1px solid #FFFDF7" }}>
         Pairing science derived from Whisky Advocate, Whiskipedia, DrinkCurious, Fat Baby Bourbon, Deanston Distillery,<br/>
         and peer-reviewed food science on phenolic compound pairing. Scotch profiles from distillery tasting notes.
       </div>
@@ -3151,7 +3151,7 @@ const SW_SPICE_FAMILIES = [
   {
     family: "Baking Warm",
     icon: "🍂",
-    color: "#c85a00",
+    color: "#B86A30",
     s: 0, e: 50,
     spices: [
       { name: "Cinnamon", sub: "Cinnamaldehyde — woody, sweet, warming", angle: 8, r: 0.82 },
@@ -3164,7 +3164,7 @@ const SW_SPICE_FAMILIES = [
   {
     family: "Pungent & Warm",
     icon: "🌶️",
-    color: "#9b0000",
+    color: "#9E3B33",
     s: 50, e: 98,
     spices: [
       { name: "Black Pepper", sub: "Piperine, caryophyllene — hot, woody, slightly floral", angle: 57, r: 0.78 },
@@ -3177,7 +3177,7 @@ const SW_SPICE_FAMILIES = [
   {
     family: "Anise & Licorice",
     icon: "🌿",
-    color: "#1a6a30",
+    color: "#4F7A4C",
     s: 98, e: 145,
     spices: [
       { name: "Star Anise", sub: "Anethole (90%) — intense licorice, sweet-warm", angle: 104, r: 0.82 },
@@ -3190,7 +3190,7 @@ const SW_SPICE_FAMILIES = [
   {
     family: "Fresh Herbal",
     icon: "🌱",
-    color: "#207a28",
+    color: "#5D8A55",
     s: 145, e: 192,
     spices: [
       { name: "Mint", sub: "Menthol (L-carvone) — cooling, clean, fresh peppermint", angle: 151, r: 0.80 },
@@ -3203,7 +3203,7 @@ const SW_SPICE_FAMILIES = [
   {
     family: "Earthy & Resinous",
     icon: "🪨",
-    color: "#6b5a20",
+    color: "#7E6E3A",
     s: 192, e: 240,
     spices: [
       { name: "Rosemary", sub: "Camphor, 1,8-cineole, borneol — piney, resinous, woody", angle: 198, r: 0.80 },
@@ -3216,7 +3216,7 @@ const SW_SPICE_FAMILIES = [
   {
     family: "Smoky & Umami",
     icon: "💨",
-    color: "#404040",
+    color: "#575C55",
     s: 240, e: 282,
     spices: [
       { name: "Smoked Paprika", sub: "Guaiacol, phenols — campfire, sweet pepper, earthy", angle: 246, r: 0.78 },
@@ -3229,7 +3229,7 @@ const SW_SPICE_FAMILIES = [
   {
     family: "Citrus & Floral",
     icon: "🌸",
-    color: "#d4940a",
+    color: "#C0923A",
     s: 282, e: 330,
     spices: [
       { name: "Lemon Zest", sub: "Limonene (95%) — clean citrus, bright, slightly sweet", angle: 289, r: 0.80 },
@@ -3242,7 +3242,7 @@ const SW_SPICE_FAMILIES = [
   {
     family: "Mineral & Salt",
     icon: "🧂",
-    color: "#4a7a9a",
+    color: "#5D8299",
     s: 330, e: 360,
     spices: [
       { name: "Sea Salt", sub: "NaCl + trace minerals — amplifies all other flavors", angle: 337, r: 0.80 },
@@ -3258,7 +3258,7 @@ const SW_BOURBON_PROFILES = [
     id: "high_corn",
     label: "BT MB#1",
     fullLabel: "High-Corn / Low-Rye (BT MB#1)",
-    color: "#f5c842",
+    color: "#D2A841",
     angle: 310, r: 0.52,
     character: "Honey · Vanilla · Caramel · Stone fruit",
     keyCompounds: "Vanillin (high from new oak) · Ethyl acetate · Furfural · Isoamyl acetate",
@@ -3287,7 +3287,7 @@ const SW_BOURBON_PROFILES = [
     id: "classic_ky",
     label: "Classic KY",
     fullLabel: "Classic Kentucky (75-78c / 10-13r)",
-    color: "#e8841a",
+    color: "#C27A32",
     angle: 355, r: 0.52,
     character: "Caramel · Vanilla · Baking spice · Pepper",
     keyCompounds: "Vanillin · Eugenol (oak) · Piperine-like compounds · Furfural · Ethyl esters",
@@ -3316,7 +3316,7 @@ const SW_BOURBON_PROFILES = [
     id: "mod_rye",
     label: "Mod Rye",
     fullLabel: "Moderate-High Rye (Old Forester / Green River · 18-21r)",
-    color: "#c8460a",
+    color: "#B35A2E",
     angle: 44, r: 0.52,
     character: "Cinnamon · Orange peel · Dark cherry · Mint",
     keyCompounds: "Carvone (trace rye esters) · Limonene · Citral · Terpene esters · Eugenol",
@@ -3344,7 +3344,7 @@ const SW_BOURBON_PROFILES = [
     id: "high_rye",
     label: "High-Rye",
     fullLabel: "High-Rye Bourbon (OGD / MGP 36% · 27-36r)",
-    color: "#8b2a00",
+    color: "#9A4A2A",
     angle: 85, r: 0.52,
     character: "Bold pepper · Cinnamon gum · Tarragon · Herbal",
     keyCompounds: "Rye esters (ethyl decanoate) · Caryophyllene · Terpene alcohols · Spice phenolics",
@@ -3373,7 +3373,7 @@ const SW_BOURBON_PROFILES = [
     id: "wheated",
     label: "Wheated",
     fullLabel: "Wheated Bourbon (Maker's / Weller / Larceny · 16-21w)",
-    color: "#2c8f2e",
+    color: "#5F8F4E",
     angle: 145, r: 0.52,
     character: "Honey · Baked bread · Soft fruit · Vanilla",
     keyCompounds: "Vanillin (high) · Phenylethanol (rose-honey) · Lactones (coconut-oak) · Wheat esters",
@@ -3403,7 +3403,7 @@ const SW_BOURBON_PROFILES = [
     id: "ky_rye",
     label: "KY Rye",
     fullLabel: "Kentucky Rye (Rittenhouse / WT Rye · 51r)",
-    color: "#1a6e9e",
+    color: "#4A77A0",
     angle: 185, r: 0.52,
     character: "Pepper · Mint · Caramel-like sweetness · Apple",
     keyCompounds: "Carvone (moderate) · Limonene · Menthol-adjacent · Ethyl esters · Piperine-like",
@@ -3431,7 +3431,7 @@ const SW_BOURBON_PROFILES = [
     id: "mgp_95",
     label: "95/5 Rye",
     fullLabel: "High-Rye (MGP 95/5 — Bulleit Rye / Rossville Union)",
-    color: "#0a3d6b",
+    color: "#34557A",
     angle: 220, r: 0.52,
     character: "Dill · Mint · Eucalyptus · Dried herb · Intense pepper",
     keyCompounds: "Carvone (dominant) · Alpha-phellandrene · Limonene · Beta-caryophyllene · Myrcene",
@@ -3466,7 +3466,7 @@ const SW_SCOTCH_PROFILES = [
     id: "speyside_light",
     label: "Speyside Light",
     fullLabel: "Light Speyside (Glenlivet 12 / Glenmorangie 10)",
-    color: "#f5d060",
+    color: "#D6B24E",
     angle: 50, r: 0.52,
     character: "Orange blossom · Citrus · Pear · Honey · Vanilla",
     keyCompounds: "Linalool · Limonene · Citral · Geraniol · Phenylethanol (rose-honey)",
@@ -3497,7 +3497,7 @@ const SW_SCOTCH_PROFILES = [
     id: "speyside_sherried",
     label: "Sherried Speyside",
     fullLabel: "Sherried Speyside (Macallan 12 / Aberlour A'bunadh / GlenDronach)",
-    color: "#8b1a00",
+    color: "#94392C",
     angle: 5, r: 0.52,
     character: "Dried fruit · Dark chocolate · Cinnamon · Sherry · Rich vanilla",
     keyCompounds: "Vanillin (high) · Cinnamaldehyde · Eugenol · Furaneol (caramel) · Sherry lactones",
@@ -3526,7 +3526,7 @@ const SW_SCOTCH_PROFILES = [
     id: "highland",
     label: "Highland",
     fullLabel: "Classic Highland (Dalmore / Oban / Glenmorangie Aged)",
-    color: "#b85a00",
+    color: "#B06A2E",
     angle: 325, r: 0.52,
     character: "Chocolate orange · Heather · Honey · Dried fruit · Coastal",
     keyCompounds: "Vanillin · Eugenol · Marine lactones · Heather phenolics · Citrus esters",
@@ -3555,7 +3555,7 @@ const SW_SCOTCH_PROFILES = [
     id: "islay_medium",
     label: "Islay Medium",
     fullLabel: "Medium Islay (Talisker 10 / Highland Park / Oban 14)",
-    color: "#2a6a8a",
+    color: "#4F7C93",
     angle: 195, r: 0.52,
     character: "Sea salt · Pepper · Light peat · Maritime · Sweet malt",
     keyCompounds: "Guaiacol (moderate) · Caryophyllene · Marine lactones · NaCl minerals · Heather esters",
@@ -3585,7 +3585,7 @@ const SW_SCOTCH_PROFILES = [
     id: "islay_heavy",
     label: "Heavy Islay",
     fullLabel: "Heavy Peat Islay (Laphroaig 10 / Ardbeg 10 / Lagavulin 16)",
-    color: "#0a3a1a",
+    color: "#4D6E3F",
     angle: 155, r: 0.52,
     character: "Intense peat · Seaweed · Medicinal iodine · Campfire · Brine",
     keyCompounds: "Guaiacol (high) · Cresols · Phenol · 4-methylguaiacol · Marine terpenes · NaCl",
@@ -3617,10 +3617,10 @@ const SW_SCOTCH_PROFILES = [
 
 // ─── RATING COLORS ────────────────────────────────────────────────────────────
 const SW_RATING = {
-  best:    { color: "#44dd44", bg: "#003300", label: "✅ Best Pairing",    border: "#44dd44" },
-  good:    { color: "#ffaa00", bg: "#221100", label: "👍 Good Pairing",    border: "#ffaa00" },
-  neutral: { color: "#888888", bg: "#111111", label: "〰️ Neutral",         border: "#444444" },
-  avoid:   { color: "#ff4444", bg: "#220000", label: "❌ Avoid",           border: "#ff4444" },
+  best:    { color: "#3E7B4A", bg: "#E5EEDD", label: "✅ Best Pairing",    border: "#3E7B4A" },
+  good:    { color: "#B0791E", bg: "#F6EBD5", label: "👍 Good Pairing",    border: "#B0791E" },
+  neutral: { color: "#7A8478", bg: "#F1EEE6", label: "〰️ Neutral",         border: "#C9C6BC" },
+  avoid:   { color: "#B0483A", bg: "#F6E4DF", label: "❌ Avoid",           border: "#B0483A" },
 };
 
 // ─── WHEEL COMPONENT ──────────────────────────────────────────────────────────
@@ -3644,8 +3644,8 @@ function SpiceWheel({ families, profiles, activeProfile, onProfileClick, activeS
     <svg viewBox="0 0 600 600" style={{ width:"100%", height:"auto", display:"block" }}>
       <defs>
         <radialGradient id="wbg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#1a1208"/>
-          <stop offset="100%" stopColor="#070503"/>
+          <stop offset="0%" stopColor="#FFFDF7"/>
+          <stop offset="100%" stopColor="#FAF7EF"/>
         </radialGradient>
         <filter id="wglow">
           <feGaussianBlur stdDeviation="5" result="b"/>
@@ -3661,14 +3661,14 @@ function SpiceWheel({ families, profiles, activeProfile, onProfileClick, activeS
         let e = fam.e; if (e <= fam.s) e += 360;
         return (
           <path key={fi} d={sw_arc(fam.s, e, SW_R*0.44, SW_R*0.99)}
-            fill={fam.color} opacity={0.25}/>
+            fill={fam.color} opacity={0.16}/>
         );
       })}
 
       {/* Ring guides */}
       {[0.32, 0.44, 0.62, 0.80, 0.99].map((rf,i) => (
         <circle key={i} cx={SW_CX} cy={SW_CY} r={SW_R*rf}
-          fill="none" stroke="#3a2010" strokeWidth="0.6" opacity="0.5"/>
+          fill="none" stroke="#D8CCAC" strokeWidth="0.6" opacity="0.5"/>
       ))}
 
       {/* Spoke lines at family boundaries */}
@@ -3676,7 +3676,7 @@ function SpiceWheel({ families, profiles, activeProfile, onProfileClick, activeS
         const [x1,y1] = sw_polar(fam.s, SW_R*0.30);
         const [x2,y2] = sw_polar(fam.s, SW_R*0.99);
         return <line key={fi} x1={x1} y1={y1} x2={x2} y2={y2}
-          stroke="#3a2010" strokeWidth="0.8" opacity="0.5"/>;
+          stroke="#D8CCAC" strokeWidth="0.8" opacity="0.5"/>;
       })}
 
       {/* Family labels */}
@@ -3687,9 +3687,9 @@ function SpiceWheel({ families, profiles, activeProfile, onProfileClick, activeS
         return (
           <g key={fi}>
             <text x={lx} y={ly-6} textAnchor="middle" fontSize="10"
-              fill={fam.color} fontFamily="Palatino,serif" fontWeight="700" opacity="0.9">{fam.icon}</text>
-            <text x={lx} y={ly+6} textAnchor="middle" fontSize="6.5"
-              fill={fam.color} fontFamily="Palatino,serif" opacity="0.85">{fam.family}</text>
+              fill={fam.color} fontFamily="'EB Garamond',Georgia,serif" fontWeight="700" opacity="0.9">{fam.icon}</text>
+            <text x={lx} y={ly+6} textAnchor="middle" fontSize="8"
+              fill={fam.color} fontFamily="'EB Garamond',Georgia,serif" opacity="0.85">{fam.family}</text>
           </g>
         );
       })}
@@ -3714,11 +3714,11 @@ function SpiceWheel({ families, profiles, activeProfile, onProfileClick, activeS
                 <circle cx={sx} cy={sy} r={dotR+6} fill={dotColor} opacity="0.2" filter="url(#wglow)"/>
               )}
               <circle cx={sx} cy={sy} r={dotR}
-                fill={dotColor} opacity={rData ? 0.95 : 0.55}
-                stroke="#0a0704" strokeWidth="1"/>
+                fill={dotColor} opacity={rData ? 0.95 : 0.7}
+                stroke="#FAF7EF" strokeWidth="1"/>
               {(isHover || isActive) && (
                 <text x={sx} y={sy - dotR - 5} textAnchor="middle"
-                  fontSize="7" fill={dotColor} fontFamily="Palatino,serif" fontWeight="700">
+                  fontSize="7" fill={dotColor} fontFamily="'EB Garamond',Georgia,serif" fontWeight="700">
                   {sp.name}
                 </text>
               )}
@@ -3735,9 +3735,9 @@ function SpiceWheel({ families, profiles, activeProfile, onProfileClick, activeS
           <g key={p.id} onClick={() => onProfileClick(p.id)} style={{ cursor:"pointer" }}>
             {isA && <circle cx={px} cy={py} r={17} fill={p.color} opacity="0.2" filter="url(#wglow)"/>}
             <circle cx={px} cy={py} r={isA ? 13 : 10}
-              fill={p.color} stroke="#0a0704" strokeWidth="1.5" opacity="0.92"/>
+              fill={p.color} stroke="#FAF7EF" strokeWidth="1.5" opacity="0.92"/>
             <text x={px} y={py+4} textAnchor="middle"
-              fontSize="6" fill="#fff" fontWeight="700" fontFamily="Palatino,serif">
+              fontSize="6" fill="#fff" fontWeight="700" fontFamily="'EB Garamond',Georgia,serif">
               {p.label.split(" ")[0]}
             </text>
           </g>
@@ -3745,12 +3745,12 @@ function SpiceWheel({ families, profiles, activeProfile, onProfileClick, activeS
       })}
 
       {/* Center */}
-      <circle cx={SW_CX} cy={SW_CY} r={SW_R*0.29} fill="#070503" stroke="#3a2010" strokeWidth="1"/>
-      <circle cx={SW_CX} cy={SW_CY} r={SW_R*0.27} fill="#100c06"/>
+      <circle cx={SW_CX} cy={SW_CY} r={SW_R*0.29} fill="#FFFDF7" stroke="#C9A87A" strokeWidth="1.2"/>
+      <circle cx={SW_CX} cy={SW_CY} r={SW_R*0.27} fill="#F4EED8"/>
       <text x={SW_CX} y={SW_CY-5} textAnchor="middle" fontSize="8.5"
-        fill="#a08050" fontFamily="Palatino,serif" letterSpacing="1.5">HERB & SPICE</text>
+        fill="#6B7D68" fontFamily="'EB Garamond',Georgia,serif" letterSpacing="1.5">HERB & SPICE</text>
       <text x={SW_CX} y={SW_CY+9} textAnchor="middle" fontSize="8.5"
-        fill="#a08050" fontFamily="Palatino,serif" letterSpacing="1">PAIRINGS</text>
+        fill="#6B7D68" fontFamily="'EB Garamond',Georgia,serif" letterSpacing="1">PAIRINGS</text>
     </svg>
   );
 }
@@ -3788,10 +3788,10 @@ function PairingTab({ profiles, families, title }) {
 
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
-      <div style={{ fontSize:"11px", color:"#7a6040", lineHeight:"1.6" }}>
-        Select a <strong style={{color:"#c8a060"}}>whisky profile</strong> (dot in center zone), then tap any
-        <strong style={{color:"#c8a060"}}> spice/herb</strong> dot to see the pairing science.
-        Dots turn <span style={{color:"#44dd44"}}>green</span> / <span style={{color:"#ffaa00"}}>amber</span> / <span style={{color:"#ff4444"}}>red</span> based on compatibility.
+      <div style={{ fontSize:"11px", color:"#6B7D68", lineHeight:"1.6" }}>
+        Select a <strong style={{color:"#94703F"}}>whisky profile</strong> (dot in center zone), then tap any
+        <strong style={{color:"#94703F"}}> spice/herb</strong> dot to see the pairing science.
+        Dots turn <span style={{color:"#3E7B4A"}}>green</span> / <span style={{color:"#B0791E"}}>amber</span> / <span style={{color:"#B0483A"}}>red</span> based on compatibility.
       </div>
 
       <SpiceWheel
@@ -3821,10 +3821,10 @@ function PairingTab({ profiles, families, title }) {
         <div style={{ padding:"12px 14px", background:`${profile.color}18`,
           border:`1px solid ${profile.color}50`, borderRadius:"8px" }}>
           <div style={{ fontWeight:"700", color:profile.color, fontSize:"13px" }}>{profile.fullLabel}</div>
-          <div style={{ fontSize:"10px", color:"#a09070", marginTop:"2px", marginBottom:"6px" }}>
+          <div style={{ fontSize:"10px", color:"#6B7D68", marginTop:"2px", marginBottom:"6px" }}>
             {profile.character}
           </div>
-          <div style={{ fontSize:"10px", color:"#6a5040", fontStyle:"italic" }}>
+          <div style={{ fontSize:"10px", color:"#4F654C", fontStyle:"italic" }}>
             Key compounds: {profile.keyCompounds}
           </div>
         </div>
@@ -3841,15 +3841,15 @@ function PairingTab({ profiles, families, title }) {
               <span style={{ fontSize:"20px" }}>{fam?.icon}</span>
               <div>
                 <div style={{ fontWeight:"800", color:r.color, fontSize:"15px" }}>{spice.name}</div>
-                <div style={{ fontSize:"9px", color:"#888", marginTop:"1px" }}>{spice.sub}</div>
+                <div style={{ fontSize:"9px", color:"#7A8478", marginTop:"1px" }}>{spice.sub}</div>
               </div>
               <div style={{ marginLeft:"auto", padding:"4px 10px", borderRadius:"12px",
                 border:`1px solid ${r.border}`, color:r.color, fontSize:"10px", fontWeight:"700" }}>
                 {r.label}
               </div>
             </div>
-            <div style={{ fontSize:"12px", color:"#ddd", lineHeight:"1.6",
-              padding:"8px 10px", background:"rgba(0,0,0,0.4)", borderRadius:"6px",
+            <div style={{ fontSize:"12px", color:"#3A5238", lineHeight:"1.6",
+              padding:"8px 10px", background:"rgba(30,45,28,0.08)", borderRadius:"6px",
               borderLeft:`3px solid ${r.border}` }}>
               <strong style={{color:profile.color}}>{profile.label}: </strong>
               {pairingInfo.reason}
@@ -3861,7 +3861,7 @@ function PairingTab({ profiles, families, title }) {
       {/* Full pairing list for selected profile */}
       {profile && !activeSpice && (
         <div>
-          <div style={{ fontSize:"10px", color:"#7a6040", textTransform:"uppercase",
+          <div style={{ fontSize:"10px", color:"#6B7D68", textTransform:"uppercase",
             letterSpacing:"0.15em", marginBottom:"8px" }}>
             All Spice Pairings — {profile.label}
           </div>
@@ -3895,11 +3895,11 @@ function PairingTab({ profiles, families, title }) {
 
       {/* Spice-first view */}
       {spice && !activeProfile && (
-        <div style={{ padding:"12px 14px", background:"rgba(255,255,255,0.03)",
-          border:"1px solid #3a2010", borderRadius:"8px" }}>
-          <div style={{ fontWeight:"700", color:"#f5deb3", fontSize:"13px" }}>{spice.name}</div>
-          <div style={{ fontSize:"10px", color:"#888", marginBottom:"8px" }}>{spice.sub}</div>
-          <div style={{ fontSize:"11px", color:"#a09070" }}>
+        <div style={{ padding:"12px 14px", background:"rgba(30,45,28,0.03)",
+          border:"1px solid #D8CCAC", borderRadius:"8px" }}>
+          <div style={{ fontWeight:"700", color:"#1E2D1C", fontSize:"13px" }}>{spice.name}</div>
+          <div style={{ fontSize:"10px", color:"#7A8478", marginBottom:"8px" }}>{spice.sub}</div>
+          <div style={{ fontSize:"11px", color:"#6B7D68" }}>
             Select a whisky profile above to see compatibility.
           </div>
         </div>
@@ -3919,36 +3919,36 @@ function SpiceWheelsApp() {
 
   return (
     <div style={{
-      background:"#080504", minHeight:"100vh",
-      fontFamily:"'Palatino Linotype','Book Antiqua',Palatino,serif",
-      color:"#e8dcc8"
+      background:"#FAF7EF", minHeight:"100vh",
+      fontFamily:"'EB Garamond',Georgia,serif",
+      color:"#1E2D1C"
     }}>
       {/* Header */}
       <div style={{
-        background:"linear-gradient(180deg,#1a1008 0%,#080504 100%)",
-        borderBottom:"1px solid #4a3010",
+        background:"linear-gradient(180deg,#FFFDF7 0%,#FAF7EF 100%)",
+        borderBottom:"1px solid #E5CFA2",
         padding:"16px 16px 10px", textAlign:"center"
       }}>
-        <div style={{ fontSize:"10px", color:"#a08050", letterSpacing:"0.3em", textTransform:"uppercase" }}>
+        <div style={{ fontSize:"10px", color:"#6B7D68", letterSpacing:"0.3em", textTransform:"uppercase" }}>
           Compound-Level Flavor Science
         </div>
-        <h1 style={{ margin:"4px 0 0", fontSize:"20px", fontWeight:"700", color:"#f5deb3" }}>
+        <h1 style={{ margin:"4px 0 0", fontSize:"20px", fontWeight:"700", color:"#1E2D1C" }}>
           Whisky × Herb & Spice Pairing Wheels
         </h1>
-        <div style={{ fontSize:"10px", color:"#5a4030", marginTop:"4px" }}>
+        <div style={{ fontSize:"10px", color:"#4F654C", marginTop:"4px" }}>
           Grounded in aroma chemistry · carvone · guaiacol · eugenol · vanillin · limonene
         </div>
       </div>
 
       {/* Tabs */}
       <div style={{ display:"flex", gap:"2px", padding:"10px 12px 0",
-        background:"#080504", borderBottom:"1px solid #1a0e06" }}>
+        background:"#FAF7EF", borderBottom:"1px solid #E3D9BF" }}>
         {TABS.map(t => (
           <button key={t.id} onClick={()=>setTab(t.id)} style={{
             flex:1, padding:"8px 4px", border:"none", borderRadius:"6px 6px 0 0",
-            background: tab===t.id ? "#181006" : "transparent",
-            borderBottom: tab===t.id ? "2px solid #c8a060" : "2px solid transparent",
-            color: tab===t.id ? "#f5deb3" : "#7a6040",
+            background: tab===t.id ? "#F4EED8" : "transparent",
+            borderBottom: tab===t.id ? "2px solid #94703F" : "2px solid transparent",
+            color: tab===t.id ? "#1E2D1C" : "#6B7D68",
             fontSize:"10px", fontWeight: tab===t.id ? "700" : "400",
             cursor:"pointer", fontFamily:"inherit", whiteSpace:"pre", lineHeight:"1.4"
           }}>{t.label}</button>
@@ -3974,8 +3974,8 @@ function SpiceWheelsApp() {
       </div>
 
       {/* Footer */}
-      <div style={{ textAlign:"center", padding:"14px", fontSize:"9px", color:"#3a2010",
-        borderTop:"1px solid #100c06", marginTop:"8px" }}>
+      <div style={{ textAlign:"center", padding:"14px", fontSize:"9px", color:"#7C8A78",
+        borderTop:"1px solid #F4EED8", marginTop:"8px" }}>
         Pairing science sourced from: compound chemistry (guaiacol/carvone/eugenol), Khymos molecular gastronomy
         database, Whisky Advocate bartender pairings, Compound Interest (chemistry of whisky), ScienceDirect
         carvone research, PunchDrink 95/5 rye analysis, and regional pairing traditions.
@@ -3987,7 +3987,7 @@ function SpiceWheelsApp() {
 const TOOLS_LIST = [
   { id:"sommelier", icon:"glass", title:"Whiskey Sommelier", tag:"Live", tagColor:C.gold, desc:"106 expressions across American whiskey and Scotch. Select any dram and find your next bottle through our flavor-matching engine — with cross-category bridge recommendations.", features:["Flavor profile radar charts","If you like X, try Y engine","Price & availability tiers","Filter by distillery or tier"] },
   { id:"pairing", icon:"plate", title:"Food Pairing Wheels", tag:"Live Now", tagColor:C.forestMid, desc:"Bourbon and Scotch food pairing wheels grounded in flavor chemistry. 8 food categories from red meat to desserts, mapped to specific expressions with Best / Good / Avoid ratings.", features:["Bourbon food pairing","Scotch food pairing","Scotch flavor wheel","Scientific principles"] },
-  { id:"spice", icon:"leaf", title:"Herb & Spice Wheels", tag:"Live", tagColor:"#2A6090", desc:"40 herbs and spices mapped to bourbon and Scotch profiles using aroma chemistry. D-carvone, guaiacol, eugenol — the molecular science behind every pairing.", features:["40 herbs & spices","8 flavor families","Compound-level reasoning","Bourbon + Scotch tabs"] },
+  { id:"spice", icon:"leaf", title:"Herb & Spice Wheels", tag:"Live", tagColor:"#46698C", desc:"40 herbs and spices mapped to bourbon and Scotch profiles using aroma chemistry. D-carvone, guaiacol, eugenol — the molecular science behind every pairing.", features:["40 herbs & spices","8 flavor families","Compound-level reasoning","Bourbon + Scotch tabs"] },
   { id:"mashbill", icon:"grain", title:"Mashbill Reference", tag:"Live Now",    tagColor:C.forestMid, desc:"Complete grain science for all 11 major American whiskey distilleries including Willett and Four Roses. Grain composition bars, product lists, and production notes for every mashbill.", features:["11 distilleries","Visual grain bars","Four Roses 10-recipe decoder","Willett barrel legend"] },
 ];
 
@@ -4004,7 +4004,7 @@ const ToolsPage = () => {
           <div style={{ ...styles.heading, fontSize:"18px", fontWeight:"700", color:C.creamMid }}>{TOOL_TITLES[activeTool]}</div>
           <div style={{ ...styles.mono, fontSize:"8px", color:`${C.gold}70`, letterSpacing:"0.2em", textTransform:"uppercase", marginLeft:"auto" }}>Proof &amp; Plate</div>
         </div>
-        <div style={{ padding:"24px 24px 48px", background: (activeTool==="sommelier"||activeTool==="mashbill") ? C.forestDk : C.ivory, minHeight:"calc(100vh - 64px)" }}>
+        <div style={{ padding:"24px 24px 48px", background: C.ivory, minHeight:"calc(100vh - 64px)" }}>
           {activeTool==="sommelier" && <SommelierEmbed/>}
           {activeTool==="pairing"   && <PairingWheelsApp/>}
           {activeTool==="spice"     && <SpiceWheelsApp/>}
