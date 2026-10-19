@@ -4230,6 +4230,42 @@ const ToolsPage = () => {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 
+// ─── COMMUNITY REVIEW GROUPING ─────────────────────────────────────────
+// Approved reader reviews of the same bottle are combined into one entry:
+// each category is averaged, and the review count is shown.
+// Bottles match on name, ignoring case, punctuation and filler words.
+const CR_FILLER = new Set(["bourbon","whiskey","whisky","straight","kentucky","ky","the","small","batch"]);
+const crKey = (name) => (name || "").toLowerCase().replace(/&/g," and ").replace(/[^a-z0-9 ]/g," ")
+  .split(/\s+/).filter(w => w && !CR_FILLER.has(w)).join(" ").trim() || (name || "").toLowerCase().trim();
+const crMode = (vals) => { const c = {}; vals.filter(Boolean).forEach(v => c[v] = (c[v]||0) + 1);
+  return Object.keys(c).sort((a,b) => c[b]-c[a])[0] || null; };
+const crAvg = (vals) => { const n = vals.map(Number).filter(v => !isNaN(v)); return n.length ? n.reduce((a,b)=>a+b,0) / n.length : null; };
+
+function groupCommunityReviews(rows) {
+  const groups = {};
+  rows.forEach(r => { const k = crKey(r.whiskey_name); (groups[k] = groups[k] || []).push(r); });
+  return Object.entries(groups).map(([key, rs]) => {
+    rs = [...rs].sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+    const part = (f) => { const a = crAvg(rs.map(r => r[f])); return a === null ? null : Math.round(a); };
+    const scores = { nose:part("score_nose"), palate:part("score_palate"), finish:part("score_finish"), value:part("score_value") };
+    const haveParts = Object.values(scores).every(v => v !== null);
+    const total = haveParts ? scores.nose + scores.palate + scores.finish + scores.value : Math.round(crAvg(rs.map(r => r.score_total)) || 0);
+    const verdicts = {}; rs.forEach(r => { if (r.verdict) verdicts[r.verdict] = (verdicts[r.verdict]||0) + 1; });
+    return {
+      key, count: rs.length, reviews: rs, scores, total, verdicts,
+      whiskey_name: crMode(rs.map(r => r.whiskey_name && r.whiskey_name.trim())) || rs[0].whiskey_name,
+      distillery: crMode(rs.map(r => r.distillery)), style: crMode(rs.map(r => r.style)),
+      age_statement: crMode(rs.map(r => r.age_statement)), proof: crMode(rs.map(r => r.proof)),
+      msrp: (() => { const a = crAvg(rs.map(r => r.msrp).filter(v => v)); return a ? Math.round(a) : null; })(),
+      bestServed: { sipper:crMode(rs.map(r=>r.bs_sipper)), mixer:crMode(rs.map(r=>r.bs_mixer)), table:crMode(rs.map(r=>r.bs_table)), kitchen:crMode(rs.map(r=>r.bs_kitchen)) },
+      latest: rs[0].created_at,
+    };
+  }).sort((a,b) => new Date(b.latest) - new Date(a.latest));
+}
+const crVerdictLine = (v) => ["Buy It","Try It First","Skip It"].filter(k => v[k]).map(k => `${v[k]} ${k}`)
+  .concat(Object.keys(v).filter(k => !["Buy It","Try It First","Skip It"].includes(k)).map(k => `${v[k]} ${k}`)).join(" · ");
+const crCountLine = (n) => `Based on ${n} review${n === 1 ? "" : "s"}`;
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // REVIEWS PAGE — P&P Reviews / Community Reviews / Leave a Review
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -4357,75 +4393,85 @@ const ReviewsPage = ({ setPage }) => {
     );
   }
 
-  // ── COMMUNITY REVIEW DETAIL ───────────────────────────────────────────────
+  // ── COMMUNITY REVIEW DETAIL (one bottle, all approved reader reviews) ──
   if (selectedReview && selectedReview._source === "community") {
-    const p = selectedReview;
+    const g = selectedReview;
+    const fmtDate = (d) => { try { return new Date(d).toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" }); } catch(e) { return ""; } };
     return (
       <div style={{ paddingTop:"66px" }}>
         <section style={{ background:C.forestDk, padding:"40px 28px 0" }}>
           <div style={{ maxWidth:"760px", margin:"0 auto" }}>
             <button onClick={()=>setSelectedReview(null)} style={{ background:"none", border:"none", color:C.gold, ...styles.body, fontSize:"14px", cursor:"pointer", marginBottom:"24px" }}>← Back to Reviews</button>
-            <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"10px" }}>
-              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.18em", color:C.forestMid, textTransform:"uppercase" }}>{p.distillery} · {p.style} · {p.age_statement || "NAS"}</div>
+            <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"10px", flexWrap:"wrap" }}>
+              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.18em", color:C.gold, textTransform:"uppercase" }}>{[g.distillery, g.style, g.age_statement].filter(Boolean).join(" · ")}</div>
               <span style={{ ...styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:C.forestMid, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase" }}>Community Review</span>
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:"24px", paddingBottom:"32px" }}>
-              <h1 style={{ ...styles.heading, fontSize:"clamp(26px,4vw,40px)", fontWeight:"900", color:C.creamMid, lineHeight:"1.2", flex:1 }}>{p.whiskey_name}</h1>
+              <div style={{ flex:1 }}>
+                <h1 style={{ ...styles.heading, fontSize:"clamp(26px,4vw,40px)", fontWeight:"900", color:C.creamMid, lineHeight:"1.2", marginBottom:"8px" }}>{g.whiskey_name}</h1>
+                <div style={{ ...styles.body, fontSize:"15px", color:`${C.cream}B0` }}>{crCountLine(g.count)}{g.count < 3 ? " · early score, will settle as more reviews come in" : ""}</div>
+              </div>
               <div style={{ textAlign:"center", background:"rgba(0,0,0,0.25)", borderRadius:"6px", padding:"12px 18px", minWidth:"80px", flexShrink:0 }}>
-                <div style={{ ...styles.heading, fontSize:"36px", fontWeight:"700", color:C.gold, lineHeight:1 }}>{p.score_total}</div>
-                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", color:`${C.cream}70`, marginTop:"4px", textTransform:"uppercase" }}>Community Score</div>
+                <div style={{ ...styles.heading, fontSize:"36px", fontWeight:"700", color:C.gold, lineHeight:1 }}>{g.total}</div>
+                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", color:`${C.cream}70`, marginTop:"4px", textTransform:"uppercase" }}>Community Avg</div>
               </div>
             </div>
-            <div style={{ ...styles.body, fontSize:"13px", color:`${C.cream}70`, paddingBottom:"20px" }}>Reviewed by {p.submitter_name || "a P&P reader"}</div>
           </div>
         </section>
         <section style={{ background:C.ivory, padding:"40px 28px 80px" }}>
           <div style={{ maxWidth:"760px", margin:"0 auto" }}>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"32px" }}>
-              {[["Nose",p.score_nose,25],["Palate",p.score_palate,25],["Finish",p.score_finish,20],["Value",p.score_value,30]].map(([lbl,val,max])=>(
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"12px", marginBottom:"20px" }}>
+              {[["Nose",g.scores.nose,25],["Palate",g.scores.palate,25],["Finish",g.scores.finish,20],["Value",g.scores.value,30]].map(([lbl,val,max])=>(
                 <div key={lbl} style={{ background:C.cream, border:`1px solid ${C.border}`, borderRadius:"6px", padding:"16px", textAlign:"center" }}>
                   <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>{lbl}</div>
-                  <div><span style={{ ...styles.heading, fontSize:"22px", fontWeight:"700", color:C.forestDk }}>{val}</span><span style={{ ...styles.body, fontSize:"12px", color:C.textLight }}>/{max}</span></div>
+                  <div><span style={{ ...styles.heading, fontSize:"22px", fontWeight:"700", color:C.forestDk }}>{val ?? "—"}</span><span style={{ ...styles.body, fontSize:"12px", color:C.textLight }}>/{max}</span></div>
                 </div>
               ))}
             </div>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"20px", marginBottom:"28px" }}>
-              {[["Nose",p.nose],["Palate",p.palate],["Finish",p.finish]].map(([lbl,txt])=>(
-                <div key={lbl}>
-                  <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"6px" }}>{lbl}</div>
-                  <p style={{ ...styles.body, fontSize:"15px", color:C.textDk, lineHeight:"1.65", fontStyle:"italic" }}>{txt || "—"}</p>
-                </div>
-              ))}
+            <div style={{ ...styles.body, fontSize:"14px", color:C.textLight, marginBottom:"28px" }}>
+              {g.count > 1 ? "Each category is the average across reviewers, rounded; the total is the sum of the rounded categories." : "Scores from a single reviewer so far."}
             </div>
-            {p.pairing && (
-              <div style={{ marginBottom:"28px", padding:"20px 24px", background:C.cream, borderLeft:`3px solid ${C.forestMid}`, borderRadius:"0 6px 6px 0", border:`1px solid ${C.border}` }}>
-                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>Pair It With</div>
-                <p style={{ ...styles.body, fontSize:"15px", color:C.textDk, lineHeight:"1.65", fontStyle:"italic" }}>{p.pairing}</p>
+
+            {Object.keys(g.verdicts).length > 0 && (
+              <div style={{ marginBottom:"28px", padding:"18px 22px", background:C.cream, border:`1px solid ${C.border}`, borderRadius:"6px" }}>
+                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>Reader Verdicts</div>
+                <div style={{ ...styles.heading, fontSize:"18px", fontWeight:"700", color:C.forestDk }}>{crVerdictLine(g.verdicts)}</div>
               </div>
             )}
-            {p.narrative && (
-              <div style={{ marginBottom:"28px" }}>
-                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.1em", textTransform:"uppercase", color:C.textLight, marginBottom:"8px" }}>In Their Words</div>
-                <p style={{ ...styles.body, fontSize:"16px", color:C.textDk, lineHeight:"1.8" }}>{p.narrative}</p>
+
+            {Object.values(g.bestServed).some(Boolean) && (
+              <div style={{ marginBottom:"36px" }}>
+                <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As (most common answer)</div>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
+                  {Object.entries(g.bestServed).map(([k,v])=>(
+                    <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
+                      <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
+                      <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
+                      <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v]||C.textLight }}>{v ? (bsLabel[v]||v) : "—"}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
-            <div style={{ marginBottom:"28px" }}>
-              <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As</div>
-              <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
-                {[["sipper",p.bs_sipper],["mixer",p.bs_mixer],["table",p.bs_table],["kitchen",p.bs_kitchen]].map(([k,v])=>(
-                  <div key={k} style={{ border:`1px solid ${v==="perfect"?C.gold:C.border}`, borderRadius:"6px", padding:"14px 8px", textAlign:"center", background:v==="perfect"?`${C.gold}08`:"transparent" }}>
-                    <div style={{ marginBottom:"4px" }}><Icon name={bsIcons[k]} size={18} color={v==="perfect"?C.gold:C.forestTint} strokeWidth={1.4}/></div>
-                    <div style={{ ...styles.body, fontSize:"11px", fontWeight:"600", color:C.forestDk, marginBottom:"4px" }}>{bsNames[k]}</div>
-                    <span style={{ fontSize:"10px", fontFamily:"'EB Garamond',serif", padding:"2px 8px", borderRadius:"2px", background:v==="perfect"?`${C.gold}18`:C.creamDk, color:bsColor[v]||C.textLight }}>{bsLabel[v]||v}</span>
+
+            <h2 style={{ ...styles.heading, fontSize:"24px", fontWeight:"700", color:C.forestDk, marginBottom:"16px" }}>What reviewers said</h2>
+            {g.reviews.map((r, idx) => (
+              <div key={r.id || idx} style={{ borderTop:`1px solid ${C.border}`, padding:"22px 0" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", gap:"12px", flexWrap:"wrap", marginBottom:"10px" }}>
+                  <div style={{ ...styles.heading, fontSize:"16px", fontWeight:"700", color:C.forestDk }}>{r.submitter_name || "A P&P reader"}<span style={{ ...styles.body, fontSize:"13px", fontWeight:"400", color:C.textLight }}>{r.created_at ? `  ·  ${fmtDate(r.created_at)}` : ""}</span></div>
+                  <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>
+                    <strong style={{ color:C.forestDk }}>{r.score_total}</strong>/100{r.verdict ? `  ·  ${r.verdict}` : ""}
                   </div>
+                </div>
+                {[["Nose",r.nose],["Palate",r.palate],["Finish",r.finish],["Pair it with",r.pairing]].filter(([,t])=>t).map(([lbl,t])=>(
+                  <p key={lbl} style={{ ...styles.body, fontSize:"15px", color:C.textDk, lineHeight:"1.65", marginBottom:"6px" }}><span style={{ color:C.textLight }}>{lbl}: </span><em>{t}</em></p>
                 ))}
+                {r.narrative && <p style={{ ...styles.body, fontSize:"16px", color:C.textDk, lineHeight:"1.75", marginTop:"8px" }}>{r.narrative}</p>}
               </div>
-            </div>
-            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"12px", paddingTop:"20px", borderTop:`1px solid ${C.border}` }}>
-              <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>{p.msrp ? <>MSRP <strong style={{ color:C.textDk }}>${p.msrp}</strong></> : null} {p.proof ? `· ${p.proof} proof` : ""}</div>
-              {p.verdict && <span style={{ ...styles.mono, fontSize:"9px", padding:"5px 14px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.08em", textTransform:"uppercase" }}>{p.verdict}</span>}
-            </div>
-            <div style={{ marginTop:"32px" }}>
+            ))}
+
+            <div style={{ marginTop:"24px", display:"flex", gap:"12px", flexWrap:"wrap" }}>
+              <button onClick={()=>{ setSelectedReview(null); setTab("submit"); }} style={{ padding:"11px 28px", background:C.gold, border:"none", color:C.forestDk, ...styles.heading, fontSize:"14px", fontWeight:"700", borderRadius:"4px", cursor:"pointer" }}>Review this bottle</button>
               <button onClick={()=>setSelectedReview(null)} style={{ padding:"11px 28px", background:C.forestMid, border:"none", color:C.gold, ...styles.heading, fontSize:"14px", fontWeight:"700", borderRadius:"4px", cursor:"pointer" }}>← Back to Reviews</button>
             </div>
           </div>
@@ -4503,19 +4549,22 @@ const ReviewsPage = ({ setPage }) => {
               )}
               {!loadingCommunity && communityReviews.length > 0 && (
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"20px" }}>
-                  {communityReviews.map(p => (
-                    <div key={p.id} onClick={()=>setSelectedReview({...p, _source:"community"})}
+                  {groupCommunityReviews(communityReviews).map(g => (
+                    <div key={g.key} onClick={()=>setSelectedReview({...g, _source:"community"})}
                       style={{ background:C.cream, border:`1px solid ${C.forestMid}`, borderRadius:"8px", padding:"26px", cursor:"pointer", transition:"all 0.3s", borderTop:`3px solid ${C.forestMid}` }}>
                       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px" }}>
-                        <div style={{ fontFamily:styles.mono, fontSize:"9px", letterSpacing:"0.14em", color:C.forestMid, textTransform:"uppercase" }}>{p.distillery || p.style}</div>
-                        <span style={{ ...styles.heading, fontSize:"20px", fontWeight:"700", color:C.forestDk }}>{p.score_total}</span>
+                        <div style={{ fontFamily:styles.mono, fontSize:"9px", letterSpacing:"0.14em", color:C.forestMid, textTransform:"uppercase" }}>{g.distillery || g.style}</div>
+                        <span style={{ ...styles.heading, fontSize:"20px", fontWeight:"700", color:C.forestDk }}>{g.total}</span>
                       </div>
-                      <span style={{ display:"inline-block", fontFamily:styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:C.forestMid, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase", marginBottom:"10px" }}>Community Review</span>
-                      <h3 style={{ fontFamily:styles.heading, fontSize:"18px", fontWeight:"700", color:C.textDk, marginBottom:"8px", lineHeight:"1.3" }}>{p.whiskey_name}</h3>
-                      <p style={{ fontFamily:styles.body, fontSize:"13px", color:C.textLight, marginBottom:"12px" }}>Reviewed by {p.submitter_name || "a P&P reader"}</p>
-                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                        {p.verdict ? <span style={{ ...styles.mono, fontSize:"9px", padding:"4px 10px", background:C.forestMid, color:C.gold, borderRadius:"2px", letterSpacing:"0.06em", textTransform:"uppercase" }}>{p.verdict}</span> : <span/>}
-                        <span style={{ fontFamily:styles.body, fontSize:"13px", color:C.gold }}>Read →</span>
+                      <div style={{ display:"flex", gap:"6px", flexWrap:"wrap", marginBottom:"10px" }}>
+                        <span style={{ fontFamily:styles.mono, fontSize:"8px", letterSpacing:"0.1em", background:C.forestMid, color:C.gold, padding:"3px 10px", borderRadius:"2px", textTransform:"uppercase" }}>Community</span>
+                        {g.count < 3 && <span style={{ fontFamily:styles.mono, fontSize:"8px", letterSpacing:"0.1em", border:`1px solid ${C.border}`, color:C.textMid, padding:"2px 9px", borderRadius:"2px", textTransform:"uppercase" }}>Early</span>}
+                      </div>
+                      <h3 style={{ fontFamily:styles.heading, fontSize:"18px", fontWeight:"700", color:C.textDk, marginBottom:"6px", lineHeight:"1.3" }}>{g.whiskey_name}</h3>
+                      <p style={{ fontFamily:styles.body, fontSize:"14px", color:C.textMid, marginBottom:"4px" }}>{crCountLine(g.count)}</p>
+                      {Object.keys(g.verdicts).length > 0 && <p style={{ fontFamily:styles.body, fontSize:"13px", color:C.textLight, marginBottom:"12px" }}>{crVerdictLine(g.verdicts)}</p>}
+                      <div style={{ display:"flex", justifyContent:"flex-end" }}>
+                        <span style={{ fontFamily:styles.body, fontSize:"13px", color:C.goldDk }}>Read →</span>
                       </div>
                     </div>
                   ))}
