@@ -56,7 +56,7 @@ const BS_ORDER = ["sipper","mixer","table","kitchen"];
 const bsEntries = (bs) => BS_ORDER.map(k => [k, (bs && bs[k]) || "skip"]);
 // What each use means (shown on review pages and the review form).
 const BS_DESC = {
-  sipper:  "So good you'll want it neat.",
+  sipper:  "So good you'll want it on its own, so you don't miss a single note.",
   mixer:   "Shines in cocktails and mixed drinks.",
   table:   "Neat or on the rocks with a meal. Food may mask some subtler notes.",
   kitchen: "Best used for cooking.",
