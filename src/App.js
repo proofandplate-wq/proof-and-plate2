@@ -762,6 +762,19 @@ const AboutPage = ({ setPage }) => (
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-19",
+    title:"Angel's Envy Single Barrel, Port Finish — All Time Wine & Spirits Pick",
+    desc:"Approachable and wine-forward, but not complex. Better at the dinner table than in the tasting glass.",
+    distillery:"Angel's Envy", style:"Bourbon, Port Barrel Finish", age:"NAS", abv:55, proof:110, paid:80,
+    ppScore:62, scores:{ nose:15, palate:15, finish:12, value:20 },
+    bestServed:{ table:"perfect" },
+    nose:"The wine and port notes show up right away, with almost a little blackberry and a touch of oak. There's very little ethanol, but the nose isn't very strong and doesn't feel that dynamic. Mostly I'm picking up wine, an older-wine kind of smell. Funny enough, it doesn't smell like port. I'd believe this was a red wine finish, but I wouldn't have guessed port.",
+    palate:"A little sweet, with almost a little fig and some strawberry jam. Then a touch of minerality, like I'd expect from George Dickel. It's not full-on Flintstones vitamins, but there's definitely a little of that Dickel taste. It's decent, just not complex.",
+    finish:"Not a strong finish. It isn't bad, just underwhelming.",
+    pairing:"A nice meal, neat or on the rocks. It holds up next to spicy dishes or a big plate of barbecue, since there's not much complexity to lose.",
+    verdict:"Try It First", tags:["Bourbon","Wine Finish","Single Barrel","Store Pick"],
+    body:"Angel's Envy single barrel SB-240929, bottle #181, picked by All Time Wine & Spirits. Kentucky straight bourbon finished in port wine barrels, bottled at 110 proof.\n\nI don't have a lot of experience with Angel's Envy. I've had several very good cocktails made with it, but I don't know much about their single barrels. This store pick was my way in.\n\n## Verdict\n\nIf you enjoy a straightforward, approachable, wine-finished bourbon, this is good. It's not bad, just not complex. That actually makes it a good fit at the table, neat or on the rocks alongside a nice meal. There isn't enough complexity here to lose by pairing it with a spicy dish or a big plate of barbecue. This is the bottle I'd happily order out to dinner on someone else's expense account, but not one I'll be seeking out myself.\n\nAt $80, though, I won't buy another one. For the same money I'd much rather have a Bull Run light whiskey finished in a Pinot Noir cask. I might be a little hard on wine finishes; I don't like Midwinter Night's Dram, and I think a finish has to be done very well to work. Some of the best I've had are from Dark Arts, and their sherry-finished bottle goes for about $80. To me, that's much better than this.\n\n— PT" },
+
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-19",
     title:"Rare Character Exceptional Series Wheated Bourbon — Barrel E-WB-3005",
     desc:"A 9.5-year West Virginia wheater that tastes like old-time bourbon. Leather, oak, and just enough sweetness.",
     distillery:"West Virginia (undisclosed)", bottler:"Rare Character", style:"Wheated Bourbon", age:"9yr 6mo", abv:65.2, proof:130.4, paid:225,
