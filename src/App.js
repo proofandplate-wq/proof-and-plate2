@@ -4303,7 +4303,6 @@ function groupCommunityReviews(rows) {
       distillery: crMode(rs.map(r => r.distillery)), style: crMode(rs.map(r => r.style)),
       age_statement: crMode(rs.map(r => r.age_statement)), proof: crMode(rs.map(r => r.proof)),
       msrp: (() => { const a = crAvg(rs.map(r => r.msrp).filter(v => v)); return a ? Math.round(a) : null; })(),
-      wouldPay: (() => { const v = rs.map(r => Number(r.would_pay)).filter(n => n > 0); return v.length ? { avg: Math.round(v.reduce((a,b)=>a+b,0) / v.length), n: v.length } : null; })(),
       bestServed: { sipper:crMode(rs.map(r=>r.bs_sipper)), mixer:crMode(rs.map(r=>r.bs_mixer)), table:crMode(rs.map(r=>r.bs_table)), kitchen:crMode(rs.map(r=>r.bs_kitchen)) },
       latest: rs[0].created_at,
     };
@@ -4487,14 +4486,6 @@ const ReviewsPage = ({ setPage }) => {
               </div>
             )}
 
-            {g.wouldPay && (
-              <div style={{ marginTop:"-12px", marginBottom:"28px", ...styles.body, fontSize:"16px", color:C.textMid }}>
-                Readers would pay about <strong style={{ color:C.forestDk }}>${g.wouldPay.avg}</strong>
-                {g.msrp ? <> (MSRP ${g.msrp})</> : null}
-                <span style={{ color:C.textLight }}> · from {g.wouldPay.n} answer{g.wouldPay.n === 1 ? "" : "s"}</span>
-              </div>
-            )}
-
             {Object.values(g.bestServed).some(Boolean) && (
               <div style={{ marginBottom:"36px" }}>
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As (most common answer)</div>
@@ -4517,7 +4508,7 @@ const ReviewsPage = ({ setPage }) => {
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", gap:"12px", flexWrap:"wrap", marginBottom:"10px" }}>
                   <div style={{ ...styles.heading, fontSize:"16px", fontWeight:"700", color:C.forestDk }}>{r.submitter_name || "A P&P reader"}<span style={{ ...styles.body, fontSize:"13px", fontWeight:"400", color:C.textLight }}>{r.created_at ? `  ·  ${fmtDate(r.created_at)}` : ""}</span></div>
                   <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>
-                    <strong style={{ color:C.forestDk }}>{r.score_total}</strong>/100{r.verdict ? `  ·  ${r.verdict}` : ""}{Number(r.would_pay) > 0 ? `  ·  Would pay $${Number(r.would_pay)}` : ""}
+                    <strong style={{ color:C.forestDk }}>{r.score_total}</strong>/100{r.verdict ? `  ·  ${r.verdict}` : ""}
                   </div>
                 </div>
                 {[["Nose",r.nose],["Palate",r.palate],["Finish",r.finish],["Pair it with",r.pairing]].filter(([,t])=>t).map(([lbl,t])=>(
@@ -4653,7 +4644,7 @@ const SubmitPage = ({ setPage, embedded }) => {
     nose:"", palate:"", finish:"", pairing:"", narrative:"",
     sNose:0, sPalate:0, sFinish:0, sValue:0,
     bsSipper:"", bsMixer:"", bsTable:"", bsKitchen:"",
-    verdict:"", wouldPay:"",
+    verdict:"",
     flSweet:5, flVanilla:5, flCaramel:5, flFruit:5, flSpice:5, flOak:5,
     flFloral:3, flHerbal:3, flNutty:3, flSmoke:0, flWheat:3, flCorn:5,
   });
@@ -4690,7 +4681,6 @@ const SubmitPage = ({ setPage, embedded }) => {
       if (!form.sValue) e.sValue = "Set a value score.";
       ["bsSipper","bsMixer","bsTable","bsKitchen"].forEach(k => { if (!form[k]) e[k] = "Choose one."; });
       if (!form.verdict) e.verdict = "Choose a verdict.";
-      if (!blank(form.wouldPay) && !(Number(form.wouldPay) > 0)) e.wouldPay = "Enter a dollar amount, or leave it blank.";
     }
     return e;
   };
@@ -4790,7 +4780,6 @@ const SubmitPage = ({ setPage, embedded }) => {
       bs_table: form.bsTable,
       bs_kitchen: form.bsKitchen,
       verdict: form.verdict,
-      ...(form.wouldPay ? { would_pay: Number(form.wouldPay) } : {}),
       fl_sweet: form.flSweet,
       fl_vanilla: form.flVanilla,
       fl_caramel: form.flCaramel,
@@ -4819,18 +4808,7 @@ const SubmitPage = ({ setPage, embedded }) => {
 
       if (!res.ok) {
         const errText = await res.text();
-        // If the would_pay column hasn't been added in Supabase yet, save the review without it.
-        if (payload.would_pay !== undefined && /would_pay/i.test(errText)) {
-          const { would_pay, ...rest } = payload;
-          const retry = await fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}`, "Prefer": "return=minimal" },
-            body: JSON.stringify(rest),
-          });
-          if (!retry.ok) throw new Error((await retry.text()) || `Request failed with status ${retry.status}`);
-        } else {
-          throw new Error(errText || `Request failed with status ${res.status}`);
-        }
+        throw new Error(errText || `Request failed with status ${res.status}`);
       }
 
       setSent(true);
@@ -4968,14 +4946,6 @@ const SubmitPage = ({ setPage, embedded }) => {
               {SliderRow({ label:"Palate", hint:"out of 25", field:"sPalate", min:0, max:25 })}
               {SliderRow({ label:"Finish", hint:"out of 20", field:"sFinish", min:0, max:20 })}
               {SliderRow({ label:"Value", hint:"out of 30", field:"sValue", min:0, max:30 })}
-              <div style={{ marginTop:"6px", marginBottom:"8px", maxWidth:"280px" }}>
-                <label style={labelStyle}>What would you pay? (optional)</label>
-                <div style={{ position:"relative" }}>
-                  <span style={{ position:"absolute", left:"12px", top:"50%", transform:"translateY(-50%)", ...styles.body, fontSize:"15px", color:C.textLight }}>$</span>
-                  <input style={fieldStyle("wouldPay", { paddingLeft:"26px" })} type="number" inputMode="decimal" min="0" value={form.wouldPay} onChange={e=>set("wouldPay",e.target.value)} placeholder="Your fair price for this bottle" />
-                </div>
-                <Err k="wouldPay"/>
-              </div>
               <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, textTransform:"uppercase", margin:"28px 0 14px" }}>Best Served As</div>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px", marginBottom:"28px" }}>
                 {[["The Sipper","bsSipper","sipper"],["The Mixer","bsMixer","mixer"],["At the Table","bsTable","table"],["The Kitchen","bsKitchen","kitchen"]].map(([lbl,k,d])=>(
