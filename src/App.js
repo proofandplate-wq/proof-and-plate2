@@ -624,7 +624,7 @@ const AboutPage = ({ setPage }) => (
           </div>
           <div style={{ background:C.creamMid, border:`1px solid ${C.border}`, borderRadius:"8px", padding:"32px", borderLeft:`4px solid ${C.gold}` }}>
             <p style={{ ...styles.heading, fontSize:"21px", fontStyle:"italic", color:C.forestDk, lineHeight:"1.65", fontWeight:"400" }}>
-              "What started as curiosity became an obsession. What became a collection became an education."
+              "I never set out to become a whiskey nerd. One bottle of rye made that decision for me."
             </p>
             <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, marginTop:"20px", textTransform:"uppercase" }}>— PT, Proof & Plate</div>
           </div>
