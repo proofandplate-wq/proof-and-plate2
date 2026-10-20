@@ -4303,6 +4303,7 @@ function groupCommunityReviews(rows) {
       distillery: crMode(rs.map(r => r.distillery)), style: crMode(rs.map(r => r.style)),
       age_statement: crMode(rs.map(r => r.age_statement)), proof: crMode(rs.map(r => r.proof)),
       msrp: (() => { const a = crAvg(rs.map(r => r.msrp).filter(v => v)); return a ? Math.round(a) : null; })(),
+      wouldPay: (() => { const v = rs.map(r => Number(r.would_pay)).filter(n => n > 0); return v.length ? { avg: Math.round(v.reduce((a,b)=>a+b,0) / v.length), n: v.length } : null; })(),
       bestServed: { sipper:crMode(rs.map(r=>r.bs_sipper)), mixer:crMode(rs.map(r=>r.bs_mixer)), table:crMode(rs.map(r=>r.bs_table)), kitchen:crMode(rs.map(r=>r.bs_kitchen)) },
       latest: rs[0].created_at,
     };
@@ -4486,6 +4487,14 @@ const ReviewsPage = ({ setPage }) => {
               </div>
             )}
 
+            {g.wouldPay && (
+              <div style={{ marginTop:"-12px", marginBottom:"28px", ...styles.body, fontSize:"16px", color:C.textMid }}>
+                Readers would pay about <strong style={{ color:C.forestDk }}>${g.wouldPay.avg}</strong>
+                {g.msrp ? <> (MSRP ${g.msrp})</> : null}
+                <span style={{ color:C.textLight }}> · from {g.wouldPay.n} answer{g.wouldPay.n === 1 ? "" : "s"}</span>
+              </div>
+            )}
+
             {Object.values(g.bestServed).some(Boolean) && (
               <div style={{ marginBottom:"36px" }}>
                 <div style={{ ...styles.mono, fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase", color:C.textLight, marginBottom:"12px" }}>Best Served As (most common answer)</div>
@@ -4508,7 +4517,7 @@ const ReviewsPage = ({ setPage }) => {
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", gap:"12px", flexWrap:"wrap", marginBottom:"10px" }}>
                   <div style={{ ...styles.heading, fontSize:"16px", fontWeight:"700", color:C.forestDk }}>{r.submitter_name || "A P&P reader"}<span style={{ ...styles.body, fontSize:"13px", fontWeight:"400", color:C.textLight }}>{r.created_at ? `  ·  ${fmtDate(r.created_at)}` : ""}</span></div>
                   <div style={{ ...styles.body, fontSize:"14px", color:C.textMid }}>
-                    <strong style={{ color:C.forestDk }}>{r.score_total}</strong>/100{r.verdict ? `  ·  ${r.verdict}` : ""}
+                    <strong style={{ color:C.forestDk }}>{r.score_total}</strong>/100{r.verdict ? `  ·  ${r.verdict}` : ""}{Number(r.would_pay) > 0 ? `  ·  Would pay $${Number(r.would_pay)}` : ""}
                   </div>
                 </div>
                 {[["Nose",r.nose],["Palate",r.palate],["Finish",r.finish],["Pair it with",r.pairing]].filter(([,t])=>t).map(([lbl,t])=>(
@@ -4644,7 +4653,7 @@ const SubmitPage = ({ setPage, embedded }) => {
     nose:"", palate:"", finish:"", pairing:"", narrative:"",
     sNose:0, sPalate:0, sFinish:0, sValue:0,
     bsSipper:"", bsMixer:"", bsTable:"", bsKitchen:"",
-    verdict:"",
+    verdict:"", wouldPay:"",
     flSweet:5, flVanilla:5, flCaramel:5, flFruit:5, flSpice:5, flOak:5,
     flFloral:3, flHerbal:3, flNutty:3, flSmoke:0, flWheat:3, flCorn:5,
   });
@@ -4667,14 +4676,12 @@ const SubmitPage = ({ setPage, embedded }) => {
       const pr = Number(form.proof);
       if (blank(form.proof)) e.proof = "Enter the proof.";
       else if (!(pr >= 40 && pr <= 200)) e.proof = "Proof should be between 40 and 200.";
-      if (blank(form.msrp)) e.msrp = "Enter the MSRP.";
-      else if (!(Number(form.msrp) > 0)) e.msrp = "MSRP should be a dollar amount.";
+      if (!blank(form.msrp) && !(Number(form.msrp) > 0)) e.msrp = "MSRP should be a dollar amount.";
     }
     if (n === 2) {
       if (blank(form.nose)) e.nose = "Describe the nose.";
       if (blank(form.palate)) e.palate = "Describe the palate.";
       if (blank(form.finish)) e.finish = "Describe the finish.";
-      if (blank(form.pairing)) e.pairing = "Suggest a food pairing.";
     }
     if (n === 3) {
       if (!form.sNose) e.sNose = "Set a nose score.";
@@ -4683,6 +4690,7 @@ const SubmitPage = ({ setPage, embedded }) => {
       if (!form.sValue) e.sValue = "Set a value score.";
       ["bsSipper","bsMixer","bsTable","bsKitchen"].forEach(k => { if (!form[k]) e[k] = "Choose one."; });
       if (!form.verdict) e.verdict = "Choose a verdict.";
+      if (!blank(form.wouldPay) && !(Number(form.wouldPay) > 0)) e.wouldPay = "Enter a dollar amount, or leave it blank.";
     }
     return e;
   };
@@ -4782,6 +4790,7 @@ const SubmitPage = ({ setPage, embedded }) => {
       bs_table: form.bsTable,
       bs_kitchen: form.bsKitchen,
       verdict: form.verdict,
+      ...(form.wouldPay ? { would_pay: Number(form.wouldPay) } : {}),
       fl_sweet: form.flSweet,
       fl_vanilla: form.flVanilla,
       fl_caramel: form.flCaramel,
@@ -4810,7 +4819,18 @@ const SubmitPage = ({ setPage, embedded }) => {
 
       if (!res.ok) {
         const errText = await res.text();
-        throw new Error(errText || `Request failed with status ${res.status}`);
+        // If the would_pay column hasn't been added in Supabase yet, save the review without it.
+        if (payload.would_pay !== undefined && /would_pay/i.test(errText)) {
+          const { would_pay, ...rest } = payload;
+          const retry = await fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}`, "Prefer": "return=minimal" },
+            body: JSON.stringify(rest),
+          });
+          if (!retry.ok) throw new Error((await retry.text()) || `Request failed with status ${retry.status}`);
+        } else {
+          throw new Error(errText || `Request failed with status ${res.status}`);
+        }
       }
 
       setSent(true);
@@ -4894,7 +4914,7 @@ const SubmitPage = ({ setPage, embedded }) => {
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"16px", marginBottom:"16px" }}>
                 <div><label style={labelStyle}>Age Statement<Req/></label><input style={fieldStyle("age")} value={form.age} onChange={e=>set("age",e.target.value)} placeholder="e.g. 10 Year / NAS" /><Err k="age"/></div>
                 <div><label style={labelStyle}>Proof<Req/></label><input style={fieldStyle("proof")} type="number" value={form.proof} onChange={e=>set("proof",e.target.value)} placeholder="e.g. 90" /><Err k="proof"/></div>
-                <div><label style={labelStyle}>MSRP ($)<Req/></label><input style={fieldStyle("msrp")} type="number" value={form.msrp} onChange={e=>set("msrp",e.target.value)} placeholder="e.g. 45" /><Err k="msrp"/></div>
+                <div><label style={labelStyle}>MSRP (optional)</label><input style={fieldStyle("msrp")} type="number" value={form.msrp} onChange={e=>set("msrp",e.target.value)} placeholder="e.g. 45" /><Err k="msrp"/></div>
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px", marginBottom:"16px" }}>
                 <div><label style={labelStyle}>Price Tier</label>
@@ -4926,7 +4946,7 @@ const SubmitPage = ({ setPage, embedded }) => {
                   <Err k={k}/>
                 </div>
               ))}
-              <div style={{ marginBottom:"20px" }}><label style={labelStyle}>Food Pairing Suggestion<Req/></label><input style={fieldStyle("pairing")} value={form.pairing} onChange={e=>set("pairing",e.target.value)} placeholder="e.g. Dark chocolate and smoked almonds" /><Err k="pairing"/></div>
+              <div style={{ marginBottom:"20px" }}><label style={labelStyle}>Food Pairing (optional)</label><input style={fieldStyle("pairing")} value={form.pairing} onChange={e=>set("pairing",e.target.value)} placeholder="e.g. Dark chocolate and smoked almonds" /><Err k="pairing"/></div>
               <div style={{ marginBottom:"28px" }}><label style={labelStyle}>Your Narrative (optional)</label><textarea style={{ ...inputStyle, minHeight:"100px", resize:"vertical" }} value={form.narrative} onChange={e=>set("narrative",e.target.value)} placeholder="A few sentences about the experience, context, or anything that stands out..." /></div>
               <div style={{ display:"flex", gap:"12px" }}>
                 <button onClick={()=>setStep(1)} style={{ padding:"13px 28px", background:"none", border:`1px solid ${C.border}`, borderRadius:"4px", ...styles.body, fontSize:"15px", color:C.textMid, cursor:"pointer" }}>Back</button>
@@ -4948,6 +4968,14 @@ const SubmitPage = ({ setPage, embedded }) => {
               {SliderRow({ label:"Palate", hint:"out of 25", field:"sPalate", min:0, max:25 })}
               {SliderRow({ label:"Finish", hint:"out of 20", field:"sFinish", min:0, max:20 })}
               {SliderRow({ label:"Value", hint:"out of 30", field:"sValue", min:0, max:30 })}
+              <div style={{ marginTop:"6px", marginBottom:"8px", maxWidth:"280px" }}>
+                <label style={labelStyle}>What would you pay? (optional)</label>
+                <div style={{ position:"relative" }}>
+                  <span style={{ position:"absolute", left:"12px", top:"50%", transform:"translateY(-50%)", ...styles.body, fontSize:"15px", color:C.textLight }}>$</span>
+                  <input style={fieldStyle("wouldPay", { paddingLeft:"26px" })} type="number" inputMode="decimal" min="0" value={form.wouldPay} onChange={e=>set("wouldPay",e.target.value)} placeholder="Your fair price for this bottle" />
+                </div>
+                <Err k="wouldPay"/>
+              </div>
               <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, textTransform:"uppercase", margin:"28px 0 14px" }}>Best Served As</div>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px", marginBottom:"28px" }}>
                 {[["The Sipper","bsSipper","sipper"],["The Mixer","bsMixer","mixer"],["At the Table","bsTable","table"],["The Kitchen","bsKitchen","kitchen"]].map(([lbl,k,d])=>(
