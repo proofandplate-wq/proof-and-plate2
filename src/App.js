@@ -4642,15 +4642,68 @@ const SubmitPage = ({ setPage, embedded }) => {
     name:"", email:"", whiskey:"", distillery:"", bottler:"", style:"Bourbon",
     age:"", proof:"", msrp:"", tier:"$$", avail:"common", mashbill:"",
     nose:"", palate:"", finish:"", pairing:"", narrative:"",
-    sNose:15, sPalate:15, sFinish:12, sValue:20,
-    bsSipper:"great", bsMixer:"works", bsTable:"great", bsKitchen:"works",
+    sNose:0, sPalate:0, sFinish:0, sValue:0,
+    bsSipper:"", bsMixer:"", bsTable:"", bsKitchen:"",
     verdict:"",
     flSweet:5, flVanilla:5, flCaramel:5, flFruit:5, flSpice:5, flOak:5,
     flFloral:3, flHerbal:3, flNutty:3, flSmoke:0, flWheat:3, flCorn:5,
   });
 
-  const set = (k,v) => setForm(f=>({...f,[k]:v}));
+  const [errors, setErrors] = useState({});
+  const set = (k,v) => { setForm(f=>({...f,[k]:v})); setErrors(e => { if (!e[k]) return e; const n={...e}; delete n[k]; return n; }); };
   const totalScore = form.sNose + form.sPalate + form.sFinish + form.sValue;
+
+  // ── Required-field checks, per step ──
+  const blank = (v) => !String(v ?? "").trim();
+  const validateStep = (n) => {
+    const e = {};
+    if (n === 1) {
+      if (blank(form.name)) e.name = "Enter your name.";
+      if (blank(form.email)) e.email = "Enter your email.";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = "Enter a valid email address.";
+      if (blank(form.whiskey)) e.whiskey = "Enter the whiskey name.";
+      if (blank(form.distillery)) e.distillery = "Enter the distillery. Use \"Undisclosed\" if it's sourced.";
+      if (blank(form.age)) e.age = "Enter the age statement, or NAS.";
+      const pr = Number(form.proof);
+      if (blank(form.proof)) e.proof = "Enter the proof.";
+      else if (!(pr >= 40 && pr <= 200)) e.proof = "Proof should be between 40 and 200.";
+      if (blank(form.msrp)) e.msrp = "Enter the MSRP.";
+      else if (!(Number(form.msrp) > 0)) e.msrp = "MSRP should be a dollar amount.";
+    }
+    if (n === 2) {
+      if (blank(form.nose)) e.nose = "Describe the nose.";
+      if (blank(form.palate)) e.palate = "Describe the palate.";
+      if (blank(form.finish)) e.finish = "Describe the finish.";
+      if (blank(form.pairing)) e.pairing = "Suggest a food pairing.";
+    }
+    if (n === 3) {
+      if (!form.sNose) e.sNose = "Set a nose score.";
+      if (!form.sPalate) e.sPalate = "Set a palate score.";
+      if (!form.sFinish) e.sFinish = "Set a finish score.";
+      if (!form.sValue) e.sValue = "Set a value score.";
+      ["bsSipper","bsMixer","bsTable","bsKitchen"].forEach(k => { if (!form[k]) e[k] = "Choose one."; });
+      if (!form.verdict) e.verdict = "Choose a verdict.";
+    }
+    return e;
+  };
+  const scrollToForm = () => { try { document.getElementById("review-form-top")?.scrollIntoView({ behavior:"smooth", block:"start" }); } catch(_) {} };
+  // Move to step `to`, checking every step before it first.
+  const goTo = (to) => {
+    for (let n = 1; n < to; n++) {
+      const e = validateStep(n);
+      if (Object.keys(e).length) { setErrors(e); setStep(n); setTimeout(() => { const el = document.querySelector("[data-err='1']"); if (el) el.scrollIntoView({ behavior:"smooth", block:"center" }); }, 50); return false; }
+    }
+    setErrors({}); setStep(to); scrollToForm(); return true;
+  };
+  const errBorder = "#B0483A";
+  const fieldStyle = (k, extra = {}) => errors[k] ? { ...inputStyle, ...extra, border:`1.5px solid ${errBorder}`, background:"#FBF1EE" } : { ...inputStyle, ...extra };
+  const Err = ({ k }) => errors[k] ? <div data-err="1" role="alert" style={{ ...styles.body, fontSize:"13px", color:errBorder, marginTop:"6px" }}>{errors[k]}</div> : null;
+  const Req = () => <span style={{ color:errBorder }} aria-hidden="true"> *</span>;
+  const stepBanner = Object.keys(errors).length > 0 && (
+    <div role="alert" style={{ marginBottom:"20px", padding:"12px 16px", background:"#FBF1EE", border:`1px solid ${errBorder}66`, borderRadius:"6px", color:errBorder, ...styles.body, fontSize:"14px" }}>
+      Please fill in the highlighted fields to continue.
+    </div>
+  );
 
   const inputStyle = { width:"100%", padding:"11px 14px", borderRadius:"4px", border:`1px solid ${C.border}`, background:C.cream, ...styles.body, fontSize:"15px", color:C.forestDk, outline:"none" };
   const labelStyle = { display:"block", ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, textTransform:"uppercase", marginBottom:"8px" };
@@ -4678,6 +4731,7 @@ const SubmitPage = ({ setPage, embedded }) => {
           {form[field]}<span style={{ ...styles.body, fontSize:"11px", color:C.textLight }}>/{max}</span>
         </span>
       </div>
+      <Err k={field}/>
     </div>
   );
 
@@ -4697,11 +4751,7 @@ const SubmitPage = ({ setPage, embedded }) => {
 
   const handleSubmit = async () => {
     setSubmitError("");
-    if (!form.whiskey.trim()) {
-      setSubmitError("Please enter the whiskey name before submitting.");
-      setStep(1);
-      return;
-    }
+    if (!goTo(4)) return;
     setSubmitting(true);
 
     const payload = {
@@ -4804,12 +4854,12 @@ const SubmitPage = ({ setPage, embedded }) => {
       )}
 
       <section style={{ background: embedded ? "transparent" : C.ivory, padding: embedded ? "0" : "60px 24px 100px" }}>
-        <div style={{ maxWidth:"720px", margin:"0 auto" }}>
+        <div id="review-form-top" style={{ maxWidth:"720px", margin:"0 auto", scrollMarginTop:"80px" }}>
 
           <div style={{ display:"flex", flexWrap:"wrap", gap:"10px 8px", marginBottom:"48px", justifyContent:"center", alignItems:"center" }}>
             {["Basic Info","Tasting Notes","Scores","Flavor Profile"].map((s,i) => (
               <React.Fragment key={s}>
-                <div onClick={()=>setStep(i+1)} style={{ display:"flex", alignItems:"center", gap:"6px", cursor:"pointer" }}>
+                <div onClick={()=> (i+1) <= step ? (setErrors({}), setStep(i+1)) : goTo(i+1)} style={{ display:"flex", alignItems:"center", gap:"6px", cursor:"pointer" }}>
                   <div style={{ width:"28px", height:"28px", borderRadius:"50%", background: step===i+1?C.gold: step>i+1?C.forestMid:C.border, display:"flex", alignItems:"center", justifyContent:"center", transition:"background 0.2s" }}>
                     <span style={{ ...styles.heading, fontSize:"12px", fontWeight:"700", color: step===i+1?C.forestDk: step>i+1?C.gold:C.textLight }}>{i+1}</span>
                   </div>
@@ -4823,16 +4873,18 @@ const SubmitPage = ({ setPage, embedded }) => {
           {step===1 && (
             <div style={{ background:C.cream, borderRadius:"8px", border:`1px solid ${C.border}`, padding:"40px" }}>
               {sectionHead(1,"Basic Info")}
+              <p style={{ ...styles.body, fontSize:"14px", color:C.textLight, marginTop:"-16px", marginBottom:"20px" }}><span style={{ color:errBorder }}>*</span> Required</p>
+              {stepBanner}
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px", marginBottom:"16px" }}>
-                <div><label style={labelStyle}>Your Name</label><input style={inputStyle} value={form.name} onChange={e=>set("name",e.target.value)} placeholder="First & Last" /></div>
-                <div><label style={labelStyle}>Your Email</label><input style={inputStyle} type="email" value={form.email} onChange={e=>set("email",e.target.value)} placeholder="you@example.com" /></div>
+                <div><label style={labelStyle}>Your Name<Req/></label><input style={fieldStyle("name")} value={form.name} onChange={e=>set("name",e.target.value)} placeholder="First & Last" /><Err k="name"/></div>
+                <div><label style={labelStyle}>Your Email<Req/></label><input style={fieldStyle("email")} type="email" value={form.email} onChange={e=>set("email",e.target.value)} placeholder="you@example.com" /><Err k="email"/></div>
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px", marginBottom:"16px" }}>
-                <div><label style={labelStyle}>Whiskey Name</label><input style={inputStyle} value={form.whiskey} onChange={e=>set("whiskey",e.target.value)} placeholder="As it appears on the bottle" /></div>
-                <div><label style={labelStyle}>Distillery</label><input style={inputStyle} value={form.distillery} onChange={e=>set("distillery",e.target.value)} placeholder="Who made it" /></div>
+                <div><label style={labelStyle}>Whiskey Name<Req/></label><input style={fieldStyle("whiskey")} value={form.whiskey} onChange={e=>set("whiskey",e.target.value)} placeholder="As it appears on the bottle" /><Err k="whiskey"/></div>
+                <div><label style={labelStyle}>Distillery<Req/></label><input style={fieldStyle("distillery")} value={form.distillery} onChange={e=>set("distillery",e.target.value)} placeholder="Who made it" /><Err k="distillery"/></div>
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px", marginBottom:"16px" }}>
-                <div><label style={labelStyle}>Bottler (if NDP)</label><input style={inputStyle} value={form.bottler} onChange={e=>set("bottler",e.target.value)} placeholder="Leave blank if same as distillery" /></div>
+                <div><label style={labelStyle}>Bottler (optional, if NDP)</label><input style={inputStyle} value={form.bottler} onChange={e=>set("bottler",e.target.value)} placeholder="Leave blank if same as distillery" /></div>
                 <div><label style={labelStyle}>Style</label>
                   <select style={inputStyle} value={form.style} onChange={e=>set("style",e.target.value)}>
                     {["Bourbon","Wheated Bourbon","Rye","Tennessee Whiskey","American Single Malt","Scotch Single Malt","Scotch Blend","Canadian","Irish","Japanese","Other"].map(s=><option key={s}>{s}</option>)}
@@ -4840,9 +4892,9 @@ const SubmitPage = ({ setPage, embedded }) => {
                 </div>
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"16px", marginBottom:"16px" }}>
-                <div><label style={labelStyle}>Age Statement</label><input style={inputStyle} value={form.age} onChange={e=>set("age",e.target.value)} placeholder="e.g. 10 Year / NAS" /></div>
-                <div><label style={labelStyle}>Proof</label><input style={inputStyle} type="number" value={form.proof} onChange={e=>set("proof",e.target.value)} placeholder="e.g. 90" /></div>
-                <div><label style={labelStyle}>MSRP ($)</label><input style={inputStyle} type="number" value={form.msrp} onChange={e=>set("msrp",e.target.value)} placeholder="e.g. 45" /></div>
+                <div><label style={labelStyle}>Age Statement<Req/></label><input style={fieldStyle("age")} value={form.age} onChange={e=>set("age",e.target.value)} placeholder="e.g. 10 Year / NAS" /><Err k="age"/></div>
+                <div><label style={labelStyle}>Proof<Req/></label><input style={fieldStyle("proof")} type="number" value={form.proof} onChange={e=>set("proof",e.target.value)} placeholder="e.g. 90" /><Err k="proof"/></div>
+                <div><label style={labelStyle}>MSRP ($)<Req/></label><input style={fieldStyle("msrp")} type="number" value={form.msrp} onChange={e=>set("msrp",e.target.value)} placeholder="e.g. 45" /><Err k="msrp"/></div>
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px", marginBottom:"16px" }}>
                 <div><label style={labelStyle}>Price Tier</label>
@@ -4859,24 +4911,26 @@ const SubmitPage = ({ setPage, embedded }) => {
                 </div>
               </div>
               <div style={{ marginBottom:"28px" }}><label style={labelStyle}>Mashbill (optional)</label><input style={inputStyle} value={form.mashbill} onChange={e=>set("mashbill",e.target.value)} placeholder="e.g. 75% corn, 21% rye, 4% malted barley" /></div>
-              <button onClick={()=>setStep(2)} style={{ padding:"13px 36px", background:C.gold, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.forestDk, cursor:"pointer" }}>Next: Tasting Notes</button>
+              <button onClick={()=>goTo(2)} style={{ padding:"13px 36px", background:C.gold, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.forestDk, cursor:"pointer" }}>Next: Tasting Notes</button>
             </div>
           )}
 
           {step===2 && (
             <div style={{ background:C.cream, borderRadius:"8px", border:`1px solid ${C.border}`, padding:"40px" }}>
               {sectionHead(2,"Tasting Notes")}
+              {stepBanner}
               {[["Nose","What do you smell? 2 to 3 sentences.","nose"],["Palate","What do you taste? 2 to 3 sentences.","palate"],["Finish","How does it end and how long does it last?","finish"]].map(([lbl,ph,k])=>(
                 <div key={k} style={{ marginBottom:"20px" }}>
-                  <label style={labelStyle}>{lbl}</label>
-                  <textarea style={{ ...inputStyle, minHeight:"80px", resize:"vertical" }} value={form[k]} onChange={e=>set(k,e.target.value)} placeholder={ph} />
+                  <label style={labelStyle}>{lbl}<Req/></label>
+                  <textarea style={fieldStyle(k, { minHeight:"80px", resize:"vertical" })} value={form[k]} onChange={e=>set(k,e.target.value)} placeholder={ph} />
+                  <Err k={k}/>
                 </div>
               ))}
-              <div style={{ marginBottom:"20px" }}><label style={labelStyle}>Food Pairing Suggestion</label><input style={inputStyle} value={form.pairing} onChange={e=>set("pairing",e.target.value)} placeholder="e.g. Dark chocolate and smoked almonds" /></div>
+              <div style={{ marginBottom:"20px" }}><label style={labelStyle}>Food Pairing Suggestion<Req/></label><input style={fieldStyle("pairing")} value={form.pairing} onChange={e=>set("pairing",e.target.value)} placeholder="e.g. Dark chocolate and smoked almonds" /><Err k="pairing"/></div>
               <div style={{ marginBottom:"28px" }}><label style={labelStyle}>Your Narrative (optional)</label><textarea style={{ ...inputStyle, minHeight:"100px", resize:"vertical" }} value={form.narrative} onChange={e=>set("narrative",e.target.value)} placeholder="A few sentences about the experience, context, or anything that stands out..." /></div>
               <div style={{ display:"flex", gap:"12px" }}>
                 <button onClick={()=>setStep(1)} style={{ padding:"13px 28px", background:"none", border:`1px solid ${C.border}`, borderRadius:"4px", ...styles.body, fontSize:"15px", color:C.textMid, cursor:"pointer" }}>Back</button>
-                <button onClick={()=>setStep(3)} style={{ padding:"13px 36px", background:C.gold, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.forestDk, cursor:"pointer" }}>Next: Scores</button>
+                <button onClick={()=>goTo(3)} style={{ padding:"13px 36px", background:C.gold, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.forestDk, cursor:"pointer" }}>Next: Scores</button>
               </div>
             </div>
           )}
@@ -4884,27 +4938,31 @@ const SubmitPage = ({ setPage, embedded }) => {
           {step===3 && (
             <div style={{ background:C.cream, borderRadius:"8px", border:`1px solid ${C.border}`, padding:"40px" }}>
               {sectionHead(3,"Scores & Verdict")}
+              {stepBanner}
+              <p style={{ ...styles.body, fontSize:"14px", color:C.textLight, marginTop:"-12px", marginBottom:"20px" }}>Every score, rating and the verdict are required. Scores start at zero; slide each one to your score.</p>
               <div style={{ background:C.creamMid, borderRadius:"6px", padding:"16px 20px", marginBottom:"28px", display:"flex", alignItems:"baseline", gap:"8px" }}>
                 <span style={{ ...styles.heading, fontSize:"42px", fontWeight:"900", color:C.gold }}>{totalScore}</span>
                 <span style={{ ...styles.body, fontSize:"16px", color:C.textLight }}>/ 100</span>
               </div>
-              <SliderRow label="Nose" hint="out of 25" field="sNose" min={0} max={25} />
-              <SliderRow label="Palate" hint="out of 25" field="sPalate" min={0} max={25} />
-              <SliderRow label="Finish" hint="out of 20" field="sFinish" min={0} max={20} />
-              <SliderRow label="Value" hint="out of 30" field="sValue" min={0} max={30} />
+              {SliderRow({ label:"Nose", hint:"out of 25", field:"sNose", min:0, max:25 })}
+              {SliderRow({ label:"Palate", hint:"out of 25", field:"sPalate", min:0, max:25 })}
+              {SliderRow({ label:"Finish", hint:"out of 20", field:"sFinish", min:0, max:20 })}
+              {SliderRow({ label:"Value", hint:"out of 30", field:"sValue", min:0, max:30 })}
               <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, textTransform:"uppercase", margin:"28px 0 14px" }}>Best Served As</div>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px", marginBottom:"28px" }}>
                 {[["The Sipper","bsSipper","sipper"],["The Mixer","bsMixer","mixer"],["At the Table","bsTable","table"],["The Kitchen","bsKitchen","kitchen"]].map(([lbl,k,d])=>(
-                  <div key={k} style={{ background:C.creamMid, borderRadius:"6px", border:`1px solid ${C.border}`, padding:"12px 8px", textAlign:"center", display:"flex", flexDirection:"column" }}>
+                  <div key={k} style={{ background:C.creamMid, borderRadius:"6px", border: errors[k] ? `1.5px solid ${errBorder}` : `1px solid ${C.border}`, padding:"12px 8px", textAlign:"center", display:"flex", flexDirection:"column" }}>
                     <div style={{ ...styles.mono, fontSize:"10px", color:C.forestTint, textTransform:"uppercase", marginBottom:"6px", letterSpacing:"0.08em" }}>{lbl}</div>
                     <div style={{ ...styles.body, fontSize:"12px", color:C.textMid, lineHeight:"1.35", marginBottom:"10px", flex:1 }}>{BS_DESC[d]}</div>
                     <select style={{ ...styles.body, fontSize:"13px", border:`1px solid ${C.border}`, borderRadius:"4px", padding:"4px 6px", background:C.cream, color:C.forestDk, width:"100%" }} value={form[k]} onChange={e=>set(k,e.target.value)}>
+                      <option value="" disabled>Choose…</option>
                       <option value="perfect">Perfect</option><option value="great">Great</option><option value="works">Works</option><option value="skip">Skip</option>
                     </select>
+                    <Err k={k}/>
                   </div>
                 ))}
               </div>
-              <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, textTransform:"uppercase", marginBottom:"14px" }}>Your Verdict</div>
+              <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.15em", color:C.forestTint, textTransform:"uppercase", marginBottom:"14px" }}>Your Verdict<Req/></div>
               <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
                 {["Buy It","Try It First","Skip It"].map(v=>(
                   <button key={v} onClick={()=>set("verdict",v)}
@@ -4913,9 +4971,10 @@ const SubmitPage = ({ setPage, embedded }) => {
                   </button>
                 ))}
               </div>
+              {errors.verdict && <div style={{ marginTop:"-18px", marginBottom:"24px" }}><Err k="verdict"/></div>}
               <div style={{ display:"flex", gap:"12px" }}>
                 <button onClick={()=>setStep(2)} style={{ padding:"13px 28px", background:"none", border:`1px solid ${C.border}`, borderRadius:"4px", ...styles.body, fontSize:"15px", color:C.textMid, cursor:"pointer" }}>Back</button>
-                <button onClick={()=>setStep(4)} style={{ padding:"13px 36px", background:C.gold, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.forestDk, cursor:"pointer" }}>Next: Flavor Profile</button>
+                <button onClick={()=>goTo(4)} style={{ padding:"13px 36px", background:C.gold, border:"none", borderRadius:"4px", ...styles.heading, fontSize:"15px", fontWeight:"700", color:C.forestDk, cursor:"pointer" }}>Next: Flavor Profile</button>
               </div>
             </div>
           )}
@@ -4924,18 +4983,18 @@ const SubmitPage = ({ setPage, embedded }) => {
             <div style={{ background:C.cream, borderRadius:"8px", border:`1px solid ${C.border}`, padding:"40px" }}>
               {sectionHead(4,"Flavor Profile")}
               <p style={{ ...styles.body, fontSize:"14px", color:C.textLight, marginBottom:"24px", lineHeight:"1.6" }}>Rate each dimension 0 to 10. This powers the sommelier recommendations — trust your palate and use the hints as a guide.</p>
-              <FlRow label="Sweet" hint="honey, caramel, maple" field="flSweet" />
-              <FlRow label="Vanilla" hint="cream, custard, extract" field="flVanilla" />
-              <FlRow label="Caramel" hint="toffee, butterscotch" field="flCaramel" />
-              <FlRow label="Fruit" hint="stone fruit, citrus, berries" field="flFruit" />
-              <FlRow label="Spice" hint="pepper, cinnamon, clove" field="flSpice" />
-              <FlRow label="Oak" hint="wood, cedar, char, tannin" field="flOak" />
-              <FlRow label="Floral" hint="blossom, lavender, rose" field="flFloral" />
-              <FlRow label="Herbal" hint="mint, dill, grass" field="flHerbal" />
-              <FlRow label="Nutty" hint="almond, walnut, pecan" field="flNutty" />
-              <FlRow label="Smoke" hint="peat, campfire, ash" field="flSmoke" />
-              <FlRow label="Wheat" hint="soft bread, biscuit" field="flWheat" />
-              <FlRow label="Corn" hint="cornbread, masa, grain" field="flCorn" />
+              {FlRow({ label:"Sweet", hint:"honey, caramel, maple", field:"flSweet" })}
+              {FlRow({ label:"Vanilla", hint:"cream, custard, extract", field:"flVanilla" })}
+              {FlRow({ label:"Caramel", hint:"toffee, butterscotch", field:"flCaramel" })}
+              {FlRow({ label:"Fruit", hint:"stone fruit, citrus, berries", field:"flFruit" })}
+              {FlRow({ label:"Spice", hint:"pepper, cinnamon, clove", field:"flSpice" })}
+              {FlRow({ label:"Oak", hint:"wood, cedar, char, tannin", field:"flOak" })}
+              {FlRow({ label:"Floral", hint:"blossom, lavender, rose", field:"flFloral" })}
+              {FlRow({ label:"Herbal", hint:"mint, dill, grass", field:"flHerbal" })}
+              {FlRow({ label:"Nutty", hint:"almond, walnut, pecan", field:"flNutty" })}
+              {FlRow({ label:"Smoke", hint:"peat, campfire, ash", field:"flSmoke" })}
+              {FlRow({ label:"Wheat", hint:"soft bread, biscuit", field:"flWheat" })}
+              {FlRow({ label:"Corn", hint:"cornbread, masa, grain", field:"flCorn" })}
               <div style={{ marginTop:"32px", padding:"20px 24px", background:C.creamMid, borderRadius:"6px", border:`1px solid ${C.border}`, borderLeft:`3px solid ${C.gold}`, marginBottom:"28px" }}>
                 <div style={{ ...styles.mono, fontSize:"10px", letterSpacing:"0.1em", color:C.textLight, textTransform:"uppercase", marginBottom:"6px" }}>A note from PT</div>
                 <p style={{ ...styles.body, fontSize:"14px", color:C.textMid, lineHeight:"1.65", fontStyle:"italic" }}>Every review submitted goes onto the site under a Community Review badge — your take sits alongside the P&P review so readers can see both. We are building a living record of how real drinkers experience these bottles. No gatekeeping. Your palate is part of this.</p>
