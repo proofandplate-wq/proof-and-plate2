@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-19",
+    title:"Rare Character Exceptional Series Wheated Bourbon — Barrel E-WB-3005",
+    desc:"A 9.5-year West Virginia wheater that tastes like old-time bourbon. Leather, oak, and just enough sweetness.",
+    distillery:"West Virginia (undisclosed)", bottler:"Rare Character", style:"Wheated Bourbon", age:"9yr 6mo", abv:65.2, proof:130.4, paid:225,
+    ppScore:83, scores:{ nose:19, palate:23, finish:18, value:23 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Citrus right off the bat, and it smells sweet. Then red oak and leather, and something almost floral, like fresh-cut flowers. There's a baking spice note I can't quite pin down, and a little chocolate at the end.",
+    palate:"Leather and oak, right away. It tastes older than 9 years, 6 months. This is a strong, strong flavor profile. It reminds me of Stagg Jr., with less of the cherry and much more wood and oak. Very good.",
+    finish:"Moderately long. It's not as sweet as you'd expect from a wheater, in a good way: there's just enough sweetness to balance the oak, and it never tips into over-oaked.",
+    pairing:"",
+    verdict:"Buy It", tags:["Bourbon","Wheated","Single Barrel","Cask Strength","NDP"],
+    body:"Rare Character's Exceptional Series, single barrel E-WB-3005, bottle #155. Distilled in West Virginia on August 17, 2015 and bottled in February 2025, for 9 years and 6 months in the barrel.\n\nFirst, the bottle. I think Rare Character nailed the design on this round of the Exceptional Series. I love the birds.\n\n## Verdict\n\nThis is a very solid pour and a solid wheated bourbon, just very unusual in its profile for a wheater. It reminds me of what people mean when they talk about an old-time bourbon taste. I know that's not the most descriptive phrase, but that's how this reads to me. If you told me this was a 9-year bourbon from 50 years ago, I'd believe you.\n\nIt's a unique pour, and it warrants a premium price. At $225 it's a touch high, and I think these go for a little less now, but I'd pay $200 for it without hesitating.\n\nThis is a definite sipper. You want to taste every note of this one.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"5 min read", featured:false, date:"2026-10-17",
     title:"Willett Pot Still Reserve Cask Strength",
     desc:"The iconic decanter finally goes full proof. A good wheater, but not yet what this juice can become.",
