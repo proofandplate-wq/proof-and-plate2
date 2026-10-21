@@ -1257,7 +1257,7 @@ The inverse works equally well. Select Macallan 12yr Sherry Oak. The Bridge will
     time:"7 min read", featured:false,
     body:`I relocated from New York to Atlanta, Georgia in the spring of 2020. The timing was what it was — a global pandemic, a new city, a new neighborhood, and suddenly a lot of unscheduled time.
 
-Back in New York I kept a bottle of Hudson Baby Bourbon on the shelf because it was local and felt right. I'd order an old fashioned at The Porter House in Midchester and enjoy it without asking what whiskey they used. I'd order a Basil Hayden at a bar because the bottle looked distinguished and someone told me it was good. I liked bourbon. I had no idea what I was tasting.
+Back in New York I kept a bottle of Hudson Baby Bourbon on the shelf because it was local and felt right. I'd order an old fashioned at Porter House in Columbus Circle and enjoy it without asking what whiskey they used. I'd order a Basil Hayden at a bar because the bottle looked distinguished and someone told me it was good. I liked bourbon. I had no idea what I was tasting.
 
 Atlanta was a different world. The bourbon culture in the Southeast is serious in a way that doesn't exist in New York — the access to allocated product, the community around releases, the conversations at neighbor's houses about mashbill ratios and rickhouse locations. I landed in a group of friends with similar curiosity and a lot of time to explore it.
 
