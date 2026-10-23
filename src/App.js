@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-22",
+    title:"Teeling Single Cask, Virgin American Oak — Georgia Select #002",
+    desc:"Dark chocolate and espresso from a virgin-oak Irish single malt. A steal at the $50 markdown.",
+    distillery:"Teeling Whiskey", style:"Irish Single Malt", age:"NAS", abv:58.3, proof:116.6, msrp:100, paid:50,
+    ppScore:82, scores:{ nose:19, palate:22, finish:16, value:25 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Like the last Teeling, chocolate comes first, almost chocolate pudding, with a touch of vanilla. There's a surprising amount of ethanol on a fresh crack, but it settles after a few minutes in the glass. Then a little coffee, some cherry, and, oddly, a hint of wine, even though there's no wine finish here.",
+    palate:"The chocolate is less pronounced than on the nose, and much less than in #001. Here it's very dark chocolate, moving toward espresso, and the coffee nearly takes over. You can taste the new American oak: there's noticeably more wood than in the sherry cask. It's incredibly smooth with no burn, which surprised me after all that ethanol on the nose. It coats the glass well, and the mouthfeel has real weight without being thick. It also has less malt character than I expected from a single malt.",
+    finish:"Long, with the coffee and oak carrying through.",
+    pairing:"",
+    verdict:"Buy It", tags:["Irish","Single Malt","Single Cask","Virgin Oak","Store Pick"],
+    body:"Teeling single malt, single cask #11843, matured in virgin American oak and hand selected as Georgia Select #002. No age statement, bottled at 58.3% ABV. I paid $50 on markdown; MSRP is $100.\n\nThis is the second Georgia Select Teeling I've reviewed. The first, #001, was a 14-year single malt finished in PX sherry, and it was a chocolate bomb. #002 swaps the sherry for virgin American oak, and that one change makes it a very different whiskey.\n\n## Verdict\n\nAnother very good offering from Teeling, and very different from the last one. Honestly, I might like this one better. Both are unique.\n\nI still don't have a lot of experience with Irish whiskey, but these Teelings are becoming a bridge to Scotch for me. I'm not a big Scotch fan, especially peated Scotch, and this has no peat at all. It's a strong, solid pour, and I'd reach for it even when I'm in the mood for bourbon.\n\nAt the $50 markdown, it's a phenomenal value. At the full $100 MSRP, I'd score the value a few points lower.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-19",
     title:"Angel's Envy Single Barrel, Port Finish — All Time Wine & Spirits Pick",
     desc:"Approachable and wine-forward, but not complex. Better at the dinner table than in the tasting glass.",
