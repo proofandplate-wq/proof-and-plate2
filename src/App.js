@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-23",
+    title:"Old Dominick Select Single Barrel, 8 Year — Georgia Liquor Barn & McFarland Pick",
+    desc:"Crème brûlée on the nose, leather and tobacco on the palate. A close second to the 9-year Old Dominick pick, and still a great value at $60.",
+    distillery:"Old Dominick Distillery (Memphis, TN)", bottler:"Old Dominick", style:"Tennessee Whiskey", age:"8yr", abv:64.78, proof:129.56, paid:60,
+    ppScore:83, scores:{ nose:22, palate:18, finish:18, value:25 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Dessert first. It's crème brûlée: vanilla custard with that burnt-sugar top. Underneath there's some wood and a little tobacco, but the dessert profile leads. It's the same nose as the last Old Dominick I had, same mash bill, so this family style is consistent. I was hoping for rye on the nose, and it isn't there.",
+    palate:"The rye shows up on the palate, with some spice, but this isn't the same profile as the last bottle. What comes through is the wood: leather, tobacco, and deep, earthy dark notes, with a little sweetness underneath. There's real heat at full proof, and I expect it to settle, since the 135-proof bottle I had drank like a 110 after a few days. Nothing I've tried is a close match for this profile. It reminds me a little of the Hirsch Willett bottlings I've had, with a similar finish, but deeper and more earthy here.",
+    finish:"Solid and a little drying, with the leather and tobacco carrying through. It's the part I like most after the nose.",
+    pairing:"",
+    verdict:"Buy It", tags:["Tennessee Whiskey","Single Barrel","Store Pick","Age Statement"],
+    body:"Old Dominick Select Single Barrel, 8 years old, 129.56 proof (64.78% ABV). Aged in West Tennessee white oak barrels, with a 75% corn, 13% rye, and 12% malted barley mash bill. The barrel went in at 110 proof, which I always appreciate on these bottles. This pick was selected by McFarland Wine and Spirits and Georgia Liquor Barn. I paid $60.\n\nI really like these Old Dominicks. The last one I had was a 9-year, 135-proof barrel pick that was fantastic. I didn't do a full review on it, and it's completely sold out, which I wish it wasn't. This one is a close second, and it's the closest I've come to that first store pick out of all the Old Dominick bottlings I've tried.\n\n## Verdict\n\nThis is a solid bottle. The nose is the best part for me, and the palate is a profile I don't know that I can compare to anything else: deep, dark, earthy notes of leather and tobacco, with a lot of wood in the mix. It's not as good as the 9-year pick, but it's very close.\n\nAt $60 for an 8-year single barrel, the price is one of the best things about these bottles. Old Dominick has been getting more attention lately, and I think demand is starting to catch up, but they're still very affordable.\n\nThis is best as a sipper. I'd buy it again, and I'll be looking for the next Old Dominick store pick I see.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-22",
     title:"Copper & Cask X, 10 Year — Batch X-01",
     desc:"A 10-year MGP bourbon at barrel proof for $60. Fruit-forward on the nose, one note on the palate, fair for the money.",
