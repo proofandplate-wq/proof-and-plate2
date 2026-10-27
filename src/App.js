@@ -762,6 +762,19 @@ const AboutPage = ({ setPage }) => (
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-26",
+    title:"Binder's Stash 9 Year Single Barrel — Seelbach's Cafe Miele Pick",
+    desc:"A Willett-distilled wheater that tastes like the 8 Year Wheated on steroids. Chocolate, mint, orange zest, and cappuccino. One of the best bourbons I've had in years.",
+    distillery:"Willett Distillery (Bardstown, KY)", bottler:"Stoddard Spirits", style:"Wheated Bourbon", age:"9yr", abv:59.3, proof:118.6, paid:400,
+    ppScore:88, scores:{ nose:23, palate:23, finish:19, value:23 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Very forward and complex. Chocolate, mint, orange zest, coffee, and a little rye spice. It shares a base with the Willett 8 Year Wheated, but so much more comes through.",
+    palate:"The sweetness hits first, and it's incredibly sweet, even for a wheater. Almost like mint chocolate chip ice cream with Snickers mixed in. It still has the Willett funk, with a spearmint note like Wrigley's gum. That sounds bad, but it works. Then orange zest, a little cherry, and cappuccino. It's Cafe Miele for a reason. The mouthfeel is thick, and the complexity is the kind I could spend an hour trying to figure out.",
+    finish:"Long. The Willett funk comes through strong on the finish, and it's good.",
+    pairing:"",
+    verdict:"Buy It", tags:["Bourbon","Wheated","Single Barrel","Store Pick","NDP","Age Statement"],
+    body:"Binder's Stash Straight Bourbon, a 9-year single barrel at 118.6 proof (59.3% ABV), barrel 3134, bottle 239. It was distilled and bottled by Willett in Bardstown for Stoddard Spirits, from the same wheated mash bill as the Willett 8 Year Wheated. This barrel is Seelbach's 2026 pick, named Cafe Miele. I paid $400.\n\nThis is quite possibly one of the best bourbons I've ever tried. It's the 8 Year Wheated on steroids. It isn't a similar review, though. It keeps the same base, but it's a very different whiskey, with so much more coming through.\n\n## Verdict\n\nTo me, this is up there with the best Willett Family Estate bourbon single barrels I've had. I'd still take a Family Estate rye over a bourbon most of the time, because the ryes can really explode on you, but this is a phenomenal pick. Kudos to Seelbach's.\n\nThe trade-off is the $400 price tag. Is it worth it? Yes. Was it a gamble buying it without tasting it? Yes. Did I buy more than one? No. Could I have? Yes, and I kick myself that I didn't. Value really comes down to what you'd pay knowing how good it is, and you can only learn that by buying it. I tempered the value score, and I probably should go lower, but it's that good.\n\nBuy it. This is a sipper. Do not mix it with anything. Seriously, it's one of the best bourbons I've had in the last three years.\n\n— PT" },
+
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-26",
     title:"Willett 8 Year Wheated Kentucky Straight Bourbon",
     desc:"Cherry candy on the nose, orange creamsicle on the palate, and that unmistakable Willett funk on the finish. Third bottle, and still consistent.",
     distillery:"Willett Distillery (Bardstown, KY)", style:"Wheated Bourbon", age:"8yr", abv:54, proof:108, paid:250,
