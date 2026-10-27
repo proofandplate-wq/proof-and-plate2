@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-26",
+    title:"Willett 8 Year Wheated Kentucky Straight Bourbon",
+    desc:"Cherry candy on the nose, orange creamsicle on the palate, and that unmistakable Willett funk on the finish. Third bottle, and still consistent.",
+    distillery:"Willett Distillery (Bardstown, KY)", style:"Wheated Bourbon", age:"8yr", abv:54, proof:108, paid:250,
+    ppScore:80, scores:{ nose:20, palate:21, finish:19, value:20 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Cherry right off the bat, along with those floral Willett notes. There's vanilla and light oak, almost like cherry candy. It's fruit-forward and herbaceous, with mixed berry notes.",
+    palate:"This is where it starts to shine. There's orange, almost like an orange creamsicle. It definitely has that Willett funk, but it's a little sweeter than, say, a Willett Family Estate. It's moderately complex, in a way that works.",
+    finish:"Not overpowering, but just long enough. The oak comes through even at 108 proof. None of the cherry from the nose carries over. Instead it turns herbal, almost minty, and finishes with that Willett character I can't fully describe. If you've had it, you know.",
+    pairing:"",
+    verdict:"Buy It", tags:["Bourbon","Wheated","Age Statement","Non-Chill Filtered"],
+    body:"Willett Kentucky Straight Bourbon, aged 8 years, 108 proof. A wheated mash bill of corn, wheat, and malted barley, non-chill filtered. I paid $250 at a store in Tennessee on a golf trip.\n\nThis isn't my first bottle of the Willett 8 Year Wheated. It's my third. People seem to either love it or hate it, and I'm firmly in the group that loves it. The first time I tasted it, all I could have told you was that it was unlike anything I'd had before.\n\n## Verdict\n\nIt marries the strong Willett profile you get in a lot of the higher-proof Family Estate bottles with just enough sweetness to make it a solid sipper. It's not going to rock your world the way some Willett bottles can. Their single barrels are expensive, and when they hit, they hit hard, but some of them miss for me. This one is just a solid pour, and it's consistent: three bottles over a few years, and they've all tasted the same.\n\nThat Willett funk on the finish is hard to put into words. It's a mix of floral and herbal notes that adds up to something that's just typically Willett. The only other whiskey I've had that came close was, believe it or not, a Smoke Wagon single barrel rye store pick.\n\nOn value: in stores it's usually $250, maybe $275 at Total Wine. You'll see them around $200 to $225 on Unicorn Auctions, but once you add the commission and shipping, you're back at $250 to $275. So figure it's a $250 bottle either way.\n\nThis is a sipper. You could put it on the rocks, but at 108 proof I don't see a need. Buy it.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-23",
     title:"Old Dominick Select Single Barrel, 8 Year — Georgia Liquor Barn & McFarland Pick",
     desc:"Crème brûlée on the nose, leather and tobacco on the palate. A close second to the 9-year Old Dominick pick, and still a great value at $60.",
