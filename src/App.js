@@ -980,7 +980,7 @@ const PP_REVIEWS = [
 
   { type:"review", cat:"Reviews", time:"4 min read", featured:false,
     title:"Buffalo Trace",
-    desc:"The gold standard of everyday bourbon. Hard to find, impossible not to love.",
+    desc:"A dependable everyday bourbon. Easy to like, easy to mix, and fairly priced when you can find it.",
     distillery:"Buffalo Trace Distillery", style:"Bourbon", age:"NAS", abv:45, msrp:30,
     ppScore:76, scores:{ nose:18, palate:18, finish:14, value:26 },
     bestServed:{ sipper:"great", mixer:"perfect", table:"great", kitchen:"works" },
