@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-27",
+    title:"Old Charter Oak Finest Oak",
+    desc:"Marzipan, buttered corn, and well-integrated oak at 95 proof. Tastes older than it is, and at $86 it's a better buy than E.H. Taylor Small Batch.",
+    distillery:"Buffalo Trace Distillery (Frankfort, KY)", style:"Bourbon", age:"NAS", abv:47.5, proof:95, paid:85.99,
+    ppScore:79, scores:{ nose:18, palate:20, finish:15, value:26 },
+    bestServed:{ sipper:"perfect", table:"great" },
+    nose:"It smells like Christmas. Every Christmas growing up there was marzipan in my house, and that's the first note I get. It's like opening a box of marzipan. There are savory notes too: the grain comes through, with bread and corn, almost Thanksgiving buttered corn. A little orange. Not your typical Buffalo Trace notes. There's barely any ethanol. I can stick my nose all the way into the glass.",
+    palate:"An initial sweetness, then savory, just like the nose. The oak really comes through, in a good way. Nothing makes me dislike a bourbon more than being over-oaked, and this isn't that. There's leather, and almost an Armagnac quality. It tastes old. The viscosity is a little thicker than I'd expect at 95 proof. Not oily, but not thin.",
+    finish:"Smooth and not long-lasting. A touch of vanilla, a little black pepper, and a little mint at the very end. Not much spice. This is oak and leather.",
+    pairing:"The savory, buttered-corn, holiday character makes it a natural at the dinner table, especially a holiday meal.",
+    verdict:"Buy It", tags:["Bourbon","Buffalo Trace"],
+    body:"Old Charter Oak Finest Oak, Kentucky straight bourbon distilled, aged, and bottled by Buffalo Trace in Frankfort, Kentucky. 95 proof, no age statement. I paid $85.99.\n\nThe only other Old Charter Oak I've had was the French Oak release two or three years ago. That was a very good bottle too, but a different profile: less oaky, more subtle, and an incredibly easy drinker. These seem to be getting easier to find this year.\n\n## Verdict\n\nA lot of character for something at this proof. The oak is in the name, and it's front and center, but it never tips into over-oaked. It reminds me of the Woodinville 8, 9, and 10 year blends, in a good way. Those are very good bottles.\n\nAt $85.99, this is an incredibly fair price. I'd grab this over E.H. Taylor Small Batch any day of the year. There's just a lot more going on.\n\nIt's an easy sipper, and it's great at the table, especially with a holiday meal. Buy it.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-26",
     title:"Binder's Stash 9 Year Single Barrel — Seelbach's Cafe Miele Pick",
     desc:"A Willett-distilled wheater that tastes like the 8 Year Wheated on steroids. Chocolate, mint, orange zest, and cappuccino. One of the best bourbons I've had in years.",
