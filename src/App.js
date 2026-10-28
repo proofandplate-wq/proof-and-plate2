@@ -762,6 +762,19 @@ const AboutPage = ({ setPage }) => (
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-27",
+    title:"Rare Character Single Barrel Series, JIT-932 — Randall's Pick",
+    desc:"Cinnamon apple pie and berries on the nose, a punch of tobacco on the palate, and a long, jammy finish. Solidly middle of the pack for Rare Character, which is a good place to be.",
+    distillery:"Undisclosed (Kentucky)", bottler:"Rare Character", style:"Bourbon", age:"7yr 7mo", abv:61.8, proof:123.6, paid:100,
+    ppScore:73, scores:{ nose:19, palate:17, finish:17, value:20 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Fruit. Cherry and berries, with cinnamon and apple, like a cinnamon apple pie. A little earthy. Honestly, a fantastic nose.",
+    palate:"It opens with a punch of tobacco and leather. There's an almost delicate sweetness underneath, but the tobacco hits you right in the face. Tart cherry, almost like Sour Patch Kids, and a healthy amount of oak. The oak tannins run throughout, and I think that's where the initial punch comes from.",
+    finish:"Long and jammy, with a little pepper and a little Nilla wafer. The nose and the finish are what make this one.",
+    pairing:"",
+    verdict:"Buy It", tags:["Bourbon","Single Barrel","Store Pick","NDP","Cask Strength","Age Statement"],
+    body:"Rare Character Single Barrel Series, barrel JIT-932, selected by Randall's. Kentucky straight bourbon, 7 years 7 months old, cask strength at 123.6 proof. Distilled October 10, 2017, and bottled May 2025, from a 75% corn, 21% rye, 4% malted barley mash bill, aged in new charred oak. I paid $100 online, plus shipping.\n\nThis is the only JIT barrel I've tried. As I understand it, the name, Just in Time, comes from an inside joke: Pablo Moix, one of the founders, nearly missed the initial meeting for its launch. It has a dark purple wax, similar to the original IRT releases. Rare Character does color-code some of these, but whether there's a connection is just speculation on my part.\n\n## Verdict\n\nThe palate is good, but the nose and finish carry this one. It's not the best I've had from Rare Character, and it's not the worst. It's solidly in the middle of the Rare Character single barrels I've tried: nowhere near TKO level, but much better than some of the younger barrels that came out early on. If this is your profile, it could be a heavy hitter.\n\nWhat I like most about Rare Character is that every barrel is unique. You might not love every profile, and sometimes there's a little too much going on, but you'll get flavor out of these bottles, and this one is no different.\n\nThis is a sipper. I wouldn't have it with a meal, and I wouldn't mix it. Taste these single barrels for what they are. Buy it.\n\n— PT" },
+
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-27",
     title:"Old Charter Oak Finest Oak",
     desc:"Marzipan, buttered corn, and well-integrated oak at 95 proof. Tastes older than it is, and at $86 it's a better buy than E.H. Taylor Small Batch.",
     distillery:"Buffalo Trace Distillery (Frankfort, KY)", style:"Bourbon", age:"NAS", abv:47.5, proof:95, paid:85.99,
