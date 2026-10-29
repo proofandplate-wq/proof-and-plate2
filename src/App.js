@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-28",
+    title:"Penelope Toasted Private Batch — Marshmallow Toast",
+    desc:"Crème brûlée and cedar on the nose, toast and oak on the palate, and a longer finish than a standard Penelope. An easy, well-priced dessert pour.",
+    distillery:"MGP (Lawrenceburg, IN)", bottler:"Penelope Bourbon", style:"Bourbon, Toasted Barrel Finish", age:"5yr", abv:55, proof:110, paid:60,
+    ppScore:79, scores:{ nose:20, palate:18, finish:17, value:24 },
+    bestServed:{ table:"perfect", sipper:"great" },
+    nose:"Crème brûlée up front: vanilla and burnt sugar, with a little cedar, which is a new one for me. Some grain, a little oak, and a touch of candy at the end, almost maraschino cherry. Not overly complex, but a very strong, pleasant note, and it smells like Penelope.",
+    palate:"Not overly sweet at all, with a nice oak profile. The toast and the oak are at the forefront, with a little black pepper and rye spice, some bread notes, and something almost like Dr Pepper. The marshmallow is really more on the nose. I don't get it on the palate at all, unless the name refers to the burnt-sugar toast on the outside of a marshmallow.",
+    finish:"Longer than a standard Penelope, which may be the 110 proof. A little citrus at the end.",
+    pairing:"Dessert. The crème brûlée and burnt-sugar notes make this a natural dessert pour.",
+    verdict:"Buy It", tags:["Bourbon","MGP","NDP","Toasted Barrel","Barrel Proof","Age Statement","Non-Chill Filtered"],
+    body:"Penelope Toasted Private Batch, Marshmallow Toast. A 5-year straight bourbon distilled at MGP in Lawrenceburg, Indiana, like all Penelope. After maturation, it's finished in new charred American oak barrels with a heavy toast and a level 1 char, then bottled at barrel strength, 110 proof, non-chill filtered. Penelope says the series explores how different char and toast levels shape the flavor. I believe it's their standard four-grain mash bill, but I'm not certain. I paid $60, and there were two bottles sitting on the shelf at my local store.\n\nI like Penelope a lot. They're very consistent, and I think they're one of the best in the game at finishing. Havana and Rio were great, Riviera let me down a little, and I like the Valencias. I think the store picks are better than the standard offerings. Their toasted rye and toasted bourbon are both very good, and their American Light Whiskeys are phenomenal. The toasted rye is still my favorite of the toasteds, but this is better than the standard toasted bourbon.\n\n## Verdict\n\nAt 5 years, it's not going to be complex, but it's unique enough to hold its own. This is what I'd reach for on a night when my palate isn't at its best, maybe after too much high proof, and I want something easy to drink with enough going on that it's not a standard pour.\n\nIt's an easy sipper, but because it isn't overly complex, you won't lose much having it at the table. I think it's best as a dessert pour.\n\nValue is why I love Penelope. Most of their standard offerings are $100 or less, and at $60 this is a great price. I'd buy it.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-27",
     title:"Rare Character Single Barrel Series, JIT-932 — Randall's Pick",
     desc:"Cinnamon apple pie and berries on the nose, a punch of tobacco on the palate, and a long, jammy finish. Solidly middle of the pack for Rare Character, which is a good place to be.",
