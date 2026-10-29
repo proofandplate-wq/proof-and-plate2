@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-29",
+    title:"The Yamazaki 12 Year Single Malt",
+    desc:"Pear on the nose, pear on the palate, and a wood note unlike any bourbon oak. At $130, it blows a Weller 12 out of the park.",
+    distillery:"Yamazaki Distillery (Suntory)", style:"Japanese Single Malt", age:"12yr", abv:43, proof:86, paid:130,
+    ppScore:83, scores:{ nose:23, palate:21, finish:17, value:22 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Overwhelmingly pear. I could swear I was smelling an actual pear. A little grape, some citrus, and a light, sweet floral note. There's no ethanol whatsoever. It's light, and that pear just punches. A fantastic nose.",
+    palate:"The pear comes through on the palate too, with apricot and almost a little bubblegum. It's sweet, with a wood note that's different from bourbon oak but unmistakably wood. That might be the Mizunara. The viscosity is fantastic for only 86 proof. It coats. This is a new one for me.",
+    finish:"Long and incredibly smooth, with the oak coming through. Very enjoyable.",
+    pairing:"",
+    verdict:"Buy It", tags:["Japanese","Single Malt","Mizunara","Age Statement"],
+    body:"The Yamazaki 12 Year Single Malt Japanese Whisky from Suntory, bottled at 86 proof. Yamazaki is the oldest distillery in Japan. The 12 Year is a marriage of malts aged in American oak, Spanish (sherry) oak, and Japanese Mizunara oak casks, so the Mizunara is part of the blend rather than a finish. I paid $130.\n\nThese used to go for around $200, and that price had been my barrier to entry. Prices have been dropping, so at $130 I figured I'd give it a try.\n\n## Verdict\n\nThis is fantastic whiskey. It stands apart from the American and Irish malts I've tried and has its own unique flavor. The pear is strong on the nose and strong on the palate, and the wood really shines through.\n\nOn value, it's still a bit pricey, especially at 86 proof. But $130 is about the going rate for a Weller 12 these days, and this blows a Weller 12 out of the park.\n\nBuy it, and sip it. It needs no ice. This has flavor you'll want to enjoy.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-28",
     title:"Penelope Toasted Private Batch — Marshmallow Toast",
     desc:"Crème brûlée and cedar on the nose, toast and oak on the palate, and a longer finish than a standard Penelope. An easy, well-priced dessert pour.",
