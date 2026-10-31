@@ -765,7 +765,7 @@ const PP_REVIEWS = [
     title:"Fortuna 8 Summers Old Barrel Proof",
     desc:"Caramel apple on the nose, candy apple on the palate, and a perfectly balanced sip. Takes the regular Fortuna up a notch and drinks much older than 8 years.",
     distillery:"Undisclosed (Kentucky)", bottler:"Rare Character", style:"Bourbon", age:"8yr", abv:60.65, proof:121.3, msrp:100, paid:150,
-    ppScore:90, scores:{ nose:22, palate:23, finish:19, value:26 },
+    ppScore:89, scores:{ nose:22, palate:23, finish:18, value:26 },
     bestServed:{ sipper:"perfect" },
     nose:"Caramel, almost caramel apple. A vanilla caramel sweetness is very forward, with a bit of cinnamon and nutmeg. It smells like fall. At the end, a little cherry and strawberry come through together.",
     palate:"Perfectly balanced. Sweet and spice, with candy apple, like the red candy apples I used to get as a kid at the farmers market, the kind I had to stop eating once I got braces. Just the right amount of oak, and a sweetness that doesn't overpower. The standard bourbon notes are all there, but very proportionate. A little floral, with graham cracker and honey. The viscosity is nice and it coats the glass.",
