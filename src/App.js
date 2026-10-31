@@ -762,6 +762,19 @@ const AboutPage = ({ setPage }) => (
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-30",
+    title:"Fortuna 8 Summers Old Barrel Proof",
+    desc:"Caramel apple on the nose, candy apple on the palate, and a perfectly balanced sip. Takes the regular Fortuna up a notch and drinks much older than 8 years.",
+    distillery:"Undisclosed (Kentucky)", bottler:"Rare Character", style:"Bourbon", age:"8yr", abv:60.65, proof:121.3, msrp:100,
+    ppScore:90, scores:{ nose:22, palate:23, finish:19, value:26 },
+    bestServed:{ sipper:"perfect" },
+    nose:"Caramel, almost caramel apple. A vanilla caramel sweetness is very forward, with a bit of cinnamon and nutmeg. It smells like fall. At the end, a little cherry and strawberry come through together.",
+    palate:"Perfectly balanced. Sweet and spice, with candy apple, like the red candy apples I used to get as a kid at the farmers market, the kind I had to stop eating once I got braces. Just the right amount of oak, and a sweetness that doesn't overpower. The standard bourbon notes are all there, but very proportionate. A little floral, with graham cracker and honey. The viscosity is nice and it coats the glass.",
+    finish:"Long, with a nice rye spice. A real good hug with not much burn. The oak shows up here too.",
+    pairing:"",
+    verdict:"Buy It", tags:["Bourbon","Barrel Proof","NDP","Age Statement"],
+    body:"Fortuna Kentucky Straight Bourbon, 8 Summers Old, barrel proof at 121.3. Distilled and bottled in Kentucky. Fortuna is another historic brand brought back by Rare Character. I believe this is Heaven Hill, but I'm not certain. MSRP is $100.\n\nI'm a big fan of the regular Fortuna Barrel Proof, and this takes it up a notch.\n\n## Verdict\n\nFor 8 years old, this drinks like something much older. I'm assuming it's a blend, though I don't know how many barrels went into it, and whoever put it together did a fantastic job. There's so much going on, all of it in proportion.\n\nAt the $100 MSRP, this is a phenomenal value, and I scored it on that basis. The problem with Rare Character is that their bottles get grabbed and flipped on the secondary market no matter what they are, so more often than not you'll find them there. Secondary on this is probably around $200, and in my opinion that's still a good price for what it is.\n\n— PT" },
+
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-30",
     title:"Watershed Barrel Strength Fall Finishing Series, Nocino Finish — Batch 006",
     desc:"Dark chocolate, cocoa, and macadamia on the nose, then a more classic bourbon palate. A balanced finish, but not the dessert pour I expected.",
     distillery:"Watershed Distillery (Columbus, OH)", style:"Bourbon, Nocino Barrel Finish", age:"6yr", abv:61.8, proof:123.7, paid:69.99,
