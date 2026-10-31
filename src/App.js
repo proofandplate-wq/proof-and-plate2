@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-30",
+    title:"Watershed Barrel Strength Fall Finishing Series, Nocino Finish — Batch 006",
+    desc:"Dark chocolate, cocoa, and macadamia on the nose, then a more classic bourbon palate. A balanced finish, but not the dessert pour I expected.",
+    distillery:"Watershed Distillery (Columbus, OH)", style:"Bourbon, Nocino Barrel Finish", age:"6yr", abv:61.8, proof:123.7, paid:69.99,
+    ppScore:72, scores:{ nose:20, palate:17, finish:16, value:19 },
+    bestServed:{ table:"great", sipper:"works" },
+    nose:"Chocolate and macadamia nut, cocoa powder, and a little cinnamon. Almost like s'mores. A lot of what I'm picking up is probably the Nocino. Very little ethanol. The dark chocolate, cocoa powder, and macadamia are very prevalent. This is the best part for me.",
+    palate:"The chocolate turns more subtle, and more classic bourbon notes come forward: black pepper and tasty oak, with a touch of cherry. Not much spice. It's balanced but not sweet, with leather, tobacco, chocolate, and mocha. It tastes slightly youthful. Six years isn't young, but there are some youthful notes here.",
+    finish:"Long. This is where the chocolate comes through most, along with coffee, a little spice, and some tannin at the end. Not in a bad way; the wood just shines at the end.",
+    pairing:"",
+    verdict:"Try It First", tags:["Bourbon","Barrel Proof","Finished","Craft","Age Statement"],
+    body:"Watershed Distillery Barrel Strength Fall Finishing Series, batch 006, bottle 006129. A 6-year straight bourbon finished in Nocino barrels at 123.7 proof, distilled and bottled by Watershed in Columbus, Ohio. Watershed distills the Nocino too, so the finishing barrels are their own spent Nocino barrels. I paid $69.99.\n\nMy first Watershed was a 6-year bottling from Two Souls, an NDP I've only ever seen online that sources from a lot of craft distillers. It was fantastic, and it's what put me onto Watershed. I've also had an earlier batch of this Nocino finish, batch 4 I believe, a 5-year that was very good. Watershed is on the shelves at most large liquor stores here in Georgia, and I'm seeing more of their offerings come through. They're one to keep an eye on.\n\n## Verdict\n\nThis batch has less Nocino influence than the last one. The bourbon may taste a little older, but the finish doesn't stand out as much. That's not a bad thing on its own. Think of a honey finish that goes too far until honey is all you taste. This one lets the bourbon shine while still highlighting the Nocino. But I think I enjoyed the prior batch more. The heavier Nocino influence may have been covering some of the youthfulness that comes through here.\n\nI went in expecting a dessert pour, and it isn't one, though I'd have called the prior batch one. A little ice or water could soften some of the less desirable notes, and it's not overly complex, so it works at the table.\n\nAt $69.99, it's a little high for a 6-year when you can grab Elijah Craig Barrel Proof at 10 or 11 years for the same price. Not unaffordable, and it's very unique. I'm not displeased I tried it, but I wouldn't go back for a second bottle. Try it first.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-29",
     title:"The Yamazaki 12 Year Single Malt",
     desc:"Pear on the nose, pear on the palate, and a wood note unlike any bourbon oak. At $130, it blows a Weller 12 out of the park.",
