@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-11-01",
+    title:"Rare Character Single Barrel Series, KBT-13 — All Time Wine & Spirits Pick",
+    desc:"Lemon zest, orange peel, and vanilla on a light nose, a coating palate, and a long finish where the oak and leather finally show up. One of the better Rare Character single barrel lines I've tried.",
+    distillery:"Undisclosed (Kentucky)", bottler:"Rare Character", style:"Bourbon", age:"6yr", abv:62.2, proof:124.4, paid:100,
+    ppScore:78, scores:{ nose:17, palate:20, finish:18, value:23 },
+    bestServed:{ sipper:"perfect", table:"great" },
+    nose:"Unique. Citrus first, almost lemon zest, with orange peel, macadamia nut, and vanilla, plus some rye spice. It's light and very pleasant, without much wood or anything deeper and darker. It smells light, if that makes sense. Citrus and vanilla are most present.",
+    palate:"Great. The mouthfeel is well coating, which I wasn't expecting at this age. There's rye spice and some oak influence, but it's not heavily oaked at all. It's sweet and floral, with the citrus notes more subtle here and a little coconut. A very unique palate.",
+    finish:"Fantastic, and much longer than I expected. A long Kentucky hug. The oak and leather show up here at the very end, not on the nose or the palate, and they really shine.",
+    pairing:"",
+    verdict:"Buy It", tags:["Bourbon","Single Barrel","Store Pick","NDP","Cask Strength","Age Statement","High Rye"],
+    body:"Rare Character Single Barrel Series, barrel KBT-13, selected by All Time Wine and Spirits. Kentucky straight bourbon, 6 years old, cask strength at 124.4 proof. Distilled March 5, 2018, and bottled March 2024, from a 72% corn, 18% rye, 10% malted barley mash bill, aged in new charred oak. That's high rye, but at the low end. I paid $100.\n\nThe color is on the lighter side. It doesn't have the darker notes you see in some older bourbons.\n\n## Verdict\n\nIncredibly well balanced, with just the right complexity, and it all works together. I think this is one of the better barrel lines in the Single Barrel Series that I've tried. It won't blow you away like a TKO or a KOA, but it has a uniqueness that elevates it. It has some similarities to other bourbons, but I can't compare it to another brand. It stands on its own.\n\nFor me, this is a buy. Because it's so unique, if you're not into more out-there bourbon profiles, try it first if you get the chance.\n\nI like it neat as a sipper, and it also works at the table. It's not so complex that you'll lose much having it on the rocks with food. I'd drink it both ways.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-10-30",
     title:"Fortuna 8 Summers Old Barrel Proof",
     desc:"Caramel apple on the nose, candy apple on the palate, and a perfectly balanced sip. Takes the regular Fortuna up a notch and drinks much older than 8 years.",
