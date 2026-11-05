@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-11-04",
+    title:"James E. Pepper 1776 Straight Rye, Sherry Cask Finish",
+    desc:"Classic MGP rye spice with a sherry finish that's balanced instead of overdone. Great mouthfeel for 92 proof, and a steal at around $45.",
+    distillery:"MGP (Lawrenceburg, IN)", bottler:"James E. Pepper", style:"Rye, Sherry Cask Finish", age:"NAS", abv:46, proof:92, paid:45,
+    ppScore:81, scores:{ nose:18, palate:20, finish:18, value:25 },
+    bestServed:{ sipper:"great", table:"great" },
+    nose:"Nutmeg, cinnamon, and barrel char. That spice, plus vanilla, coconut, and almost a nuttiness.",
+    palate:"A ton of rye spice for something proofed down to 92, with the barrel char and wood coming through. The sherry is there, with a little sweetness and that sherry character, but it isn't overly present. It's really well balanced. There's some acidity, and the mouthfeel is great, especially at this proof. It coats the glass better than a lot of 110-plus-proof whiskeys I've had. Very easy to sip.",
+    finish:"Long, especially for the proof. Sherry first, then the spice, with a little pepper.",
+    pairing:"Dessert. If you're thinking about a glass of port with dessert, try this instead.",
+    verdict:"Buy It", tags:["Rye","MGP","NDP","Sherry Finish","Finished"],
+    body:"James E. Pepper 1776 Straight Rye Whiskey, finished in sherry casks. Distilled in Indiana and finished in Kentucky, no age statement, 92 proof (46% ABV). I believe it's the MGP 95% rye mash bill. I paid around $40 to $45.\n\nI've had this one before, before I was doing reviews, and I really enjoyed it. I'd never seen another bottle until I found this one by accident at a store I don't usually go to, and I haven't seen any other James E. Pepper finished bourbons or ryes either.\n\n## Verdict\n\nThis is a classic MGP rye to me. Some of their ryes are phenomenal, and in some you can taste the youth. Not this one. It's one of the better sherry finishes I've had on a bourbon or a rye.\n\nI'm not a huge fan of sherry finishes. It has to be done incredibly well for me to like it, and I've had some I just don't. I love sherry in the she-crab soup at 82 Queen in Charleston, but put it in my bourbon and you've got to do it right. This one does.\n\nEven at $50, the value is fantastic. I'd buy more if I could find them at that price, or find them at all.\n\nIt works as a sipper or at the table. It's not overly complex, but there's enough going on to enjoy. It's light, with a little sweetness from the sherry, which makes it almost a dessert pour. Buy it.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-11-01",
     title:"Rare Character Single Barrel Series, KBT-13 — All Time Wine & Spirits Pick",
     desc:"Lemon zest, orange peel, and vanilla on a light nose, a coating palate, and a long finish where the oak and leather finally show up. One of the better Rare Character single barrel lines I've tried.",
