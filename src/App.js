@@ -761,6 +761,19 @@ const AboutPage = ({ setPage }) => (
 // start a paragraph with "## " to make it a subheading.
 // bestServed only shows the categories you list; pairing only shows if filled in.
 const PP_REVIEWS = [
+  { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-11-05",
+    title:"Rolling Fork REWCO 6 Year Rye, Barrel Strength — Batch 2026-01",
+    desc:"A chocolate-milkshake nose you don't expect from a rye, then a classic, well-balanced palate. Barrel-strength Kentucky rye at 6 years for $60.",
+    distillery:"Undisclosed (Kentucky)", bottler:"Rolling Fork Spirits (Starlight Distillery)", style:"Rye", age:"6yr", abv:54.7, proof:109.4, paid:60,
+    ppScore:75, scores:{ nose:17, palate:17, finish:16, value:25 },
+    bestServed:{ sipper:"great", table:"great", mixer:"great" },
+    nose:"Not a typical rye nose. Overwhelmingly chocolate, with vanilla and just a touch of the rye's herbal side. Sweet and chocolatey, with only a touch of ethanol. Give it time and dark cherry and fresh fruit come through. It smells like a milkshake.",
+    palate:"A little sweet up front, well balanced, and subtle on the spice, with a little black pepper. A very classic rye profile with a nice coat. The chocolate from the nose is gone entirely.",
+    finish:"The spice comes through here, hitting the sides of the tongue at the end. A touch of oak, but not much. No dill or mint, just some floral and herbal notes. Fairly one-note, but a good note.",
+    pairing:"",
+    verdict:"Buy It", tags:["Rye","Barrel Proof","NDP","Age Statement"],
+    body:"Rolling Fork REWCO Kentucky Straight Rye, barrel strength, 6 years old, 109.4 proof, batch 2026-01. It's bottled by Starlight Distillery in Indiana, and the label doesn't name the Kentucky distillery behind it. I paid $60.\n\nThis is the first of four Rolling Fork and Bourbon de Luxe bottles I'm working through this week.\n\n## Verdict\n\nThat nose is not something I've picked up on a rye before. That much chocolate is a surprise. On the palate it's a classic, well-balanced rye. It reminds me of a Bardstown rye pick I had at around the same age that cost a lot more. I don't know if it's the same source, but the profile is similar.\n\nThe finish isn't complex, but it does its one thing right.\n\nValue is where this shines. $60 for a 6-year, barrel-strength Kentucky rye is a good deal, and this is a bottle I'd keep on the shelf.\n\nIt's a good sipper and good at the table. Some people will say it's a waste in a cocktail, but sometimes you just want a really good mixed drink, and nothing does that better than upgrading the whiskey in it. I'd consider this one for that.\n\n— PT" },
+
   { type:"review", cat:"Reviews", time:"3 min read", featured:false, date:"2026-11-04",
     title:"James E. Pepper 1776 Straight Rye, Sherry Cask Finish",
     desc:"Classic MGP rye spice with a sherry finish that's balanced instead of overdone. Great mouthfeel for 92 proof, and a steal at around $45.",
